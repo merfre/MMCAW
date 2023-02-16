@@ -1,11 +1,10 @@
 ### Environment file for the microbiome metagenomic analysis workflow ###
 
-name: MAW
+name: MMCAW
 
 channels:
   - conda-forge
   - bioconda
-  - defaults # For MAGpy module
 
 dependencies:
   - snakemake>=6.6.1
@@ -15,7 +14,6 @@ dependencies:
   - git
   - wget
   - unzip
-  - mamba # For MAGpy module
 
 # Sequence preprocessing
   - minimap2
