@@ -1,0 +1,76 @@
+###  Config file for preliminary skin microbiome metagenomic snakemake workflow ###
+
+conda_envs: "environment.yml"
+
+input_directory: "resources/respiratory_samples/subset/"
+# location of the directory containing the folder(s) of the libraries you'd like to analyze
+
+threads: "10"
+# insert number of threads available
+
+### Database locations ###
+# Place your reference databases in these locations or edit to specify the location
+
+filtering_reference: "workflow/rules/Database_Creation_Workflow/results/human_reference/GCF_000001405.39_GRCh38.p13_genomic.fna"
+#"resources/databases/human_reference/GCF_000001405.39_GRCh38.p13_genomic.fna"
+
+kraken_db: "resources/databases/kraken2_std_database"
+
+cat_db: "workflow/rules/Database_Creation_Workflow/results/CAT/CAT_database*"
+#"resources/databases/CAT_database"
+cat_taxonomy: "workflow/rules/Database_Creation_Workflow/results/CAT/CAT_taxonomy*"
+#"resources/databases/CAT_taxonomy"
+
+blast_db: "workflow/rules/Database_Creation_Workflow/results/NCBI_blast_database/nt"
+#"resources/databases/NCBI_blast_database/nt"
+
+taxdump: "workflow/rules/Database_Creation_Workflow/results/taxdump"
+#"resources/databases/taxdump"
+
+### Parameters ###
+
+# For fastp
+qualified_quality_phred: "10" # quality value that a base is qualified - Default 15 means phred quality >=Q15 is qualified.
+unqualified_percent_limit: "40" # how many percents of bases are allowed to be unqualified (0~100) - Default 40 means 40%
+average_qual: "0" # if one read's average quality score <avg_qual, then this read/pair is discarded - Default 0 means no requirement (int [=0])
+min_length: "100" # minimum length requirement
+front_trim: "0" # number of bases to trim off the front of the read
+tail_trim: "0" # number of bases to trim off the tail of the read
+
+# For metaflye
+read_type: "--nano-raw"
+# --nano-corr: is ONT reads that were corrected with other methods (<3% error)
+# --nano-raw: ONT regular reads, pre-Guppy5 (<20% error)
+minimum_overlap: "1000"
+# minimum overlap length for two reads to be considered overlapping, Typical value is 3k-10k (and down to 1k for datasets with shorter read length)
+
+# For kraken2
+kraken_confidence: "0.1" #specify a threshold score in the [0,1] interval;
+# classifier then will adjust labels up the tree until the label's score (described below) meets or exceeds that threshold
+
+# For BLAST
+BLAST_min_perc_ident: "70"
+BLAST_min_evalue: "1e-5"
+BLAST_max_target_seqs: "5"
+
+# For LCA assignment
+MLCA_bitscore: "500"
+MLCA_identity: "70"
+MCLA_coverage: "60"
+MLCA_majority: "70"
+MLCA_hits: "1"
+
+# For MetaBAT2
+MetaBAT2_min_size: "1500" # Minimum size of a contig for binning (should be >=1500, default=2500).
+# You can decrease --minContig when the qualities of both assembly and formed bins with default value are very good.
+MetaBAT2_max_perc: "95" # Percentage of 'good' contigs considered for binning decided by connection among contigs. The greater, the more sensitive.
+# You can decrease --maxP when the qualities of both assembly and formed bins are very bad (default=95).
+MetaBAT2_min_edge: "60" # Minimum score of a edge for binning (should be between 1 and 99). The greater, the more specific.
+# You can increase --minS when the qualities of both assembly and formed bins are very bad (default=60).
+MetaBAT2_max_edge: "200" # Maximum number of edges per node. The greater, the more sensitive (default=200).
+# You can decrease --maxEdges when the qualities of both assembly and formed bins are very bad.
+# You can increase --maxEdges when the completeness level is low, for many datasets we typically use 500.
+MetaBAT2_tnf_prob: "0" # TNF probability cutoff for building TNF graph. Use it to skip the preparation step. (0: auto).
+MetaBAT2_min_coverage: "1" # Minimum mean coverage of a contig in each library for binning (default=1).
+MetaBAT2_min_coverage_sum: "1" # Minimum total effective mean coverage of a contig (sum of depth over minCV) for binning (default=1).
+MetaBAT2_min_bin_size: "2000" # Minimum size of a bin as the output (default=200000).

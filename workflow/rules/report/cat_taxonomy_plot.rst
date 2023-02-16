@@ -1,0 +1,5 @@
+Taxonomy plot of species abundance of the 25 most prevalent species across all samples' CAT results.
+
+
+CAT was run using default parameters, the CAT database "{{ snakemake. config["cat_db"] }}",
+and the CAT taxonomy reference "{{ snakemake. config["cat_taxonomy"] }}".
