@@ -12,6 +12,14 @@ rule phylophlan:
   # third is to use phylophlan_draw_metagenomic for a heatmap
   # fourth is to create a tree?
 
+#phylophlan_metagenomic \
+#    -i input_metagenomic \
+#    -o output_metagenomic \
+#    --nproc 4 \
+#    -n 1 \
+#    -d SGB.Jan19 \
+#    --verbose 2>&1 | tee logs/phylophlan_metagenomic.log
+
   # automatically retrieving reference genomes and species-specific sets of UniRef90 proteins.
   # updated when the users specify the --database_update parameter.
   # Database files comprise the sets of precomputed species-specific UniRef90 proteins, the list of
