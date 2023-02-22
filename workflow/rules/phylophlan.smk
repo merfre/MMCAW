@@ -20,6 +20,15 @@ rule phylophlan:
 #    -d SGB.Jan19 \
 #    --verbose 2>&1 | tee logs/phylophlan_metagenomic.log
 
+#making heatmap:
+
+#phylophlan_draw_metagenomic \
+#    -i output_metagenomic.tsv \
+#    -o output_heatmap \
+#    --map bin2meta.tsv \
+#    --top 20 \
+#    --verbose 2>&1 | tee logs/phylophlan_draw_metagenomic.log
+
   # automatically retrieving reference genomes and species-specific sets of UniRef90 proteins.
   # updated when the users specify the --database_update parameter.
   # Database files comprise the sets of precomputed species-specific UniRef90 proteins, the list of
