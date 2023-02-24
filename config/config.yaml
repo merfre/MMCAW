@@ -2,8 +2,7 @@
 
 conda_envs: "environment.yml"
 
-input_directory: "resources/respiratory_samples/subset/"
-# location of the directory containing the folder(s) of the libraries you'd like to analyze
+metadata_file: "config/rejected_control_test.tsv"
 
 threads: "10"
 # insert number of threads available
