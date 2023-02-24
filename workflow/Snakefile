@@ -1,70 +1,44 @@
 
-### Microbiome Analysis Workflow ###
-
-import pandas as pd
-import os
+### Metagenomic Microbiome Combination Analysis Workflow ###
 
 configfile: "config/config.yaml"
-#report: "report/workflow.rst"
-
-### Create sample list for loading data ###
-
-# location of the data directories, must end in /
-basepath = config['input_directory']
-
-with os.scandir(basepath) as entries:
-    with open("config/libraries.tsv", 'w') as outfile:  # specify file to write "libraries.tsv"
-        outfile.write('library' + '\n')  # add Library column header
-        for entry in entries:
-            if entry.is_dir():  # find directories
-                dirnames = [entry.name]  # list
-                # write directory names, as strings, to file
-                outfile.write(str("".join(dirnames)) + '\n')
-# insert check for duplicate library names
-
-with open('config/samples_with_duplicates.tsv', 'w') as outfile:  # create output file samples.tsv
-    # outfile.write('library' + '\t' + 'sample' + '\n')  # add column headers
-    # iterate across files from basepath down
-    for root, dirs, files in os.walk(basepath):
-        for file in files:
-            if file.endswith(('fastq', 'fq')):  # specify file endings here
-                path = os.path.join(root, file)
-                head_tail = os.path.split(path)  # split into path & file
-                # remove basepath from path leaving directory name 'dirs'
-                dirs = head_tail[0].replace(basepath, '')
-                filetail = head_tail[1]  # get tail, ie filename
-                # get sample name from filename losing '.R1.fastq.gz'
-                # split filename on . as list, get first item
-                sample_name = filetail.rsplit('.', -1)[0]
-                # make list of directories and sample names
-                short_path = dirs + '/' + sample_name
-                dflist = [dirs,sample_name,short_path]
-                dfstr = '\t'.join(dflist)  # convert to string with tabs
-                # write to output file with newline after dir tab sample
-                outfile.write(dfstr + '\n')
-
-# specify input and output files
-dupfile = "config/samples_with_duplicates.tsv"
-samples_output = "config/sample_names_list.tsv"
-
-# read in the tsv file containing duplicate names from F and R files
-df = pd.read_csv(dupfile, sep="\t", header=None)
-# remove duplicate rows
-df.drop_duplicates(subset=None, inplace=True)
-# add column names
-df.columns = ['library', 'sample', 'path']
-# Write the results to a new tsv, no (index) row names
-df.to_csv(samples_output, sep="\t", index=True)
 
 ### Define samples wildcard for input and output ###
 
-sample_df = pd.read_table("config/sample_names_list.tsv").set_index(["library","sample","path"], drop=False)
-SAMPLES = list(sample_df['sample'])
-LIBRARIES = list(sample_df['library'])
-PATHS = list(sample_df['path'])
+print("Importing Python modules...")
+
+import pandas as pd
+import os
+import fileinput
+import glob
+
+# Load metadata
+
+print("Loading metadata and creating wildcards...")
+
+metadata = config['metadata_file']
+
+sample_df = pd.read_table(metadata, header=0)
+
+# Create sample paths wildcard
+sample_df['Path'] = None
+
+for row in range(len(sample_df)):
+    sample = sample_df.loc[row,'Sample_ID']
+    run = sample_df.loc[row,'Run']
+    path = str().join(run+'/'+sample)
+    sample_df.loc[row,'Path'] = path
+
+# Define wildcards and their constraints for workflow
+
+SAMPLE_IDS = list(sample_df['Sample_ID'])
+SAMPLE_PATHS = list(sample_df['Path'])
+ALL_RUNS = list(sample_df.Run.unique())
 
 wildcard_constraints:
-  PATHS=".*\/.*"
+  SAMPLE_PATHS = ".*\/.*",
+  SAMPLE_IDS = "[^\/]+",
+  ALL_RUNS = "[^\/]+"
 
 ### Provide path for report file ###
 
@@ -80,7 +54,7 @@ rule all:
     "results/CAT/cat_plot_list.txt",
     "results/BLAST/blast_plot_list.txt",
     "results/Kraken2/kraken2_plot_list.txt",
-    #"results/Assigner_comparison/output_list.txt",
+    "results/Assigner_comparison/output_list.txt",
 
 ### Remaining rules for workflow ###
 
@@ -108,8 +82,5 @@ include: "rules/blast.smk"
 # 7. Comparison of taxonomy assigner results
 include: "rules/taxonomy_assigner_comparison.smk"
 
-# 8. Binning of reads with MetaBAT2
-#include: "rules/metabat2.smk"
-
-# 9. Running phylophlan
+# 8. Running phylophlan
 #include: "rules/phylophlan.smk"
