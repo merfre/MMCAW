@@ -4,10 +4,8 @@ conda_envs: "environment.yml"
 
 metadata_file: "config/rejected_control_test.tsv"
 
-threads: "10"
-# insert number of threads available
-
 ### Database locations ###
+
 # Place your reference databases in these locations or edit to specify the location
 
 filtering_reference: "workflow/rules/Database_Creation_Workflow/results/human_reference/GCF_000001405.39_GRCh38.p13_genomic.fna"
@@ -58,18 +56,3 @@ MLCA_identity: "70"
 MCLA_coverage: "60"
 MLCA_majority: "70"
 MLCA_hits: "1"
-
-# For MetaBAT2
-MetaBAT2_min_size: "1500" # Minimum size of a contig for binning (should be >=1500, default=2500).
-# You can decrease --minContig when the qualities of both assembly and formed bins with default value are very good.
-MetaBAT2_max_perc: "95" # Percentage of 'good' contigs considered for binning decided by connection among contigs. The greater, the more sensitive.
-# You can decrease --maxP when the qualities of both assembly and formed bins are very bad (default=95).
-MetaBAT2_min_edge: "60" # Minimum score of a edge for binning (should be between 1 and 99). The greater, the more specific.
-# You can increase --minS when the qualities of both assembly and formed bins are very bad (default=60).
-MetaBAT2_max_edge: "200" # Maximum number of edges per node. The greater, the more sensitive (default=200).
-# You can decrease --maxEdges when the qualities of both assembly and formed bins are very bad.
-# You can increase --maxEdges when the completeness level is low, for many datasets we typically use 500.
-MetaBAT2_tnf_prob: "0" # TNF probability cutoff for building TNF graph. Use it to skip the preparation step. (0: auto).
-MetaBAT2_min_coverage: "1" # Minimum mean coverage of a contig in each library for binning (default=1).
-MetaBAT2_min_coverage_sum: "1" # Minimum total effective mean coverage of a contig (sum of depth over minCV) for binning (default=1).
-MetaBAT2_min_bin_size: "2000" # Minimum size of a bin as the output (default=200000).
