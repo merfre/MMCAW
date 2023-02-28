@@ -2,10 +2,25 @@
 
 conda_envs: "environment.yml"
 
-metadata_file: "config/rejected_control_test.tsv"
+metadata_file: "config/seq_test_metadata.tsv"
+
+### Analysis options ###
+
+# option for database creation
+
+# option for cat
+
+# option for kraken2
+
+# option for blast
+
+# option for phylophlan
+
+# option for ARG identification
+
+# option for comparison - requires at least 2 assigners on
 
 ### Database locations ###
-
 # Place your reference databases in these locations or edit to specify the location
 
 filtering_reference: "workflow/rules/Database_Creation_Workflow/results/human_reference/GCF_000001405.39_GRCh38.p13_genomic.fna"

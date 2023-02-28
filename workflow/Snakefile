@@ -49,8 +49,9 @@ report: "rules/report/workflow.rst"
 rule all:
   input:
     "results/database_creation.done",
-    "results/qc_reports/assembly_stat_reports/stats_report.tsv",
-    "results/qc_reports/humrm_qc_reports/stats_report.tsv",
+    "results/qc_reports/sample_post_qc_report.tsv",
+    "results/qc_reports/assembly_stat_report.tsv",
+    "results/qc_reports/humrm_qc_report.tsv",
     "results/cat/cat_plot_list.txt",
     "results/blast/blast_plot_list.txt",
     "results/kraken2/kraken2_plot_list.txt",
