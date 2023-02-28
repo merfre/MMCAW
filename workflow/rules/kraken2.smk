@@ -1,4 +1,4 @@
-### Rule to assign taxonomy using kraken2 ###
+### Rule to assign taxonomy using Kraken2 ###
 
 configfile: "config/config.yaml"
 
@@ -6,32 +6,34 @@ configfile: "config/config.yaml"
 
 rule kraken2:
   #conda:
-    #"../environment.yml"
+    #"../workflow/envs/environment.yaml"
   input:
-    "results/Preprocessing/flye_results/{PATHS}/assembly.fasta"
+    "results/preprocessing/flye_results/{PATHS}/assembly.fasta"
   output:
-    report = "results/Kraken2/{PATHS}_kraken_report.txt",
-    kraken = "results/Kraken2/{PATHS}_kraken.krk"
+    report = "results/kraken2/{PATHS}_kraken_report.txt",
+    kraken = "results/kraken2/{PATHS}_kraken.krk"
     # Needs to be .krk for recentrifuge
   params:
     kraken_db = config['kraken_db'],
     threads = config['threads'],
     confidence = config['kraken_confidence']
   shell:
-    "kraken2 --threads {params.threads} --db {params.kraken_db} {input} \
-    --confidence {params.confidence} --report {output.report} --output {output.kraken}"
+    """
+    kraken2 --threads {params.threads} --db {params.kraken_db} {input} \
+    --confidence {params.confidence} --report {output.report} --output {output.kraken}
+    """
     # use taxonomy names, use threads from config file, path to database is in the config file too
 
 ### Add full taxonomy to blast results
 
 rule taxonomy_to_kraken:
   #conda:
-    #"../environment.yml"
+    #"../workflow/envs/environment.yaml"
   input:
-    kraken = "results/Kraken2/{PATHS}_kraken.krk",
+    kraken = "results/kraken2/{PATHS}_kraken.krk",
     rankedlineage = "resources/databases/taxdump/rankedlineage.dmp"
   output:
-    kraken_tax = "results/Kraken2/{PATHS}_kraken_tax.tsv"
+    kraken_tax = "results/kraken2/{PATHS}_kraken_tax.tsv"
   params:
     taxdump = config['taxdump']
   script:
@@ -41,13 +43,13 @@ rule taxonomy_to_kraken:
 
 rule kraken_read_count:
   #conda:
-    #"../environment.yml"
+    #"../workflow/envs/environment.yaml"
   input:
-    "results/Kraken2/{PATHS}_kraken_tax.tsv"
+    "results/kraken2/{PATHS}_kraken_tax.tsv"
   params:
     path = "{PATHS}"
   output:
-    "results/Kraken2/kraken_read_counts/{PATHS}_kraken_counts.tsv"
+    "results/kraken2/kraken_read_counts/{PATHS}_kraken_counts.tsv"
   script:
     "scripts/kraken_read_count.py"
 
@@ -56,12 +58,12 @@ rule kraken_read_count:
 rule create_kraken_lists:
 # use unix to create lists for R script input
   #conda:
-  #    #"../environment.yml"
+    #"../workflow/envs/environment.yaml"
   input:
-    expand("results/Kraken2/kraken_read_counts/{path}_kraken_counts.tsv", path=PATHS)
+    expand("results/kraken2/kraken_read_counts/{path}_kraken_counts.tsv", path=PATHS)
   output:
-    file_path_list = "results/Kraken2/file_path_list.tsv",
-    taxonomy_list = "results/Kraken2/taxonomy_list.tsv"
+    file_path_list = "results/kraken2/file_path_list.tsv",
+    taxonomy_list = "results/kraken2/taxonomy_list.tsv"
   shell:
     """
     ls {input} > {output.file_path_list};
@@ -72,12 +74,12 @@ rule create_kraken_lists:
 
 rule combine_kraken_results:
   #conda:
-  #    #"../environment.yml"
+    #"../workflow/envs/environment.yaml"
   input:
-    file_path_list = "results/Kraken2/file_path_list.tsv",
-    taxonomy_list = "results/Kraken2/taxonomy_list.tsv"
+    file_path_list = "results/kraken2/file_path_list.tsv",
+    taxonomy_list = "results/kraken2/taxonomy_list.tsv"
   output:
-    "results/Kraken2/kraken_merged_results.tsv"
+    "results/kraken2/kraken_merged_results.tsv"
   script:
     "scripts/merging_results.R"
 
@@ -85,14 +87,14 @@ rule combine_kraken_results:
 
 rule taxonomy_summary_barplots_kraken:
   #conda:
-   #"../environment.yml"
+    #"../workflow/envs/environment.yaml"
   input:
-    "results/Kraken2/kraken_merged_results.tsv"
+    "results/kraken2/kraken_merged_results.tsv"
   output:
-    kraken_species = report("results/Kraken2/taxonomy_plots/kraken2_species_barplot.pdf", caption="report/kraken2_species_barplot.rst", category="Kraken2"),
-    kraken_family = report("results/Kraken2/taxonomy_plots/kraken2_family_barplot.pdf", caption="report/kraken2_family_barplot.rst", category="Kraken2"),
-    kraken_class = report("results/Kraken2/taxonomy_plots/kraken2_class_barplot.pdf", caption="report/kraken2_class_barplot.rst", category="Kraken2"),
-    kraken_kingdom = report("results/Kraken2/taxonomy_plots/kraken2_kingdom_barplot.pdf", caption="report/kraken2_kingdom_barplot.rst", category="Kraken2")
+    kraken_species = report("results/kraken2/taxonomy_plots/kraken2_species_barplot.pdf", caption="report/kraken2_species_barplot.rst", category="Kraken2"),
+    kraken_family = report("results/kraken2/taxonomy_plots/kraken2_family_barplot.pdf", caption="report/kraken2_family_barplot.rst", category="Kraken2"),
+    kraken_class = report("results/kraken2/taxonomy_plots/kraken2_class_barplot.pdf", caption="report/kraken2_class_barplot.rst", category="Kraken2"),
+    kraken_kingdom = report("results/kraken2/taxonomy_plots/kraken2_kingdom_barplot.pdf", caption="report/kraken2_kingdom_barplot.rst", category="Kraken2")
   script:
     "scripts/taxonomy_barplots_kraken.py"
 
@@ -101,11 +103,11 @@ rule taxonomy_summary_barplots_kraken:
 rule kraken_tax_levels:
 # separating kraken2 reports by taxonomy levels using R
   #conda:
-    #"../environment.yml"
+    #"../workflow/envs/environment.yaml"
   input:
-    "results/Kraken2/kraken_merged_results.tsv"
+    "results/kraken2/kraken_merged_results.tsv"
   output:
-    species = "results/Kraken2/kraken2_species.tsv",
+    species = "results/kraken2/kraken2_species.tsv",
   script:
     "scripts/separating_tax_levels_kraken.R"
 
@@ -113,11 +115,11 @@ rule kraken_tax_levels:
 
 rule species_heatmap_kraken:
   #conda:
-       #"../environment.yml"
+    #"../workflow/envs/environment.yaml"
   input:
-    "results/Kraken2/kraken2_species.tsv"
+    "results/kraken2/kraken2_species.tsv"
   output:
-    report("results/Kraken2/taxonomy_plots/kraken2_species_heatmap.pdf", caption="report/kraken2_species_heatmap.rst", category="Kraken2")
+    report("results/kraken2/taxonomy_plots/kraken2_species_heatmap.pdf", caption="report/kraken2_species_heatmap.rst", category="Kraken2")
   script:
     "scripts/taxonomy_heatmaps_kraken.R"
 
@@ -125,11 +127,11 @@ rule species_heatmap_kraken:
 
 rule taxonomy_plots_kraken:
   #conda:
-       #"../environment.yml"
+    #"../workflow/envs/environment.yaml"
   input:
-    "results/Kraken2/kraken2_species.tsv"
+    "results/kraken2/kraken2_species.tsv"
   output:
-    report("results/Kraken2/taxonomy_plots/kraken2_taxonomy_plot.pdf", caption="report/kraken2_taxonomy_plot.rst", category="Kraken2")
+    report("results/kraken2/taxonomy_plots/kraken2_taxonomy_plot.pdf", caption="report/kraken2_taxonomy_plot.rst", category="Kraken2")
   script:
     "scripts/stacked_taxonomy_barplot_kraken.R"
 
@@ -137,12 +139,12 @@ rule taxonomy_plots_kraken:
 
 rule kraken_plots:
   #conda:
-    #"../environment.yml"
+    #"../workflow/envs/environment.yaml"
   input:
-    tax_plot = "results/Kraken2/taxonomy_plots/kraken2_taxonomy_plot.pdf",
-    barplot = "results/Kraken2/taxonomy_plots/kraken2_species_barplot.pdf",
-    heatmap = "results/Kraken2/taxonomy_plots/kraken2_species_heatmap.pdf"
+    tax_plot = "results/kraken2/taxonomy_plots/kraken2_taxonomy_plot.pdf",
+    barplot = "results/kraken2/taxonomy_plots/kraken2_species_barplot.pdf",
+    heatmap = "results/kraken2/taxonomy_plots/kraken2_species_heatmap.pdf"
   output:
-    "results/Kraken2/kraken2_plot_list.txt"
+    "results/kraken2/kraken2_plot_list.txt"
   shell:
     "ls {input.tax_plot} {input.barplot} {input.heatmap} > {output}"

@@ -1,15 +1,17 @@
 ### Rule to assemble nanopore reads with metaflye ###
 
+configfile: "config/config.yaml"
+
 ### Assemble reads into contigs using metaflye
 
 rule metaflye:
   #conda:
-    #"../environment.yml"
+    #"../workflow/envs/environment.yaml"
   input:
-    "results/Preprocessing/fasta_converted/{PATHS}_trimmed_filtered_humrm.fasta"
+    "results/preprocessing/fasta_converted/{PATHS}_trimmed_filtered_humrm.fasta"
   output:
-    directory = directory("results/Preprocessing/flye_results/{PATHS}"),
-    fasta = "results/Preprocessing/flye_results/{PATHS}/assembly.fasta"
+    directory = directory("results/preprocessing/flye_results/{PATHS}"),
+    fasta = "results/preprocessing/flye_results/{PATHS}/assembly.fasta"
     # requires fasta in output to be input for next rules
   params:
     read_type = config['read_type'],
@@ -27,11 +29,11 @@ rule metaflye:
 
 rule assembly_stat_report:
   #conda:
-    #"../environment.yml"
+    #"../workflow/envs/environment.yaml"
   input:
-    expand("results/Preprocessing/flye_results/{path}/assembly.fasta", path=PATHS)
+    expand("results/preprocessing/flye_results/{path}/assembly.fasta", path=PATHS)
   output:
-    report = report("results/QC_reports/assembly_stat_reports/stats_report.tsv", caption="report/assembly_stat_reports.rst", category="QC reports")
+    report = report("results/qc_reports/assembly_stat_reports/stats_report.tsv", caption="report/assembly_stat_reports.rst", category="QC reports")
   shell:
     "seqkit stats {input} -a -T > {output.report}"
     # flag -a denotes all statistics, including quartiles of seq length, sum_gap, N50

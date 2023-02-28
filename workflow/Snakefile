@@ -48,7 +48,7 @@ report: "rules/report/workflow.rst"
 
 rule all:
   input:
-    #"results/database_creation.done",
+    "results/database_creation.done",
     "results/qc_reports/assembly_stat_reports/stats_report.tsv",
     "results/qc_reports/humrm_qc_reports/stats_report.tsv",
     "results/cat/cat_plot_list.txt",
@@ -70,23 +70,20 @@ include: "rules/removing_human_seq.smk"
 # 3. Read assembly with metaflye
 include: "rules/metaflye.smk"
 
-# 4. Create taxonomy lineage
-include: "rules/tax_dump_create.smk"
-
-# 5. Taxonomic assignment with kraken2
+# 4. Taxonomic assignment with kraken2
 include: "rules/kraken2.smk"
 
-# 6. Taxonomic assignment and annotation with CAT
+# 5. Taxonomic assignment and annotation with CAT
 include: "rules/contig_annotation_tool.smk"
 
-# 7. Alignment to NCBI NT with BLAST
+# 6. Alignment to NCBI NT with BLAST
 include: "rules/blast.smk"
 
-# 8. Comparison of taxonomy assigner results
+# 7. Comparison of taxonomy assigner results
 include: "rules/taxonomy_assigner_comparison.smk"
 
-# 9. Create phylogenetic tree with phylophlan
+# 8. Create phylogenetic tree with phylophlan
 #include: "rules/phylophlan.smk"
 
-# 10. Search for antimicrobial genes
-#include:
+# 9. Search for antimicrobial genes
+#include: "rules/card_rgi.smk"

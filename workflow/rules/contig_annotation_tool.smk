@@ -6,14 +6,14 @@ configfile: "config/config.yaml"
 
 rule cat:
   #conda:
-    #"../environment.yml"
+    #"../workflow/envs/environment.yaml"
   input:
-    "results/Preprocessing/flye_results/{PATHS}/assembly.fasta"
+    "results/preprocessing/flye_results/{PATHS}/assembly.fasta"
   output:
-    next_rule_input = "results/CAT/{PATHS}.contig2classification.txt"
+    next_rule_input = "results/cat/{PATHS}.contig2classification.txt"
     # output necessary to run rule because it is the input for the report rule
   params:
-    prefix = "results/CAT/{PATHS}",
+    prefix = "results/cat/{PATHS}",
     # prefix includes the temporary directory that cat is running in: ./results/cat/
     cat_db = config['cat_db'],
     cat_taxonomy = config['cat_taxonomy'],
@@ -30,11 +30,11 @@ rule cat:
 rule cat_report:
 # this rule is to add names to the cat report and the input is the output from the contigs run
   #conda:
-    #"../environment.yml"
+    #"../workflow/envs/environment.yaml"
   input:
-    "results/CAT/{PATHS}.contig2classification.txt"
+    "results/cat/{PATHS}.contig2classification.txt"
   output:
-    cat = "results/CAT/{PATHS}_cat_names.txt"
+    cat = "results/cat/{PATHS}_cat_names.txt"
   params:
     cat_taxonomy = config['cat_taxonomy']
   shell:
@@ -52,13 +52,13 @@ rule cat_report:
 
 rule cat_read_count:
   #conda:
-    #"../environment.yml"
+    #"../workflow/envs/environment.yaml"
   input:
-    "results/CAT/{PATHS}_cat_names.txt"
+    "results/cat/{PATHS}_cat_names.txt"
   params:
     path = "{PATHS}"
   output:
-    "results/CAT/cat_read_counts/{PATHS}_cat_counts.tsv"
+    "results/cat/cat_read_counts/{PATHS}_cat_counts.tsv"
   script:
     "scripts/cat_read_count.py"
 
@@ -67,12 +67,12 @@ rule cat_read_count:
 rule create_cat_lists:
 # use unix to create lists for R script input
   #conda:
-  #    #"../environment.yml"
+    #"../workflow/envs/environment.yaml"
   input:
-    expand("results/CAT/cat_read_counts/{path}_cat_counts.tsv", path=PATHS)
+    expand("results/cat/cat_read_counts/{path}_cat_counts.tsv", path=PATHS)
   output:
-    file_path_list = "results/CAT/file_path_list.tsv",
-    taxonomy_list = "results/CAT/taxonomy_list.tsv"
+    file_path_list = "results/cat/file_path_list.tsv",
+    taxonomy_list = "results/cat/taxonomy_list.tsv"
   shell:
     """
     ls {input} > {output.file_path_list};
@@ -84,12 +84,12 @@ rule create_cat_lists:
 rule combine_cat_results:
 # use R to merge cat reports by clade
   #conda:
-  #    #"../environment.yml"
+    #"../workflow/envs/environment.yaml"
   input:
-    file_path_list = "results/CAT/file_path_list.tsv",
-    taxonomy_list = "results/CAT/taxonomy_list.tsv"
+    file_path_list = "results/cat/file_path_list.tsv",
+    taxonomy_list = "results/cat/taxonomy_list.tsv"
   output:
-    "results/CAT/cat_merged_results.tsv"
+    "results/cat/cat_merged_results.tsv"
   script:
     "scripts/merging_results.R"
 
@@ -97,14 +97,14 @@ rule combine_cat_results:
 
 rule taxonomy_summary_barplots_cat:
   #conda:
-   #"../environment.yml"
+    #"../workflow/envs/environment.yaml"
   input:
-    "results/CAT/cat_merged_results.tsv"
+    "results/cat/cat_merged_results.tsv"
   output:
-    cat_species = report("results/CAT/taxonomy_plots/cat_species_barplot.pdf", caption="report/cat_species_barplot.rst", category="CAT"),
-    cat_family = report("results/CAT/taxonomy_plots/cat_family_barplot.pdf", caption="report/cat_family_barplot.rst", category="CAT"),
-    cat_class = report("results/CAT/taxonomy_plots/cat_class_barplot.pdf", caption="report/cat_class_barplot.rst", category="CAT"),
-    cat_kingdom = report("results/CAT/taxonomy_plots/cat_kingdom_barplot.pdf", caption="report/cat_kingdom_barplot.rst", category="CAT")
+    cat_species = report("results/cat/taxonomy_plots/cat_species_barplot.pdf", caption="report/cat_species_barplot.rst", category="CAT"),
+    cat_family = report("results/cat/taxonomy_plots/cat_family_barplot.pdf", caption="report/cat_family_barplot.rst", category="CAT"),
+    cat_class = report("results/cat/taxonomy_plots/cat_class_barplot.pdf", caption="report/cat_class_barplot.rst", category="CAT"),
+    cat_kingdom = report("results/cat/taxonomy_plots/cat_kingdom_barplot.pdf", caption="report/cat_kingdom_barplot.rst", category="CAT")
   script:
     "scripts/taxonomy_barplots_cat.py"
 
@@ -113,11 +113,11 @@ rule taxonomy_summary_barplots_cat:
 rule cat_tax_levels:
 # separating CAT reports by taxonomy levels using grep
   #conda:
-  #    #"../environment.yml"
+    #"../workflow/envs/environment.yaml"
   input:
-    "results/CAT/cat_merged_results.tsv"
+    "results/cat/cat_merged_results.tsv"
   output:
-    species = "results/CAT/cat_species.tsv"
+    species = "results/cat/cat_species.tsv"
   script:
     "scripts/separating_tax_levels_cat.R"
 
@@ -125,11 +125,11 @@ rule cat_tax_levels:
 
 rule species_heatmap_cat:
   #conda:
-       #"../environment.yml"
+    #"../workflow/envs/environment.yaml"
   input:
-    "results/CAT/cat_species.tsv"
+    "results/cat/cat_species.tsv"
   output:
-    report("results/CAT/taxonomy_plots/cat_species_heatmap.pdf", caption="report/cat_species_heatmap.rst", category="CAT")
+    report("results/cat/taxonomy_plots/cat_species_heatmap.pdf", caption="report/cat_species_heatmap.rst", category="CAT")
   script:
     "scripts/taxonomy_heatmaps_cat.R"
 
@@ -137,11 +137,11 @@ rule species_heatmap_cat:
 
 rule taxonomy_plots_cat:
   #conda:
-       #"../environment.yml"
+    #"../workflow/envs/environment.yaml"
   input:
-    "results/CAT/cat_species.tsv"
+    "results/cat/cat_species.tsv"
   output:
-    report("results/CAT/taxonomy_plots/cat_taxonomy_plot.pdf", caption="report/cat_taxonomy_plot.rst", category="CAT")
+    report("results/cat/taxonomy_plots/cat_taxonomy_plot.pdf", caption="report/cat_taxonomy_plot.rst", category="CAT")
   script:
     "scripts/stacked_taxonomy_barplot_cat.R"
 
@@ -149,12 +149,12 @@ rule taxonomy_plots_cat:
 
 rule cat_plots:
   #conda:
-    #"../environment.yml"
+    #"../workflow/envs/environment.yaml"
   input:
-    tax_plot = "results/CAT/taxonomy_plots/cat_taxonomy_plot.pdf",
-    barplot = "results/CAT/taxonomy_plots/cat_species_barplot.pdf",
-    heatmap = "results/CAT/taxonomy_plots/cat_species_heatmap.pdf"
+    tax_plot = "results/cat/taxonomy_plots/cat_taxonomy_plot.pdf",
+    barplot = "results/cat/taxonomy_plots/cat_species_barplot.pdf",
+    heatmap = "results/cat/taxonomy_plots/cat_species_heatmap.pdf"
   output:
-    "results/CAT/cat_plot_list.txt"
+    "results/cat/cat_plot_list.txt"
   shell:
     "ls {input.tax_plot} {input.barplot} {input.heatmap} > {output}"

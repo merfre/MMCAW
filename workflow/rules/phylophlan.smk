@@ -1,8 +1,12 @@
-### Rules to run phylophlan and transform the outputs ###
+### Rules to run phylophlan and create heatmap ###
+
+configfile: "config/config.yaml"
+
+### Run phylophlan for phylogenetic analysis
 
 rule phylophlan:
   #conda:
-    #"../environment.yml"
+    #"../workflow/envs/environment.yaml"
   input:
   output:
   shell:

@@ -6,11 +6,11 @@ configfile: "config/config.yaml"
 
 rule blastn:
   #conda:
-    #"../environment.yml"
+    #"../workflow/envs/environment.yaml"
   input:
-    query = "results/Preprocessing/flye_results/{PATHS}/assembly.fasta",
+    query = "results/preprocessing/flye_results/{PATHS}/assembly.fasta",
   output:
-    blast = "results/BLAST/blast_results/{PATHS}_blast.tsv"
+    blast = "results/blast/blast_results/{PATHS}_blast.tsv"
   params:
     outformat = "'6 qseqid stitle sacc staxids pident qcovs evalue bitscore'",
     blast_db = config['blast_db'],
@@ -35,12 +35,12 @@ rule blastn:
 
 rule taxonomy_to_blast:
   #conda:
-    #"../environment.yml"
+    #"../workflow/envs/environment.yaml"
   input:
-    blast = "results/BLAST/blast_results/{PATHS}_blast.tsv",
+    blast = "results/blast/blast_results/{PATHS}_blast.tsv",
     rankedlineage = "resources/databases/taxdump/rankedlineage.dmp"
   output:
-    blast_tax = "results/BLAST/blast_tax/{PATHS}_blast_tax.tsv"
+    blast_tax = "results/blast/blast_tax/{PATHS}_blast_tax.tsv"
   params:
     taxdump = config['taxdump']
   script:
@@ -50,11 +50,11 @@ rule taxonomy_to_blast:
 
 rule mlca:
   #conda:
-    #"../environment.yml"
+    #"../workflow/envs/environment.yaml"
   input:
-    blast = "results/BLAST/blast_tax/{PATHS}_blast_tax.tsv"
+    blast = "results/blast/blast_tax/{PATHS}_blast_tax.tsv"
   output:
-    lca = "results/BLAST/mlca/{PATHS}_lca.tsv"
+    lca = "results/blast/mlca/{PATHS}_lca.tsv"
   params:
     bitscore = config['MLCA_bitscore'],
     identity = config['MLCA_identity'],
@@ -68,13 +68,13 @@ rule mlca:
 
 rule mlca_read_count:
   #conda:
-    #"../environment.yml"
+    #"../workflow/envs/environment.yaml"
   input:
-    "results/BLAST/mlca/{PATHS}_lca.tsv"
+    "results/blast/mlca/{PATHS}_lca.tsv"
   params:
     path = "{PATHS}"
   output:
-    "results/BLAST/mlca_read_counts/{PATHS}_lca_counts.tsv"
+    "results/blast/mlca_read_counts/{PATHS}_lca_counts.tsv"
   script:
     "scripts/mlca_read_count.py"
 
@@ -83,29 +83,29 @@ rule mlca_read_count:
 rule create_blast_lists:
 # use unix to create lists for R script input
   #conda:
-  #    #"../environment.yml"
+    #"../workflow/envs/environment.yaml"
   input:
-    expand("results/BLAST/mlca_read_counts/{path}_lca_counts.tsv", path=PATHS)
+    expand("results/blast/mlca_read_counts/{path}_lca_counts.tsv", path=PATHS)
   output:
-    file_path_list = "results/BLAST/file_path_list.tsv",
-    taxonomy_list = "results/BLAST/taxonomy_list.tsv"
+    file_path_list = "results/blast/file_path_list.tsv",
+    taxonomy_list = "results/blast/taxonomy_list.tsv"
   shell:
     """
     ls {input} > {output.file_path_list};
     cut -f 2-8 {input} | sort | uniq | tee {output.taxonomy_list};
     """
-# results/BLAST/mlca_read_counts/lib/sample_lca_counts.tsv
+# results/blast/mlca_read_counts/lib/sample_lca_counts.tsv
 
 ### Merge BLAST results for all SAMPLES
 
 rule combine_blast_results:
   #conda:
-  #    #"../environment.yml"
+    #"../workflow/envs/environment.yaml"
   input:
-    file_path_list = "results/BLAST/file_path_list.tsv",
-    taxonomy_list = "results/BLAST/taxonomy_list.tsv"
+    file_path_list = "results/blast/file_path_list.tsv",
+    taxonomy_list = "results/blast/taxonomy_list.tsv"
   output:
-    "results/BLAST/blast_merged_results.tsv"
+    "results/blast/blast_merged_results.tsv"
   script:
     "scripts/merging_results.R"
 
@@ -113,14 +113,14 @@ rule combine_blast_results:
 
 rule taxonomy_summary_barplots_blast:
   #conda:
-   #"../environment.yml"
+    #"../workflow/envs/environment.yaml"
   input:
-    "results/BLAST/blast_merged_results.tsv"
+    "results/blast/blast_merged_results.tsv"
   output:
-    blast_species = report("results/BLAST/taxonomy_plots/blast_species_barplot.pdf", caption="report/blast_species_barplot.rst", category="BLAST"),
-    blast_family = report("results/BLAST/taxonomy_plots/blast_family_barplot.pdf", caption="report/blast_family_barplot.rst", category="BLAST"),
-    blast_class = report("results/BLAST/taxonomy_plots/blast_class_barplot.pdf", caption="report/blast_class_barplot.rst", category="BLAST"),
-    blast_kingdom = report("results/BLAST/taxonomy_plots/blast_kingdom_barplot.pdf", caption="report/blast_kingdom_barplot.rst", category="BLAST")
+    blast_species = report("results/blast/taxonomy_plots/blast_species_barplot.pdf", caption="report/blast_species_barplot.rst", category="BLAST"),
+    blast_family = report("results/blast/taxonomy_plots/blast_family_barplot.pdf", caption="report/blast_family_barplot.rst", category="BLAST"),
+    blast_class = report("results/blast/taxonomy_plots/blast_class_barplot.pdf", caption="report/blast_class_barplot.rst", category="BLAST"),
+    blast_kingdom = report("results/blast/taxonomy_plots/blast_kingdom_barplot.pdf", caption="report/blast_kingdom_barplot.rst", category="BLAST")
   script:
     "scripts/taxonomy_barplots_blast.py"
 
@@ -129,11 +129,11 @@ rule taxonomy_summary_barplots_blast:
 rule blast_tax_levels:
 # separating blast reports by taxonomy levels using R
   #conda:
-    #"../environment.yml"
+    #"../workflow/envs/environment.yaml"
   input:
-    "results/BLAST/blast_merged_results.tsv"
+    "results/blast/blast_merged_results.tsv"
   output:
-    species = "results/BLAST/blast_species.tsv",
+    species = "results/blast/blast_species.tsv",
   script:
     "scripts/separating_tax_levels_blast.R"
 
@@ -141,11 +141,11 @@ rule blast_tax_levels:
 
 rule species_heatmap_blast:
   #conda:
-    #"../environment.yml"
+    #"../workflow/envs/environment.yaml"
   input:
-    "results/BLAST/blast_species.tsv"
+    "results/blast/blast_species.tsv"
   output:
-    report("results/BLAST/taxonomy_plots/blast_species_heatmap.pdf", caption="report/blast_species_heatmap.rst", category="BLAST")
+    report("results/blast/taxonomy_plots/blast_species_heatmap.pdf", caption="report/blast_species_heatmap.rst", category="BLAST")
   script:
     "scripts/taxonomy_heatmaps_blast.R"
 
@@ -153,11 +153,11 @@ rule species_heatmap_blast:
 
 rule taxonomy_plots_blast:
   #conda:
-       #"../environment.yml"
+    #"../workflow/envs/environment.yaml"
   input:
-    "results/BLAST/blast_species.tsv"
+    "results/blast/blast_species.tsv"
   output:
-    report("results/BLAST/taxonomy_plots/blast_taxonomy_plot.pdf", caption="report/blast_taxonomy_plot.rst", category="BLAST")
+    report("results/blast/taxonomy_plots/blast_taxonomy_plot.pdf", caption="report/blast_taxonomy_plot.rst", category="BLAST")
   script:
     "scripts/stacked_taxonomy_barplot_blast.R"
 
@@ -165,12 +165,12 @@ rule taxonomy_plots_blast:
 
 rule blast_plots:
   #conda:
-    #"../environment.yml"
+    #"../workflow/envs/environment.yaml"
   input:
-    tax_plot = "results/BLAST/taxonomy_plots/blast_taxonomy_plot.pdf",
-    barplot = "results/BLAST/taxonomy_plots/blast_species_barplot.pdf",
-    heatmap = "results/BLAST/taxonomy_plots/blast_species_heatmap.pdf"
+    tax_plot = "results/blast/taxonomy_plots/blast_taxonomy_plot.pdf",
+    barplot = "results/blast/taxonomy_plots/blast_species_barplot.pdf",
+    heatmap = "results/blast/taxonomy_plots/blast_species_heatmap.pdf"
   output:
-    "results/BLAST/blast_plot_list.txt"
+    "results/blast/blast_plot_list.txt"
   shell:
     "ls {input.tax_plot} {input.barplot} {input.heatmap} > {output}"

@@ -6,11 +6,11 @@ configfile: "config/config.yaml"
 
 rule minimap2_align_human:
   #conda:
-    #"../environment.yml"
+    #"../workflow/envs/environment.yaml"
   input:
-    "results/Preprocessing/trimmed_filtered/{PATHS}_trimmed_filtered.fastq"
+    "results/preprocessing/trimmed_filtered/{PATHS}_trimmed_filtered.fastq"
   output:
-    "results/Preprocessing/minimap2/{PATHS}_human_alignment.sam"
+    "results/preprocessing/minimap2/{PATHS}_human_alignment.sam"
   params:
     filtering_reference = config['filtering_reference']
   shell:
@@ -22,11 +22,11 @@ rule minimap2_align_human:
 
 rule remove_human_sequences:
   #conda:
-    #"../environment.yml"
+    #"../workflow/envs/environment.yaml"
   input:
-    "results/Preprocessing/minimap2/{PATHS}_human_alignment.sam"
+    "results/preprocessing/minimap2/{PATHS}_human_alignment.sam"
   output:
-    "results/Preprocessing/trimmed_filtered_humrm/{PATHS}_trimmed_filtered_humrm.fastq"
+    "results/preprocessing/trimmed_filtered_humrm/{PATHS}_trimmed_filtered_humrm.fastq"
   shell:
     "samtools view -buSh -f 4 {input} | samtools fastq - > {output}"
     # -f denotes extracting only reads that match that sam flag (aka un-mapped reads)
@@ -36,11 +36,11 @@ rule remove_human_sequences:
 
 rule fasta_conversion:
   #conda:
-    #"../environment.yml"
+    #"../workflow/envs/environment.yaml"
   input:
-    "results/Preprocessing/trimmed_filtered_humrm/{PATHS}_trimmed_filtered_humrm.fastq"
+    "results/preprocessing/trimmed_filtered_humrm/{PATHS}_trimmed_filtered_humrm.fastq"
   output:
-    "results/Preprocessing/fasta_converted/{PATHS}_trimmed_filtered_humrm.fasta"
+    "results/preprocessing/fasta_converted/{PATHS}_trimmed_filtered_humrm.fasta"
   shell:
     "seqkit fq2fa {input} -o {output}"
 
@@ -48,11 +48,11 @@ rule fasta_conversion:
 
 rule qc_report_humrm:
   #conda:
-    #"../environment.yml"
+    #"../workflow/envs/environment.yaml"
   input:
-    expand("results/Preprocessing/fasta_converted/{path}_trimmed_filtered_humrm.fasta", path=PATHS)
+    expand("results/preprocessing/fasta_converted/{path}_trimmed_filtered_humrm.fasta", path=PATHS)
   output:
-    report = report("results/QC_reports/humrm_qc_reports/stats_report.tsv", caption="report/humrm_qc_reports.rst", category="QC reports")
+    report = report("results/qc_reports/humrm_qc_reports/stats_report.tsv", caption="report/humrm_qc_reports.rst", category="QC reports")
   shell:
     "seqkit stats {input} -a -T > {output.report}"
     # flag -a denotes all statistics, including quartiles of seq length, sum_gap, N50
