@@ -6,19 +6,33 @@ metadata_file: "config/seq_test_metadata.tsv"
 
 ### Analysis options ###
 
-# option for database creation
+## option for database creation
+# indicate with True/False
+include_db_creation: False
 
-# option for cat
+## option for cat
+# indicate with True/False
+include_cat: False
 
-# option for kraken2
+## option for kraken2
+# indicate with True/False
+include_kraken2: False
 
-# option for blast
+## option for blast
+# indicate with True/False
+include_blast: False
 
-# option for phylophlan
+## option for phylophlan
+# indicate with True/False
+include_phylophlan: False
 
-# option for ARG identification
+## option for comparison - requires at least 2 assigners on
+# indicate with True/False
+include_comparison: False
 
-# option for comparison - requires at least 2 assigners on
+## option for ARG identification
+# indicate with True/False
+include_rgi: False
 
 ### Database locations ###
 # Place your reference databases in these locations or edit to specify the location
