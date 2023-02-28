@@ -29,13 +29,9 @@ dependencies:
   - phylophlan
 
 # Creating reports and figures
-  - multiqc==1.10.1
-  - recentrifuge
   - numpy
   - matplotlib
   - graphviz
-  - biom-format
-  - kraken-biom # creates BIOM from kraken output
   - csvtk
   - seqkit
 
