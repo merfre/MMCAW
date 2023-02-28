@@ -31,14 +31,14 @@ for row in range(len(sample_df)):
 
 # Define wildcards and their constraints for workflow
 
-SAMPLE_IDS = list(sample_df['Sample_ID'])
-SAMPLE_PATHS = list(sample_df['Path'])
-ALL_RUNS = list(sample_df.Run.unique())
+IDS = list(sample_df['Sample_ID'])
+PATHS = list(sample_df['Path'])
+RUNS = list(sample_df.Run.unique())
 
 wildcard_constraints:
-  SAMPLE_PATHS = ".*\/.*",
-  SAMPLE_IDS = "[^\/]+",
-  ALL_RUNS = "[^\/]+"
+  PATHS = ".*\/.*",
+  IDS = "[^\/]+",
+  RUNS = "[^\/]+"
 
 ### Provide path for report file ###
 
@@ -48,39 +48,45 @@ report: "rules/report/workflow.rst"
 
 rule all:
   input:
-    "results/database_creation.done",
-    "results/QC_reports/assembly_stat_reports/stats_report.tsv",
-    "results/QC_reports/humrm_qc_reports/stats_report.tsv",
-    "results/CAT/cat_plot_list.txt",
-    "results/BLAST/blast_plot_list.txt",
-    "results/Kraken2/kraken2_plot_list.txt",
-    "results/Assigner_comparison/output_list.txt",
+    #"results/database_creation.done",
+    "results/qc_reports/assembly_stat_reports/stats_report.tsv",
+    "results/qc_reports/humrm_qc_reports/stats_report.tsv",
+    "results/cat/cat_plot_list.txt",
+    "results/blast/blast_plot_list.txt",
+    "results/kraken2/kraken2_plot_list.txt",
+    "results/assigner_comparison/output_list.txt",
 
 ### Remaining rules for workflow ###
 
 # Optional subworkflow to build databases
 include: "rules/db_creation.smk"
 
-# 1. filter on size and quality
+# 1. Filter on size and quality
 include: "rules/fastp.smk"
 
-# 2. human filtering
+# 2. Host sequence filtering
 include: "rules/removing_human_seq.smk"
 
-# 3. read assembly
+# 3. Read assembly with metaflye
 include: "rules/metaflye.smk"
 
-# 4. taxonomically assign with kraken2
+# 4. Create taxonomy lineage
+include: "rules/tax_dump_create.smk"
+
+# 5. Taxonomic assignment with kraken2
 include: "rules/kraken2.smk"
 
-# 5. Taxonomic assignment and annotation with CAT
+# 6. Taxonomic assignment and annotation with CAT
 include: "rules/contig_annotation_tool.smk"
 
-# 6. Alignment to NCBI NT with BLAST
+# 7. Alignment to NCBI NT with BLAST
 include: "rules/blast.smk"
 
-# 7. Comparison of taxonomy assigner results
+# 8. Comparison of taxonomy assigner results
 include: "rules/taxonomy_assigner_comparison.smk"
 
-# 8. Running phylophlan
+# 9. Create phylogenetic tree with phylophlan
 #include: "rules/phylophlan.smk"
+
+# 10. Search for antimicrobial genes
+#include:
