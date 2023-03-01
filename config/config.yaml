@@ -1,8 +1,8 @@
 ###  Config file for preliminary skin microbiome metagenomic snakemake workflow ###
 
-conda_envs: "environment.yml"
+conda_envs: "workflow/envs/environment.yml"
 
-metadata_file: "config/seq_test_metadata.tsv"
+metadata_file: "config/mmcaw_test_metadata.tsv"
 
 ### Analysis options ###
 
@@ -12,15 +12,15 @@ include_db_creation: False
 
 ## option for cat
 # indicate with True/False
-include_cat: False
+include_cat: True
 
 ## option for kraken2
 # indicate with True/False
-include_kraken2: False
+include_kraken2: True
 
 ## option for blast
 # indicate with True/False
-include_blast: False
+include_blast: True
 
 ## option for phylophlan
 # indicate with True/False
@@ -28,7 +28,7 @@ include_phylophlan: False
 
 ## option for comparison - requires at least 2 assigners on
 # indicate with True/False
-include_comparison: False
+include_comparison: True
 
 ## option for ARG identification
 # indicate with True/False
@@ -37,21 +37,21 @@ include_rgi: False
 ### Database locations ###
 # Place your reference databases in these locations or edit to specify the location
 
-filtering_reference: "workflow/rules/Database_Creation_Workflow/results/human_reference/GCF_000001405.39_GRCh38.p13_genomic.fna"
-#"resources/databases/human_reference/GCF_000001405.39_GRCh38.p13_genomic.fna"
+filtering_reference: "resources/databases/human_reference/GCF_000001405.39_GRCh38.p13_genomic.fna"
+#"workflow/rules/Database_Creation_Workflow/results/human_reference/GCF_000001405.39_GRCh38.p13_genomic.fna"
 
 kraken_db: "resources/databases/kraken2_std_database"
 
-cat_db: "workflow/rules/Database_Creation_Workflow/results/CAT/CAT_database*"
-#"resources/databases/CAT_database"
-cat_taxonomy: "workflow/rules/Database_Creation_Workflow/results/CAT/CAT_taxonomy*"
-#"resources/databases/CAT_taxonomy"
+cat_db: "resources/databases/CAT_database"
+#"workflow/rules/Database_Creation_Workflow/results/CAT/CAT_database*"
+cat_taxonomy: "resources/databases/CAT_taxonomy"
+#"workflow/rules/Database_Creation_Workflow/results/CAT/CAT_taxonomy*"
 
-blast_db: "workflow/rules/Database_Creation_Workflow/results/NCBI_blast_database/nt"
-#"resources/databases/NCBI_blast_database/nt"
+blast_db: "resources/databases/NCBI_blast_database/nt"
+#"workflow/rules/Database_Creation_Workflow/results/NCBI_blast_database/nt"
 
-taxdump: "workflow/rules/Database_Creation_Workflow/results/taxdump"
-#"resources/databases/taxdump"
+taxdump: "resources/databases/taxdump"
+#"workflow/rules/Database_Creation_Workflow/results/taxdump"
 
 ### Parameters ###
 

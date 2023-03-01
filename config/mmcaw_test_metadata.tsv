@@ -1,0 +1,5 @@
+	Run	Date_sequenced	Barcode	Sample_ID	Date_extracted	Qubit_result	Notes
+0	ONT_skin1_test	19/05/2022	barcode10	LF1A	03/05/2022	50	"Skin microbiome sample collected from left forearm position 1 for skin microbiome testing run 1, concentrated DNA extraction"
+1	ONT_skin1_test	19/05/2022	barcode11	LF2A	03/05/2022	60	"Skin microbiome sample collected from left forearm position 2 for skin microbiome testing run 1, concentrated DNA extraction"
+6	ONT_skin1_adap2	02/06/2022	barcode10	LF1A_adap_redo	03/05/2022	50	"Skin microbiome sample collected from left forearm position 1 for skin microbiome testing run 1, concentrated DNA extraction, and adaptive sequencing on higher quality flongle to remove human sequences"
+7	ONT_skin1_adap2	02/06/2022	barcode11	LF2A_adap_redo	03/05/2022	60	"Skin microbiome sample collected from left forearm position 2 for skin microbiome testing run 1, concentrated DNA extraction, and adaptive sequencing on higher quality flongle to remove human sequences"
