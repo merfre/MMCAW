@@ -44,8 +44,11 @@ wildcard_constraints:
 
 optional_outputs = list()
 
+# Database creation option
 if config['include_db_creation'] == True:
     optional_outputs.extend(["results/database_creation.done"])
+
+# Taxonomic assigner options
 if config['include_cat'] == True:
     optional_outputs.extend(["results/cat/cat_plot_list.txt"])
 if config['include_kraken2'] == True:
@@ -54,14 +57,18 @@ if config['include_blast'] == True:
     optional_outputs.extend(["results/blast/blast_plot_list.txt"])
 #if config['include_phylophlan'] == True:
 #    optional_outputs.extend([""])
-#if config['include_comparison'] == True & config['include_cat'] == True & config['include_kraken2'] == True:
-#    optional_outputs.extend([""])
-#if config['include_comparison'] == True & config['include_blast'] == True & config['include_cat'] == True:
-#    optional_outputs.extend([""])
-if config['include_comparison'] == True & config['include_kraken2'] == True & config['include_blast'] == True:
-    optional_outputs.extend(["results/assigner_comparison/output_list.txt"])
+
+# Assigner comparison options
 if config['include_comparison'] == True & config['include_kraken2'] == True & config['include_blast'] == True & config['include_cat'] == True:
     optional_outputs.extend(["results/assigner_comparison/output_list.txt"])
+elif config['include_comparison'] == True & config['include_kraken2'] == True & config['include_blast'] == True:
+    optional_outputs.extend(["results/assigner_comparison/output_list.txt"])
+#elif config['include_comparison'] == True & config['include_cat'] == True & config['include_kraken2'] == True:
+#    optional_outputs.extend([""])
+#elif config['include_comparison'] == True & config['include_blast'] == True & config['include_cat'] == True:
+#    optional_outputs.extend([""])
+
+# Resistance gene identification option
 #if config['include_rgi'] == True:
 #    optional_outputs.extend([""])
 
@@ -132,33 +139,47 @@ if config['include_blast'] == True:
 else:
     print("BLAST will not be included")
 
-# Create phylogenetic tree with phylophlan
-#include: "rules/phylophlan.smk"
+# Phylophlan
+#if config['include_phylophlan'] == True:
+    
+#    include: "rules/phylophlan.smk"
+
+#    print("Phylophlan will be used for phylogenetic analysis")
+#else:
+#    print("Phylophlan will not be included")
 
 ## 5. Optional comparison of taxonomy assigner results
-
-# Compare CAT and Kraken2
-
-# Compare Kraken2 and BLAST
-if config['include_comparison'] == True & config['include_kraken2'] == True & config['include_blast'] == True:
-    
-    include: "rules/taxonomy_assigner_comparison.smk"
-
-    print("Optional taxonomic assigner comparison of will be performed")
-else:
-    print("Optional taxonomic assigner comparison will not be included")
-
-# Compare BLAST and CAT
 
 # Compare all assigners
 if config['include_comparison'] == True & config['include_kraken2'] == True & config['include_blast'] == True & config['include_cat'] == True:
     
     include: "rules/taxonomy_assigner_comparison.smk"
 
-    print("Optional taxonomic assigner comparison of will be performed")
+    print("Optional taxonomic assigner comparison of all assigners will be performed")
+elif config['include_comparison'] == True & config['include_kraken2'] == True & config['include_blast'] == True:
+    
+    include: "rules/taxonomy_assigner_comparison.smk"
+
+    print("Optional taxonomic assigner comparison of Kraken2 and BLAST will be performed")
+#elif config['include_comparison'] == True & config['include_cat'] == True & config['include_kraken2'] == True:
+
+#    include:
+
+#    print("Optional taxonomic assigner comparison of CAT and Kraken2 will be performed")
+#elif config['include_comparison'] == True & config['include_blast'] == True & config['include_cat'] == True:
+
+#    include:
+
+#    print("Optional taxonomic assigner comparison of BLAST and CAT will be performed")
 else:
-    print("Optional taxonomic assigner comparison will not be included")
-# change the else statement for taxonomic assigner
+    print("Taxonomic assigner comparison will not be performed")
 
 ## 6. Search for antimicrobial genes
-#include: "rules/card_rgi.smk"
+
+#if config['include_rgi'] == True:
+
+#    include: "rules/card_rgi.smk"
+
+#    print("Resistance gene identification will be performed")
+#else:
+#    print("CARD RGI will not be included")

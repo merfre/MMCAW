@@ -59,7 +59,7 @@ taxdump: "resources/databases/taxdump"
 ### Parameters ###
 
 # For fastp
-qualified_quality_phred: "10" # quality value that a base is qualified - Default 15 means phred quality >=Q15 is qualified.
+qualified_quality_phred: "7" # quality value that a base is qualified - Default 15 means phred quality >=Q15 is qualified.
 unqualified_percent_limit: "40" # how many percents of bases are allowed to be unqualified (0~100) - Default 40 means 40%
 average_qual: "0" # if one read's average quality score <avg_qual, then this read/pair is discarded - Default 0 means no requirement (int [=0])
 min_length: "100" # minimum length requirement
@@ -74,7 +74,7 @@ minimum_overlap: "1000"
 # minimum overlap length for two reads to be considered overlapping, Typical value is 3k-10k (and down to 1k for datasets with shorter read length)
 
 # For kraken2
-kraken_confidence: "0.1" #specify a threshold score in the [0,1] interval;
+kraken_confidence: "0.05" #specify a threshold score in the [0,1] interval;
 # classifier then will adjust labels up the tree until the label's score (described below) meets or exceeds that threshold
 
 # For BLAST
