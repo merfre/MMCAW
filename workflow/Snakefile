@@ -140,6 +140,13 @@ else:
 # Compare CAT and Kraken2
 
 # Compare Kraken2 and BLAST
+if config['include_comparison'] == True & config['include_kraken2'] == True & config['include_blast'] == True:
+    
+    include: "rules/taxonomy_assigner_comparison.smk"
+
+    print("Optional taxonomic assigner comparison of will be performed")
+else:
+    print("Optional taxonomic assigner comparison will not be included")
 
 # Compare BLAST and CAT
 
