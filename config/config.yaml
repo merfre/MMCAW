@@ -14,7 +14,7 @@ include_db_creation: False
 
 ## option for cat
 # indicate with True/False
-include_cat: True
+include_cat: False
 
 ## option for kraken2
 # indicate with True/False
