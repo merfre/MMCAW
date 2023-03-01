@@ -44,7 +44,7 @@ rule taxonomy_assigner_summary:
     kraken_results = "results/kraken2/kraken_merged_results.tsv",
     blast_results = "results/blast/blast_merged_results.tsv"
   output:
-    report("results/assigner_comparison/taxonomy_assigner_summary.tsv", caption="report/taxonomy_assigner_summary.rst", category="Taxonomy assigner comparison")
+    report("results/assigner_comparison/taxonomy_assigner_summary.tsv", caption="report/taxonomy_assigner_summary.rst", category="Taxonomy assigner comparison", subcategory="Comparison summaries")
   params:
     seq_stats = "results/qc_reports/humrm_qc_report.tsv"
   script:
@@ -88,7 +88,7 @@ rule combine_tax_comparison:
   input:
     file_path_list = "results/assigner_comparison/file_path_list.tsv"
   output:
-    report("results/assigner_comparison/tax_comparison_summary.tsv", caption="report/tax_comparison_summary.rst", category="Taxonomy assigner comparison")
+    report("results/assigner_comparison/tax_comparison_summary.tsv", caption="report/tax_comparison_summary.rst", category="Taxonomy assigner comparison", subcategory="Comparison summaries")
   script:
     "scripts/merging_tax_comparison.R"
 

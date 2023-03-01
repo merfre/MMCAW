@@ -1,4 +1,4 @@
-### Rules to run phylophlan and create heatmap ###
+### Rules to run PhyloPhlAn and create heatmap ###
 
 configfile: "config/config.yaml"
 

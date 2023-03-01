@@ -8,33 +8,38 @@ threads: "10"
 
 ### Analysis options ###
 
-## option for database creation
-# indicate with True/False
+## Database creation subworkflow
+# indicate with True/False whether to include database creation
 include_db_creation: False
 
-## option for cat
-# indicate with True/False
+## Contig annotation tool for taxonomic assignment
+# indicate with True/False whether to include CAT
 include_cat: False
 
-## option for kraken2
-# indicate with True/False
+## Kraken2 for taxonomic assignment
+# indicate with True/False whether to include Kraken2
 include_kraken2: True
 
-## option for blast
-# indicate with True/False
+## BLAST for taxonomic assignment
+# indicate with True/False whether to include BLAST
 include_blast: True
 
-## option for phylophlan
-# indicate with True/False
+## Sourmash for taxonomic assignment
+# indicate with True/False whether to include Sourmash
+include_sourmash: False
+
+## PhyloPhlAn for phylogenetic analysis
+# indicate with True/False whether to include PhyloPhlAn
 include_phylophlan: False
 
-## option for comparison - requires at least 2 assigners on
-# indicate with True/False
+## Comparison of selected taxnomic assigners
+# at least 2 assigners above must be toggled to True #
+# indicate with True/False whether to include assigner comparison
 include_comparison: True
 
-## option for ARG identification
-# indicate with True/False
-# CAT required ?
+## Resistance gene identification with CARD
+# CAT must be toggled to True for annotation #
+# indicate with True/False whether to include ARG identification
 include_rgi: False
 
 ### Database locations ###
@@ -75,7 +80,7 @@ minimum_overlap: "1000"
 
 # For kraken2
 kraken_confidence: "0.05" #specify a threshold score in the [0,1] interval;
-# classifier then will adjust labels up the tree until the label's score (described below) meets or exceeds that threshold
+# classifier then will adjust labels up the tree until the label's score meets or exceeds that threshold
 
 # For BLAST
 BLAST_min_perc_ident: "70"

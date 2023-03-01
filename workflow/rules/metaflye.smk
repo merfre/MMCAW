@@ -33,7 +33,7 @@ rule assembly_stat_report:
   input:
     expand("results/preprocessing/flye_results/{path}/assembly.fasta", path=PATHS)
   output:
-    report = report("results/qc_reports/assembly_stat_report.tsv", caption="report/assembly_stat_reports.rst", category="QC Reports")
+    report = report("results/qc_reports/assembly_stat_report.tsv", caption="report/assembly_stat_reports.rst", category="QC reports")
   shell:
     "seqkit stats {input} -a -T > {output.report}"
     # flag -a denotes all statistics, including quartiles of seq length, sum_gap, N50
