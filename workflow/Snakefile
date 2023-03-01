@@ -80,6 +80,8 @@ report: "rules/report/workflow.rst"
 
 ### Target rule ###
 
+print("Running Metagenomic Microbiome Combination Analysis Workflow\n\nUsing the following options:")
+
 rule all:
   input:
     "results/qc_reports/sample_post_qc_report.tsv",
