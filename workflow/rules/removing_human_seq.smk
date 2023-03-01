@@ -52,7 +52,7 @@ rule qc_report_humrm:
   input:
     expand("results/preprocessing/fasta_converted/{path}_trimmed_filtered_humrm.fasta", path=PATHS)
   output:
-    report = report("results/qc_reports/humrm_qc_report.tsv", caption="report/humrm_qc_reports.rst", category="QC reports")
+    report = report("results/qc_reports/humrm_qc_report.tsv", caption="report/humrm_qc_reports.rst", category="QC Reports")
   shell:
     "seqkit stats {input} -a -T > {output.report}"
     # flag -a denotes all statistics, including quartiles of seq length, sum_gap, N50

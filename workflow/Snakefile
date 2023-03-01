@@ -40,7 +40,7 @@ wildcard_constraints:
   IDS = "[^\/]+",
   RUNS = "[^\/]+"
 
-### Optional Paths ###
+### Optional analyses ###
 
 optional_outputs = list()
 
@@ -58,8 +58,8 @@ if config['include_blast'] == True:
 #    optional_outputs.extend([""])
 #if config['include_comparison'] == True & config['include_blast'] == True & config['include_cat'] == True:
 #    optional_outputs.extend([""])
-#if config['include_comparison'] == True & config['include_kraken2'] == True & config['include_blast'] == True:
-#    optional_outputs.extend([""])
+if config['include_comparison'] == True & config['include_kraken2'] == True & config['include_blast'] == True:
+    optional_outputs.extend(["results/assigner_comparison/output_list.txt"])
 if config['include_comparison'] == True & config['include_kraken2'] == True & config['include_blast'] == True & config['include_cat'] == True:
     optional_outputs.extend(["results/assigner_comparison/output_list.txt"])
 #if config['include_rgi'] == True:
