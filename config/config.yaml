@@ -4,6 +4,8 @@ conda_envs: "workflow/envs/environment.yml"
 
 metadata_file: "config/mmcaw_test_metadata.tsv"
 
+threads: "10"
+
 ### Analysis options ###
 
 ## option for database creation
