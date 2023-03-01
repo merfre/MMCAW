@@ -46,7 +46,7 @@ rule taxonomy_assigner_summary:
   output:
     report("results/assigner_comparison/taxonomy_assigner_summary.tsv", caption="report/taxonomy_assigner_summary.rst", category="Taxonomy assigner comparison")
   params:
-    seq_stats = "results/qc_reports/humrm_qc_reports/stats_report.tsv"
+    seq_stats = "results/qc_reports/humrm_qc_report.tsv"
   script:
     "scripts/assigner_summary.py"
 
