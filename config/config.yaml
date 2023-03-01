@@ -34,6 +34,7 @@ include_comparison: True
 
 ## option for ARG identification
 # indicate with True/False
+# CAT required ?
 include_rgi: False
 
 ### Database locations ###

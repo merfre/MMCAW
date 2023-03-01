@@ -41,7 +41,7 @@ species_propt <- data.frame(t(species_prop))
 
 sortspecies_propt <- sort(species_propt, decreasing=TRUE)
 
-kraken_top25_species <- data.frame(sortspecies_propt[1:25])
+kraken_top25_species <- data.frame(sortspecies_propt[,1:25])
 
 kraken_top25_names <- colnames(kraken_top25_species)
 
