@@ -57,7 +57,7 @@ if(nrow(cat_results) <= sppno)
   
   # CAT
   
-  logic_prop <- as.matrix(t(blast_results)[, 1:ncol(t(blast_results))] != 0)
+  logic_prop <- as.matrix(t(cat_results)[, 1:ncol(t(cat_results))] != 0)
   
   logic_prop <- data.frame(1*logic_prop)
   
