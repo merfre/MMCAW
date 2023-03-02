@@ -6,7 +6,7 @@ library("gplots")
 
 ## Load files
 
-sppno = snakemake.params.prevalence
+sppno = snakemake@config[["prevalence"]]
 
 # cat
 

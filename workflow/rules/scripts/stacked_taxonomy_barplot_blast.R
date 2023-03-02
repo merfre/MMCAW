@@ -9,7 +9,7 @@ library(RColorBrewer)
 
 ## Load files
 
-sppno = snakemake.params.prevalence
+sppno = snakemake@config[["prevalence"]]
 
 # BLAST
 

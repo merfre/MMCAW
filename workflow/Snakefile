@@ -80,7 +80,7 @@ report: "rules/report/workflow.rst"
 
 ### Target rule ###
 
-print("Running Metagenomic Microbiome Combination Analysis Workflow\n\nUsing the following options:")
+print("\nRunning Metagenomic Microbiome Combination Analysis Workflow\n\nUsing the following options:")
 
 rule all:
   input:
