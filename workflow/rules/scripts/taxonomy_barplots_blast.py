@@ -34,7 +34,7 @@ blast_species['prevalence'] = np.count_nonzero(blast_species, axis=1)
 blast_species_top = blast_species.nlargest(int(prevno),'prevalence')
 blast_species_barplot = blast_species_top['prevalence'].plot(kind="barh")
 # change color with: color=[''], barh makes plot horizontal
-plt.title(print("Barplot of top " + prevno + " species prevalence from BLAST results"))
+plt.title("Barplot of top " + prevno + " species prevalence from BLAST results")
 plt.xlabel("Prevalence")
 plt.ylabel("Species")
 plt.tight_layout()
@@ -52,7 +52,7 @@ blast_family_nonrepeat['prevalence'] = np.count_nonzero(blast_family_nonrepeat, 
 blast_family_top = blast_family_nonrepeat.nlargest(int(prevno),'prevalence')
 blast_family_barplot = blast_family_top['prevalence'].plot(kind="barh")
 # change color with: color=[''], barh makes plot horizontal
-plt.title(print("Barplot of top " + prevno + " family prevalence from BLAST results"))
+plt.title("Barplot of top " + prevno + " family prevalence from BLAST results")
 plt.xlabel("Prevalence")
 plt.ylabel("Families")
 plt.tight_layout()
@@ -70,7 +70,7 @@ blast_class_nonrepeat['prevalence'] = np.count_nonzero(blast_class_nonrepeat, ax
 blast_class_top = blast_class_nonrepeat.nlargest(int(prevno),'prevalence')
 blast_class_barplot = blast_class_top['prevalence'].plot(kind="barh")
 # change color with: color=[''], barh makes plot horizontal
-plt.title(print("Barplot of top " + prevno + " class prevalence from BLAST results"))
+plt.title("Barplot of top " + prevno + " class prevalence from BLAST results")
 plt.xlabel("Prevalence")
 plt.ylabel("Classes")
 plt.tight_layout()
@@ -87,7 +87,7 @@ blast_kingdom_nonrepeat['prevalence'] = np.count_nonzero(blast_kingdom_nonrepeat
 
 blast_kingdom_barplot = blast_kingdom_nonrepeat['prevalence'].plot(kind="barh")
 # change color with: color=[''], barh makes plot horizontal
-plt.title(print("Barplot of top " + prevno + " kingdom prevalence from BLAST results"))
+plt.title("Barplot of top " + prevno + " kingdom prevalence from BLAST results")
 plt.xlabel("Prevalence")
 plt.ylabel("Kingdoms")
 plt.tight_layout()
