@@ -34,7 +34,7 @@ cat_species['prevalence'] = np.count_nonzero(cat_species, axis=1)
 cat_species_top = cat_species.nlargest(prevno,'prevalence')
 cat_species_barplot = cat_species_top['prevalence'].plot(kind="barh")
 # change color with: color=[''], barh makes plot horizontal
-plt.title("Barplot of top " + prevno + " species prevalence from CAT results")
+plt.title(print("Barplot of top " + prevno + " species prevalence from CAT results"))
 plt.xlabel("Prevalence")
 plt.ylabel("Species")
 plt.tight_layout()
@@ -52,7 +52,7 @@ cat_family_nonrepeat['prevalence'] = np.count_nonzero(cat_family_nonrepeat, axis
 cat_family_top = cat_family_nonrepeat.nlargest(prevno,'prevalence')
 cat_family_barplot = cat_family_top['prevalence'].plot(kind="barh")
 # change color with: color=[''], barh makes plot horizontal
-plt.title("Barplot of top " + prevno + " family prevalence from CAT results")
+plt.title(print("Barplot of top " + prevno + " family prevalence from CAT results"))
 plt.xlabel("Prevalence")
 plt.ylabel("Families")
 plt.tight_layout()
@@ -70,7 +70,7 @@ cat_class_nonrepeat['prevalence'] = np.count_nonzero(cat_class_nonrepeat, axis=1
 cat_class_top = cat_class_nonrepeat.nlargest(prevno,'prevalence')
 cat_class_barplot = cat_class_top['prevalence'].plot(kind="barh")
 # change color with: color=[''], barh makes plot horizontal
-plt.title("Barplot of top " + prevno + " class prevalence from CAT results")
+plt.title(print("Barplot of top " + prevno + " class prevalence from CAT results"))
 plt.xlabel("Prevalence")
 plt.ylabel("Classes")
 plt.tight_layout()
@@ -87,7 +87,7 @@ cat_kingdom_nonrepeat['prevalence'] = np.count_nonzero(cat_kingdom_nonrepeat, ax
 
 cat_kingdom_barplot = cat_kingdom_nonrepeat['prevalence'].plot(kind="barh")
 # change color with: color=[''], barh makes plot horizontal
-plt.title("Barplot of top " + prevno + " kingdom prevalence from CAT results")
+plt.title(print("Barplot of top " + prevno + " kingdom prevalence from CAT results"))
 plt.xlabel("Prevalence")
 plt.ylabel("Kingdoms")
 plt.tight_layout()
