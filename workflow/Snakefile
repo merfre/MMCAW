@@ -193,6 +193,6 @@ if config['include_rgi'] == True:
 
     include: "rules/card_rgi.smk"
 
-    print("Resistance gene identification will be performed")
+    print("Resistance gene identification will be performed\n")
 else:
-    print("CARD RGI will not be included")
+    print("CARD RGI will not be included\n")
