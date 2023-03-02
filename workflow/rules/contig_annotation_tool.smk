@@ -128,6 +128,8 @@ rule species_heatmap_cat:
     #"../workflow/envs/environment.yaml"
   input:
     "results/cat/cat_species.tsv"
+  params:
+    prevalence = config['prevalence']
   output:
     report("results/cat/taxonomy_plots/cat_species_heatmap.pdf", caption="report/cat_species_heatmap.rst", category="CAT")
   script:
@@ -140,6 +142,8 @@ rule taxonomy_plots_cat:
     #"../workflow/envs/environment.yaml"
   input:
     "results/cat/cat_species.tsv"
+  params:
+    prevalence = config['prevalence']
   output:
     report("results/cat/taxonomy_plots/cat_taxonomy_plot.pdf", caption="report/cat_taxonomy_plot.rst", category="CAT")
   script:

@@ -93,3 +93,7 @@ MLCA_identity: "70"
 MCLA_coverage: "60"
 MLCA_majority: "70"
 MLCA_hits: "1"
+
+# For plot creation
+prevalence: "25" # Number of most prevalent species to be included in final taxonomy plots
+# 25 if recommended and greater than 50 is discouraged because plots will be difficult to read

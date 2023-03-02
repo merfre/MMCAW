@@ -118,6 +118,8 @@ rule species_heatmap_kraken:
     #"../workflow/envs/environment.yaml"
   input:
     "results/kraken2/kraken2_species.tsv"
+  params:
+    prevalence = config['prevalence']
   output:
     report("results/kraken2/taxonomy_plots/kraken2_species_heatmap.pdf", caption="report/kraken2_species_heatmap.rst", category="Kraken2")
   script:
@@ -130,6 +132,8 @@ rule taxonomy_plots_kraken:
     #"../workflow/envs/environment.yaml"
   input:
     "results/kraken2/kraken2_species.tsv"
+  params:
+    prevalence = config['prevalence']
   output:
     report("results/kraken2/taxonomy_plots/kraken2_taxonomy_plot.pdf", caption="report/kraken2_taxonomy_plot.rst", category="Kraken2")
   script:

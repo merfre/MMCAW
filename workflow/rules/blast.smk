@@ -144,6 +144,8 @@ rule species_heatmap_blast:
     #"../workflow/envs/environment.yaml"
   input:
     "results/blast/blast_species.tsv"
+  params:
+    prevalence = config['prevalence']
   output:
     report("results/blast/taxonomy_plots/blast_species_heatmap.pdf", caption="report/blast_species_heatmap.rst", category="BLAST")
   script:
@@ -156,6 +158,8 @@ rule taxonomy_plots_blast:
     #"../workflow/envs/environment.yaml"
   input:
     "results/blast/blast_species.tsv"
+  params:
+    prevalence = config['prevalence']
   output:
     report("results/blast/taxonomy_plots/blast_taxonomy_plot.pdf", caption="report/blast_taxonomy_plot.rst", category="BLAST")
   script:
