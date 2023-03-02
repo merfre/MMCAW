@@ -14,7 +14,7 @@ include_db_creation: False
 
 ## Contig annotation tool for taxonomic assignment
 # indicate with True/False whether to include CAT
-include_cat: False
+include_cat: True
 
 ## Kraken2 for taxonomic assignment
 # indicate with True/False whether to include Kraken2
