@@ -11,71 +11,45 @@ library(RColorBrewer)
 
 sppno = snakemake@config[["prevalence"]]
 
-# cat
+# CAT
 
 cat_results <- read.table(file = snakemake@input[[1]], sep = '\t', header = TRUE, row.names = 1)
 
-cat_results <- cat_results[!(cat_results$species=="unidentified" | cat_results$species=="unknown bacterium"),]
-# remove results completely unclassified
+### Defining function
 
-row.names(cat_results) <- make.names(cat_results$species, unique=TRUE)
-# Changes row names to species names
-
-columns_remove <- c(which(colnames(cat_results)=="species"))
-# determine which redundant columns to remove
-
-cat_results <- cat_results[-columns_remove]
-# Removes redundant species column
-
-colnames(cat_results) <- gsub('_cat',' ',colnames(cat_results))
-# Remove "_cat" suffix in column names
-
-if(ncol(cat_results) > 1)
-{
-  cat_results <- cat_results[,order(colnames(cat_results))]
-  # order the columns by sample names for colors on plot
-} else
-{
-  cat_results <- cat_results
-}
-
-### If statements for determining number of samples and most prevalent species
-
-if(ncol(cat_results) > 1) {
-  if(nrow(cat_results) <= sppno){
-    ## Barplot
-    
-    cat_abun <- data.frame(t(cat_results[order(rownames(cat_results)),]))
-    
-    sample_size <- nrow(cat_abun)
-    species_color <- ncol(cat_abun)
-    qual_col_pals = brewer.pal.info[brewer.pal.info$category == 'qual',]
-    col_vector = unlist(mapply(brewer.pal, qual_col_pals$maxcolors, rownames(qual_col_pals)))
-    
-    color=sample(col_vector, species_color)
-    
-    all_plot <- data.frame(
-      Sample_ID=rep(c(rownames(cat_abun)), each = ncol(cat_abun)),
-      Species=rep(c(colnames(cat_abun)), sample_size),
-      Abundance=unlist(list(as.numeric(t(cat_abun))))
-    )
-    
-    pdf(snakemake@output[[1]], width=25,height=20)
-    
-    print(ggplot(all_plot, aes(fill=Species, y=Abundance, x=Sample_ID)) +
-            geom_bar(position="fill", stat="identity", colour="black")+
-            scale_fill_manual(values = color)+
-            theme(axis.text.x = element_text(angle = 45, vjust = 1,
-                                             size = 12, hjust = 1))+
-            labs(title="CAT taxonomy plot of all species identified"))
-    #print(ggplot()) is required to prevent corrupted pdf in a loop/function
-    dev.off()
-  } else{
+taxonomy_stacked_barplot <- function(input, assigner, suffix, out_path) {
+  
+  input <- input[!(input$species=="unidentified" | input$species=="unknown bacterium"),]
+  # remove results completely unclassified
+  
+  row.names(input) <- make.names(input$species, unique=TRUE)
+  # Changes row names to species names
+  
+  columns_remove <- c(which(colnames(input)=="species"))
+  # determine which redundant columns to remove
+  
+  input <- input[-columns_remove]
+  # Removes redundant species column
+  
+  colnames(input) <- gsub(suffix,' ',colnames(input))
+  # Remove assigner suffix in column names
+  
+  if(ncol(input) > 1)
+  {
+    input <- input[,order(colnames(input))]
+    # order the columns by sample names for colors on plot
+  } else
+  {
+    input <- input
+  }
+  
+  ### If statements for determining number of samples and most prevalent species
+  
+  if(nrow(input) >= sppno & ncol(input) > 1)
+  {
     ## Determine most prevalent species
     
-    # cat
-    
-    logic_prop <- as.matrix(t(cat_results)[, 1:ncol(t(cat_results))] != 0)
+    logic_prop <- as.matrix(t(input)[, 1:ncol(t(input))] != 0)
     
     logic_prop <- data.frame(1*logic_prop)
     
@@ -87,110 +61,143 @@ if(ncol(cat_results) > 1) {
     
     sortspecies_propt <- sort(species_propt, decreasing=TRUE)
     
-    cat_top25_species <- data.frame(sortspecies_propt[1:sppno])
+    top_species <- data.frame(sortspecies_propt[1:sppno])
     
-    cat_top25_names <- colnames(cat_top25_species)
+    top_names <- colnames(top_species)
     
-    cat_species_names <- colnames(sortspecies_propt)
+    species_names <- colnames(sortspecies_propt)
     
-    # cat
-    
-    cat_top25_abun <- data.frame(t(cat_results[order(rownames(cat_results)),]))
-    
-    cat_top25_abun <- as.matrix(cat_top25_abun[colnames(cat_top25_abun) %in% cat_top25_names])
-    
-    sample_size <- nrow(cat_top25_abun)
-    species_color <- ncol(cat_top25_abun)
-    qual_col_pals = brewer.pal.info[brewer.pal.info$category == 'qual',]
-    col_vector = unlist(mapply(brewer.pal, qual_col_pals$maxcolors, rownames(qual_col_pals)))
-    
-    color=sample(col_vector, species_color)
-    
-    all_plot <- data.frame(
-      Sample_ID=rep(c(rownames(cat_top25_abun)), each = ncol(cat_top25_abun)),
-      Species=rep(c(colnames(cat_top25_abun)), sample_size),
-      Abundance=unlist(list(as.numeric(t(cat_top25_abun))))
-    )
-    
-    pdf(snakemake@output[[1]], width=25,height=20)
-    
-    print(ggplot(all_plot, aes(fill=Species, y=Abundance, x=Sample_ID)) +
-            geom_bar(position="fill", stat="identity", colour="black")+
-            scale_fill_manual(values = color)+
-            theme(axis.text.x = element_text(angle = 45, vjust = 1,
-                                             size = 12, hjust = 1))+
-            labs(title=paste("CAT taxonomy plot of the top", sppno, "most prevalent species", sep=" ")))
-    #print(ggplot()) is required to prevent corrupted pdf in a loop/function
-    dev.off()
-  }
-} else {
-   if(nrow(cat_results) <= sppno){
     ## Barplot
     
-    cat_abun <- data.frame(t(cat_results))
+    top_abun <- data.frame(t(input[order(rownames(input)),]))
     
-    sample_size <- nrow(cat_abun)
-    species_color <- ncol(cat_abun)
+    top_abun <- as.matrix(top_abun[colnames(top_abun) %in% top_names])
+    
+    sample_size <- nrow(top_abun)
+    species_color <- ncol(top_abun)
     qual_col_pals = brewer.pal.info[brewer.pal.info$category == 'qual',]
     col_vector = unlist(mapply(brewer.pal, qual_col_pals$maxcolors, rownames(qual_col_pals)))
     
     color=sample(col_vector, species_color)
     
     all_plot <- data.frame(
-      Sample_ID=rep(c(rownames(cat_abun)), each = ncol(cat_abun)),
-      Species=rep(c(colnames(cat_abun)), sample_size),
-      Abundance=unlist(list(as.numeric(t(cat_abun))))
+      Sample_ID=rep(c(rownames(top_abun)), each = ncol(top_abun)),
+      Species=rep(c(colnames(top_abun)), sample_size),
+      Abundance=unlist(list(as.numeric(t(top_abun))))
     )
     
-    pdf(snakemake@output[[1]], width=25,height=20)
+    pdf(out_path, width=25,height=20)
     
     print(ggplot(all_plot, aes(fill=Species, y=Abundance, x=Sample_ID)) +
             geom_bar(position="fill", stat="identity", colour="black")+
             scale_fill_manual(values = color)+
             theme(axis.text.x = element_text(angle = 45, vjust = 1,
                                              size = 12, hjust = 1))+
-            labs(title="CAT taxonomy plot of all species identified"))
+            labs(title=paste(assigner, "taxonomy plot of the top", sppno, "most prevalent species", sep=" ")))
     #print(ggplot()) is required to prevent corrupted pdf in a loop/function
     dev.off()
-  } else{
-    ## Determine most abundant species
+  } else if (nrow(input) < sppno & ncol(input) > 1)
+  {
+    ## Barplot
     
-    sortspecies <- sort(data.frame(t(cat_results)), decreasing=TRUE)
+    abun <- data.frame(t(input[order(rownames(input)),]))
     
-    cat_top25_species <- data.frame(sortspecies[1:sppno])
-    
-    cat_top25_names <- colnames(cat_top25_species)
-    
-    cat_species_names <- colnames(sortspecies)
-    
-    # cat
-    
-    cat_top25_abun <- data.frame(t(cat_results))
-    
-    cat_top25_abun <- as.matrix(cat_top25_abun[colnames(cat_top25_abun) %in% cat_top25_names])
-    
-    sample_size <- nrow(cat_top25_abun)
-    species_color <- ncol(cat_top25_abun)
+    sample_size <- nrow(abun)
+    species_color <- ncol(abun)
     qual_col_pals = brewer.pal.info[brewer.pal.info$category == 'qual',]
     col_vector = unlist(mapply(brewer.pal, qual_col_pals$maxcolors, rownames(qual_col_pals)))
     
     color=sample(col_vector, species_color)
     
     all_plot <- data.frame(
-      Sample_ID=rep(c(rownames(cat_top25_abun)), each = ncol(cat_top25_abun)),
-      Species=rep(c(colnames(cat_top25_abun)), sample_size),
-      Abundance=unlist(list(as.numeric(t(cat_top25_abun))))
+      Sample_ID=rep(c(rownames(abun)), each = ncol(abun)),
+      Species=rep(c(colnames(abun)), sample_size),
+      Abundance=unlist(list(as.numeric(t(abun))))
     )
     
-    pdf(snakemake@output[[1]], width=25,height=20)
+    pdf(out_path, width=25,height=20)
     
     print(ggplot(all_plot, aes(fill=Species, y=Abundance, x=Sample_ID)) +
             geom_bar(position="fill", stat="identity", colour="black")+
             scale_fill_manual(values = color)+
             theme(axis.text.x = element_text(angle = 45, vjust = 1,
                                              size = 12, hjust = 1))+
-            labs(title=paste("CAT taxonomy plot of the top", sppno, "most prevalent species", sep=" ")))
+            labs(title=paste(assigner, "taxonomy plot of all species identified", sep=" ")))
+    #print(ggplot()) is required to prevent corrupted pdf in a loop/function
+    dev.off()
+  } else if (nrow(input) >= sppno & ncol(input) < 1)
+  {
+    ## Determine most abundant species
+    
+    sortspecies <- sort(data.frame(t(input)), decreasing=TRUE)
+    
+    top_species <- data.frame(sortspecies[1:sppno])
+    
+    top_names <- colnames(top_species)
+    
+    species_names <- colnames(sortspecies)
+    
+    ## Barplot
+    
+    top_abun <- data.frame(t(input))
+    
+    top_abun <- as.matrix(top_abun[colnames(top_abun) %in% top_names])
+    
+    sample_size <- nrow(top_abun)
+    species_color <- ncol(top_abun)
+    qual_col_pals = brewer.pal.info[brewer.pal.info$category == 'qual',]
+    col_vector = unlist(mapply(brewer.pal, qual_col_pals$maxcolors, rownames(qual_col_pals)))
+    
+    color=sample(col_vector, species_color)
+    
+    all_plot <- data.frame(
+      Sample_ID=rep(c(rownames(top_abun)), each = ncol(top_abun)),
+      Species=rep(c(colnames(top_abun)), sample_size),
+      Abundance=unlist(list(as.numeric(t(top_abun))))
+    )
+    
+    pdf(out_path, width=25,height=20)
+    
+    print(ggplot(all_plot, aes(fill=Species, y=Abundance, x=Sample_ID)) +
+            geom_bar(position="fill", stat="identity", colour="black")+
+            scale_fill_manual(values = color)+
+            theme(axis.text.x = element_text(angle = 45, vjust = 1,
+                                             size = 12, hjust = 1))+
+            labs(title=paste(assigner, "taxonomy plot of the top", sppno, "most prevalent species", sep=" ")))
+    #print(ggplot()) is required to prevent corrupted pdf in a loop/function
+    dev.off()
+  } else (nrow(input) < sppno & ncol(input) < 1)
+  {
+    ## Barplot
+    
+    abun <- data.frame(t(input))
+    
+    sample_size <- nrow(abun)
+    species_color <- ncol(abun)
+    qual_col_pals = brewer.pal.info[brewer.pal.info$category == 'qual',]
+    col_vector = unlist(mapply(brewer.pal, qual_col_pals$maxcolors, rownames(qual_col_pals)))
+    
+    color=sample(col_vector, species_color)
+    
+    all_plot <- data.frame(
+      Sample_ID=rep(c(rownames(abun)), each = ncol(abun)),
+      Species=rep(c(colnames(abun)), sample_size),
+      Abundance=unlist(list(as.numeric(t(abun))))
+    )
+    
+    pdf(out_path, width=25,height=20)
+    
+    print(ggplot(all_plot, aes(fill=Species, y=Abundance, x=Sample_ID)) +
+            geom_bar(position="fill", stat="identity", colour="black")+
+            scale_fill_manual(values = color)+
+            theme(axis.text.x = element_text(angle = 45, vjust = 1,
+                                             size = 12, hjust = 1))+
+            labs(title=paste(assigner, "taxonomy plot of all species identified", sep=" ")))
     #print(ggplot()) is required to prevent corrupted pdf in a loop/function
     dev.off()
   }
 }
+
+### Plot creation
+
+taxonomy_stacked_barplot(cat_results, "CAT", '_cat', snakemake@output[[1]])
