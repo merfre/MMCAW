@@ -159,27 +159,15 @@ if(nrow(cat_results) <= sppno)
     dev.off()
   } else
   {
-    ## Determine most prevalent species
+    ## Determine most abundant species
     
-    # cat
+    sortspecies <- sort(data.frame(t(cat_results)), decreasing=TRUE)
     
-    logic_prop <- as.matrix(t(cat_results)[, 1:ncol(t(cat_results))] != 0)
-    
-    logic_prop <- data.frame(1*logic_prop)
-    
-    logic_prop <- data.frame(1*logic_prop)
-    
-    species_prop <- data.frame(colSums(logic_prop))
-    
-    species_propt <- data.frame(t(species_prop))
-    
-    sortspecies_propt <- sort(species_propt, decreasing=TRUE)
-    
-    cat_top25_species <- data.frame(sortspecies_propt[1:sppno])
+    cat_top25_species <- data.frame(sortspecies[1:sppno])
     
     cat_top25_names <- colnames(cat_top25_species)
     
-    cat_species_names <- colnames(sortspecies_propt)
+    cat_species_names <- colnames(sortspecies)
     
     # cat
     
