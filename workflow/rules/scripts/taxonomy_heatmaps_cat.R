@@ -63,7 +63,7 @@ if(nrow(cat_results) <= sppno)
     dev.off()
     
   } else
-  
+  {
   ## Heatmap
   
   cat_abun <- cat_results
@@ -85,7 +85,7 @@ if(nrow(cat_results) <= sppno)
             cexCol = 1, cexRow = 1, srtCol = 45)
   
   dev.off()
-  
+  }
 } else
 {
   
