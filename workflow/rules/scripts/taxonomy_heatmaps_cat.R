@@ -64,27 +64,27 @@ if(nrow(cat_results) <= sppno)
     
   } else
   {
-  ## Heatmap
+    ## Heatmap
   
-  cat_abun <- cat_results
+    cat_abun <- cat_results
   
-  colnames(cat_abun) <- ""
+    colnames(cat_abun) <- ""
   
-  lwid = c(1,3)
-  lhei = c(1,3,1)
-  lmat = rbind(c(0,3),c(2,1),c(0,4))
-  # Moves the key to the bottom of the figure and ensures the whole title and heatmap are included
+    lwid = c(1,3)
+    lhei = c(1,3,1)
+    lmat = rbind(c(0,3),c(2,1),c(0,4))
+    # Moves the key to the bottom of the figure and ensures the whole title and heatmap are included
   
-  pdf(snakemake@output[[1]], width=25,height=20)
+    pdf(snakemake@output[[1]], width=25,height=20)
   
-  heatmap.2(t(data.matrix(cbind(cat_abun[1], cat_abun[1]))), col = brewer.pal(n = 9, name = "Blues"),
-            main = "Species identified by CAT",
-            margins = c(10,13),lmat = lmat, lwid = lwid, lhei = lhei, labRow = FALSE,
-            key=T, key.title = "",key.ylab = "", key.xlab = "Read counts", ylab=colnames(cat_results),
-            trace="none", Rowv=FALSE, Colv=FALSE,
-            cexCol = 1, cexRow = 1, srtCol = 45)
+    heatmap.2(t(data.matrix(cbind(cat_abun[1], cat_abun[1]))), col = brewer.pal(n = 9, name = "Blues"),
+              main = "Species identified by CAT",
+              margins = c(10,13),lmat = lmat, lwid = lwid, lhei = lhei, labRow = FALSE,
+              key=T, key.title = "",key.ylab = "", key.xlab = "Read counts", ylab=colnames(cat_results),
+              trace="none", Rowv=FALSE, Colv=FALSE,
+              cexCol = 1, cexRow = 1, srtCol = 45)
   
-  dev.off()
+    dev.off()
   }
 } else
 {
