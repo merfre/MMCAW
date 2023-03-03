@@ -163,7 +163,6 @@ else:
 
 ## 5. Optional comparison of taxonomy assigner results
 
-# Compare all assigners
 if config['include_comparison'] == True & config['include_kraken2'] == True & config['include_blast'] == True & config['include_cat'] == True:
     
     include: "rules/taxonomy_assigner_comparison.smk"
