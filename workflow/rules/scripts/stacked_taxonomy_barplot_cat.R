@@ -102,7 +102,6 @@ if(nrow(cat_results) <= sppno)
     #print(ggplot()) is required to prevent corrupted pdf in a loop/function
     dev.off()
   }
-  
 } else
 {
   if(ncol(cat_results) > 1)

@@ -88,7 +88,6 @@ if(nrow(cat_results) <= sppno)
   }
 } else
 {
-  
   if(ncol(cat_results) > 1)
   {
     ## Determine most prevalent species
