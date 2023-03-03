@@ -18,11 +18,11 @@ include_cat: True
 
 ## Kraken2 for taxonomic assignment
 # indicate with True/False whether to include Kraken2
-include_kraken2: False
+include_kraken2: True
 
 ## BLAST for taxonomic assignment
 # indicate with True/False whether to include BLAST
-include_blast: False
+include_blast: True
 
 ## Sourmash for taxonomic assignment
 # indicate with True/False whether to include Sourmash
@@ -35,7 +35,7 @@ include_phylophlan: False
 ## Comparison of selected taxnomic assigners
 # at least 2 assigners above must be toggled to True #
 # indicate with True/False whether to include assigner comparison
-include_comparison: False
+include_comparison: True
 
 ## Resistance gene identification with CARD
 # CAT must be toggled to True for annotation #

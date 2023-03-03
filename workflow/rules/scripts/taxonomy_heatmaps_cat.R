@@ -8,10 +8,9 @@ library("gplots")
 
 sppno = snakemake@config[["prevalence"]]
 
-# cat
+# CAT
 
 cat_results <- read.table(file = snakemake@input[[1]], sep = '\t', header = TRUE, row.names = 1)
-
 
 ### Defining function
 
