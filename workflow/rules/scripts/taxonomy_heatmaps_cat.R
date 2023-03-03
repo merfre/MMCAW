@@ -28,20 +28,20 @@ colnames(cat_results) <- gsub('_cat',' ',colnames(cat_results))
 # Remove "_cat" suffix in column names
 
 if(ncol(cat_results) > 1)
-{
+{{
   cat_results <- cat_results[,order(colnames(cat_results))]
   # order the columns by sample names for colors on plot
-} else
-{
+}} else
+{{
   cat_results <- cat_results
-}
+}}
 
 ### If statement for determining most prevalent species
 
 if(nrow(cat_results) <= sppno)
-{
+{{
   if(ncol(cat_results) > 1)
-  {
+  {{
     ## Heatmap
     
     cat_abun <- data.frame(t(cat_results[order(rownames(cat_results)),]))
@@ -62,8 +62,8 @@ if(nrow(cat_results) <= sppno)
     
     dev.off()
     
-  } else
-  {
+  }} else
+  {{
   ## Heatmap
   
   cat_abun <- cat_results
@@ -85,11 +85,11 @@ if(nrow(cat_results) <= sppno)
             cexCol = 1, cexRow = 1, srtCol = 45)
   
   dev.off()
-  }
-} else
-{
+  }}
+}} else
+{{
   if(ncol(cat_results) > 1)
-  {
+  {{
     ## Determine most prevalent species
     
     # CAT
@@ -133,8 +133,8 @@ if(nrow(cat_results) <= sppno)
               cexCol = 1, cexRow = 1, srtCol = 45)
     
     dev.off()
-  } else
-  {
+  }} else
+  {{
     ## Determine most abundant species
     
     # CAT
@@ -168,5 +168,5 @@ if(nrow(cat_results) <= sppno)
               cexCol = 1, cexRow = 1, srtCol = 45)
     
     dev.off()
-  }
-}
+  }}
+}}
