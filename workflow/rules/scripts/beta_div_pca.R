@@ -24,6 +24,9 @@ kraken2_results <- read.table(file = snakemake@input[[1]], sep = '\t', header = 
 kraken2_results <- kraken2_results[,order(colnames(kraken2_results))]
 # order the columns by sample names for colors on plot
 
+kraken2_results <- aggregate(.~species, kraken2_results,FUN=sum)
+# sums rows of the same species name
+
 # CAT
 
 cat_results <- read.table(file = snakemake@input[[2]], sep = '\t', header = TRUE, row.names = 1)
@@ -31,12 +34,18 @@ cat_results <- read.table(file = snakemake@input[[2]], sep = '\t', header = TRUE
 cat_results <- cat_results[,order(colnames(cat_results))]
 # order the columns by sample names for colors on plot
 
+cat_results <- aggregate(.~species, cat_results,FUN=sum)
+# sums rows of the same species name
+
 # BLAST
 
 blast_results <- read.table(file = snakemake@input[[3]], sep = '\t', header = TRUE, row.names = 1)
 
 blast_results <- blast_results[,order(colnames(blast_results))]
 # order the columns by sample names for colors on plot
+
+blast_results <- aggregate(.~species, blast_results,FUN=sum)
+# sums rows of the same species name
 
 ## Beta diversity PCA plot
 
