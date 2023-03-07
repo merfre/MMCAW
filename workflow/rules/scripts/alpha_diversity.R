@@ -25,8 +25,14 @@ columns_remove <- c(which(colnames(kraken2_results)=="species"))
 kraken2_results <- kraken2_results[-columns_remove]
 # Removes redundant species column
 
-kraken2_results <- kraken2_results[,order(colnames(kraken2_results))]
-# order the columns by sample names for colors on plot
+if(ncol(kraken2_results) > 1)
+{
+  kraken2_results <- kraken2_results[,order(colnames(kraken2_results))]
+  # order the columns by sample names for colors on plot
+} else
+{
+  kraken2_results <- kraken2_results
+}
 
 # CAT
 
@@ -44,8 +50,14 @@ columns_remove <- c(which(colnames(cat_results)=="species"))
 cat_results <- cat_results[-columns_remove]
 # Removes redundant species column
 
-cat_results <- cat_results[,order(colnames(cat_results))]
-# order the columns by sample names for colors on plot
+if(ncol(cat_results) > 1)
+{
+  cat_results <- cat_results[,order(colnames(cat_results))]
+  # order the columns by sample names for colors on plot
+} else
+{
+  cat_results <- cat_results
+}
 
 # BLAST
 
@@ -63,8 +75,14 @@ columns_remove <- c(which(colnames(blast_results)=="species"))
 blast_results <- blast_results[-columns_remove]
 # Removes redundant species column
 
-blast_results <- blast_results[,order(colnames(blast_results))]
-# order the columns by sample names for colors on plot
+if(ncol(blast_results) > 1)
+{
+  blast_results <- blast_results[,order(colnames(blast_results))]
+  # order the columns by sample names for colors on plot
+} else
+{
+  blast_results <- blast_results
+}
 
 ## Alpha diversity table and plot
 
@@ -73,16 +91,18 @@ blast_results <- blast_results[,order(colnames(blast_results))]
 invsimpson_cat <- diversity(t(cat_results),index = "invsimpson")
 invsimpson_cat <- data.frame(t(invsimpson_cat))
 row.names(invsimpson_cat) <- c("invsimpson_cat")
+colnames(invsimpson_cat) <- colnames(cat_results)
 
 evenness_cat <- eventstar(t(cat_results))
 evenness_cat <- data.frame(t(evenness_cat))
-rownames(evenness_cat)[rownames(evenness_cat) == "Estar"] <- "evenness_cat"
 
 shannon_cat <- diversity(t(cat_results), index="shannon")
 shannon_cat <- data.frame(t(shannon_cat))
 row.names(shannon_cat) <- c("shannon_cat")
+colnames(shannon_cat) <- colnames(cat_results)
 
-alpha_div_cat <- rbind(invsimpson_cat,evenness_cat[rownames(evenness_cat) == "evenness_cat",],shannon_cat)
+alpha_div_cat <- rbind(invsimpson_cat,evenness_cat[rownames(evenness_cat) == "Estar",],shannon_cat)
+rownames(alpha_div_cat)[rownames(alpha_div_cat) == "2"] <- "evenness_cat"
 colnames(alpha_div_cat) <- gsub('_cat','',colnames(alpha_div_cat))
 alpha_div_cat <- rownames_to_column(alpha_div_cat, 'analysis')
 
@@ -91,16 +111,18 @@ alpha_div_cat <- rownames_to_column(alpha_div_cat, 'analysis')
 invsimpson_kraken <- diversity(t(kraken2_results),index = "invsimpson")
 invsimpson_kraken <- data.frame(t(invsimpson_kraken))
 row.names(invsimpson_kraken) <- c("invsimpson_kraken")
+colnames(invsimpson_kraken) <- colnames(kraken2_results)
 
 evenness_kraken <- eventstar(t(kraken2_results))
 evenness_kraken <- data.frame(t(evenness_kraken))
-rownames(evenness_kraken)[rownames(evenness_kraken) == "Estar"] <- "evenness_kraken"
 
 shannon_kraken <- diversity(t(kraken2_results), index="shannon")
 shannon_kraken <- data.frame(t(shannon_kraken))
 row.names(shannon_kraken) <- c("shannon_kraken")
+colnames(shannon_kraken) <- colnames(kraken2_results)
 
-alpha_div_kraken <- rbind(invsimpson_kraken,evenness_kraken[rownames(evenness_kraken) == "evenness_kraken",],shannon_kraken)
+alpha_div_kraken <- rbind(invsimpson_kraken,evenness_kraken[rownames(evenness_kraken) == "Estar",],shannon_kraken)
+rownames(alpha_div_kraken)[rownames(alpha_div_kraken) == "2"] <- "evenness_kraken"
 colnames(alpha_div_kraken) <- gsub('_kraken','',colnames(alpha_div_kraken))
 alpha_div_kraken <- rownames_to_column(alpha_div_kraken, 'analysis')
 
@@ -109,16 +131,18 @@ alpha_div_kraken <- rownames_to_column(alpha_div_kraken, 'analysis')
 invsimpson_blast <- diversity(t(blast_results),index = "invsimpson")
 invsimpson_blast <- data.frame(t(invsimpson_blast))
 row.names(invsimpson_blast) <- c("invsimpson_blast")
+colnames(invsimpson_blast) <- colnames(blast_results)
 
 evenness_blast <- eventstar(t(blast_results))
 evenness_blast <- data.frame(t(evenness_blast))
-rownames(evenness_blast)[rownames(evenness_blast) == "Estar"] <- "evenness_blast"
 
 shannon_blast <- diversity(t(blast_results), index="shannon")
 shannon_blast <- data.frame(t(shannon_blast))
 row.names(shannon_blast) <- c("shannon_blast")
+colnames(shannon_blast) <- colnames(blast_results)
 
-alpha_div_blast <- rbind(invsimpson_blast,evenness_blast[rownames(evenness_blast) == "evenness_blast",],shannon_blast)
+alpha_div_blast <- rbind(invsimpson_blast,evenness_blast[rownames(evenness_blast) == "Estar",],shannon_blast)
+rownames(alpha_div_blast)[rownames(alpha_div_blast) == "2"] <- "evenness_blast"
 colnames(alpha_div_blast) <- gsub('_blast','',colnames(alpha_div_blast))
 alpha_div_blast <- rownames_to_column(alpha_div_blast, 'analysis')
 
@@ -128,7 +152,6 @@ alpha_div_table <- full_join(alpha_div_kraken, alpha_div_cat)
 alpha_div_table <- full_join(alpha_div_table, alpha_div_blast)
 alpha_div_table <- column_to_rownames(alpha_div_table, 'analysis')
 
-alpha_div_table <- alpha_div_table[ order(row.names(alpha_div_table)), ]
 write.table(alpha_div_table, file = snakemake@output[[1]], row.names=TRUE, sep="\t")
 
 # Shannon scatter plot
