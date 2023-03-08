@@ -6,7 +6,7 @@ configfile: "config/config.yaml"
 
 rule minimap2_align_human:
   conda:
-    "../envs/environment.yaml"
+    "envs/environment.yaml"
   input:
     "results/preprocessing/trimmed_filtered/{PATHS}_trimmed_filtered.fastq"
   output:
@@ -22,7 +22,7 @@ rule minimap2_align_human:
 
 rule remove_human_sequences:
   conda:
-    "../envs/environment.yaml"
+    "envs/environment.yaml"
   input:
     "results/preprocessing/minimap2/{PATHS}_human_alignment.sam"
   output:
@@ -36,7 +36,7 @@ rule remove_human_sequences:
 
 rule fasta_conversion:
   conda:
-    "../envs/environment.yaml"
+    "envs/environment.yaml"
   input:
     "results/preprocessing/trimmed_filtered_humrm/{PATHS}_trimmed_filtered_humrm.fastq"
   output:
@@ -48,7 +48,7 @@ rule fasta_conversion:
 
 rule qc_report_humrm:
   conda:
-    "../envs/environment.yaml"
+    "envs/environment.yaml"
   input:
     expand("results/preprocessing/fasta_converted/{path}_trimmed_filtered_humrm.fasta", path=PATHS)
   output:
