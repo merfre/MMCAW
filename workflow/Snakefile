@@ -11,6 +11,7 @@ import pandas as pd
 import os
 import fileinput
 import glob
+from pathlib import PurePath
 
 # Load metadata
 
@@ -26,7 +27,8 @@ sample_df['Path'] = None
 for row in range(len(sample_df)):
     sample = sample_df.loc[row,'Sample_ID']
     run = sample_df.loc[row,'Run']
-    path = str().join(run+'/'+sample)
+    p = PurePath(run, sample)
+    path = os.fspath(p)
     sample_df.loc[row,'Path'] = path
 
 # Define wildcards and their constraints for workflow
