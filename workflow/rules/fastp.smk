@@ -6,7 +6,7 @@ configfile: "config/config.yaml"
 
 rule preqc_stats:
   conda:
-    "envs/environment.yaml"
+    "../envs/environment.yaml"
   input:
     fastq_file = expand("resources/{path}.fastq", path=PATHS)
   output:
@@ -20,7 +20,7 @@ rule preqc_stats:
 
 rule fastp:
   conda:
-    "envs/environment.yaml"
+    "../envs/environment.yaml"
   input:
     fastq = "resources/{PATHS}.fastq",
     preqc_stats = "results/qc_reports/sample_pre_qc_report.tsv"
@@ -54,7 +54,7 @@ rule fastp:
 
 rule postqc_stats:
   conda:
-    "envs/environment.yaml"
+    "../envs/environment.yaml"
   input:
     fastq_file = expand("results/preprocessing/trimmed_filtered/{path}_trimmed_filtered.fastq", path=PATHS)
   output:

@@ -6,7 +6,7 @@ configfile: "config/config.yaml"
 
 rule metaflye:
   conda:
-    "envs/environment.yaml"
+    "../envs/environment.yaml"
   input:
     "results/preprocessing/fasta_converted/{PATHS}_trimmed_filtered_humrm.fasta"
   output:
@@ -29,7 +29,7 @@ rule metaflye:
 
 rule assembly_stat_report:
   conda:
-    "envs/environment.yaml"
+    "../envs/environment.yaml"
   input:
     expand("results/preprocessing/flye_results/{path}/assembly.fasta", path=PATHS)
   output:

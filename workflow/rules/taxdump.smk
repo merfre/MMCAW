@@ -11,7 +11,7 @@ FTP = FTPRemoteProvider()
 
 rule get_taxdump:
   conda:
-    "envs/environment.yaml"
+    "../envs/environment.yaml"
   input:
     FTP.remote("ftp.ncbi.nlm.nih.gov/pub/taxonomy/new_taxdump/new_taxdump.zip", keep_local=True)
   output:

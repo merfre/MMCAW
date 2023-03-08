@@ -6,7 +6,7 @@ configfile: "config/config.yaml"
 
 rule cat:
   conda:
-    "envs/environment.yaml"
+    "../envs/environment.yaml"
   input:
     "results/preprocessing/flye_results/{PATHS}/assembly.fasta"
   output:
@@ -30,7 +30,7 @@ rule cat:
 rule cat_report:
 # this rule is to add names to the cat report and the input is the output from the contigs run
   conda:
-    "envs/environment.yaml"
+    "../envs/environment.yaml"
   input:
     "results/cat/{PATHS}.contig2classification.txt"
   output:
@@ -52,7 +52,7 @@ rule cat_report:
 
 rule cat_read_count:
   conda:
-    "envs/environment.yaml"
+    "../envs/environment.yaml"
   input:
     "results/cat/{PATHS}_cat_names.txt"
   params:
@@ -67,7 +67,7 @@ rule cat_read_count:
 rule create_cat_lists:
 # use unix to create lists for R script input
   conda:
-    "envs/environment.yaml"
+    "../envs/environment.yaml"
   input:
     expand("results/cat/cat_read_counts/{path}_cat_counts.tsv", path=PATHS)
   output:
@@ -84,7 +84,7 @@ rule create_cat_lists:
 rule combine_cat_results:
 # use R to merge cat reports by clade
   conda:
-    "envs/environment.yaml"
+    "../envs/environment.yaml"
   input:
     file_path_list = "results/cat/file_path_list.tsv",
     taxonomy_list = "results/cat/taxonomy_list.tsv"
@@ -97,7 +97,7 @@ rule combine_cat_results:
 
 rule taxonomy_summary_barplots_cat:
   conda:
-    "envs/environment.yaml"
+    "../envs/environment.yaml"
   input:
     "results/cat/cat_merged_results.tsv"
   output:
@@ -113,7 +113,7 @@ rule taxonomy_summary_barplots_cat:
 rule cat_tax_levels:
 # separating CAT reports by taxonomy levels using grep
   conda:
-    "envs/environment.yaml"
+    "../envs/environment.yaml"
   input:
     "results/cat/cat_merged_results.tsv"
   output:
@@ -125,7 +125,7 @@ rule cat_tax_levels:
 
 rule species_heatmap_cat:
   conda:
-    "envs/environment.yaml"
+    "../envs/environment.yaml"
   input:
     "results/cat/cat_species.tsv"
   params:
@@ -139,7 +139,7 @@ rule species_heatmap_cat:
 
 rule taxonomy_plots_cat:
   conda:
-    "envs/environment.yaml"
+    "../envs/environment.yaml"
   input:
     "results/cat/cat_species.tsv"
   params:
@@ -153,7 +153,7 @@ rule taxonomy_plots_cat:
 
 rule cat_plots:
   conda:
-    "envs/environment.yaml"
+    "../envs/environment.yaml"
   input:
     tax_plot = "results/cat/taxonomy_plots/cat_taxonomy_plot.pdf",
     barplot = "results/cat/taxonomy_plots/cat_species_barplot.pdf",

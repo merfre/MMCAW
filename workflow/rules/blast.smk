@@ -6,7 +6,7 @@ configfile: "config/config.yaml"
 
 rule blastn:
   conda:
-    "envs/environment.yaml"
+    "../envs/environment.yaml"
   input:
     query = "results/preprocessing/flye_results/{PATHS}/assembly.fasta",
   output:
@@ -35,7 +35,7 @@ rule blastn:
 
 rule taxonomy_to_blast:
   conda:
-    "envs/environment.yaml"
+    "../envs/environment.yaml"
   input:
     blast = "results/blast/blast_results/{PATHS}_blast.tsv",
     rankedlineage = "resources/databases/taxdump/rankedlineage.dmp"
@@ -50,7 +50,7 @@ rule taxonomy_to_blast:
 
 rule mlca:
   conda:
-    "envs/environment.yaml"
+    "../envs/environment.yaml"
   input:
     blast = "results/blast/blast_tax/{PATHS}_blast_tax.tsv"
   output:
@@ -68,7 +68,7 @@ rule mlca:
 
 rule mlca_read_count:
   conda:
-    "envs/environment.yaml"
+    "../envs/environment.yaml"
   input:
     "results/blast/mlca/{PATHS}_lca.tsv"
   params:
@@ -83,7 +83,7 @@ rule mlca_read_count:
 rule create_blast_lists:
 # use unix to create lists for R script input
   conda:
-    "envs/environment.yaml"
+    "../envs/environment.yaml"
   input:
     expand("results/blast/mlca_read_counts/{path}_lca_counts.tsv", path=PATHS)
   output:
@@ -100,7 +100,7 @@ rule create_blast_lists:
 
 rule combine_blast_results:
   conda:
-    "envs/environment.yaml"
+    "../envs/environment.yaml"
   input:
     file_path_list = "results/blast/file_path_list.tsv",
     taxonomy_list = "results/blast/taxonomy_list.tsv"
@@ -113,7 +113,7 @@ rule combine_blast_results:
 
 rule taxonomy_summary_barplots_blast:
   conda:
-    "envs/environment.yaml"
+    "../envs/environment.yaml"
   input:
     "results/blast/blast_merged_results.tsv"
   output:
@@ -129,7 +129,7 @@ rule taxonomy_summary_barplots_blast:
 rule blast_tax_levels:
 # separating blast reports by taxonomy levels using R
   conda:
-    "envs/environment.yaml"
+    "../envs/environment.yaml"
   input:
     "results/blast/blast_merged_results.tsv"
   output:
@@ -141,7 +141,7 @@ rule blast_tax_levels:
 
 rule species_heatmap_blast:
   conda:
-    "envs/environment.yaml"
+    "../envs/environment.yaml"
   input:
     "results/blast/blast_species.tsv"
   params:
@@ -155,7 +155,7 @@ rule species_heatmap_blast:
 
 rule taxonomy_plots_blast:
   conda:
-    "envs/environment.yaml"
+    "../envs/environment.yaml"
   input:
     "results/blast/blast_species.tsv"
   params:
@@ -169,7 +169,7 @@ rule taxonomy_plots_blast:
 
 rule blast_plots:
   conda:
-    "envs/environment.yaml"
+    "../envs/environment.yaml"
   input:
     tax_plot = "results/blast/taxonomy_plots/blast_taxonomy_plot.pdf",
     barplot = "results/blast/taxonomy_plots/blast_species_barplot.pdf",
