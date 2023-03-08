@@ -31,11 +31,10 @@ rule taxonomy_to_kraken:
     "../envs/environment.yaml"
   input:
     kraken = "results/kraken2/{PATHS}_kraken.krk",
-    rankedlineage = "resources/databases/taxdump/rankedlineage.dmp"
+    rankedlineage = "resources/databases/taxdump/rankedlineage.dmp",
+    merged = "resources/databases/taxdump/merged.dmp"
   output:
     kraken_tax = "results/kraken2/{PATHS}_kraken_tax.tsv"
-  params:
-    taxdump = config['taxdump']
   script:
     "scripts/taxonomy_to_kraken.py"
 

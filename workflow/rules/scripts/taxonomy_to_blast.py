@@ -6,7 +6,7 @@
 
 def reference_taxonomy():
     taxonomyDict = {}
-    with open(snakemake.params.taxdump + '/rankedlineage.dmp', 'r') as rankedlineage:
+    with open(snakemake.input.rankedlineage, 'r') as rankedlineage:
         for tax in rankedlineage:
             tax = tax.split('|')
             taxonid = tax[0]
@@ -25,7 +25,7 @@ def reference_taxonomy():
 
 def merged_taxonomy():
     mergedDict = {}
-    with open(snakemake.params.taxdump + '/merged.dmp', 'r') as merged:
+    with open(snakemake.input.merged, 'r') as merged:
         for taxid in merged:
             taxid = taxid.split('|')
             mergedDict[taxid[0].strip()] = taxid[1].strip()

@@ -38,11 +38,10 @@ rule taxonomy_to_blast:
     "../envs/environment.yaml"
   input:
     blast = "results/blast/blast_results/{PATHS}_blast.tsv",
-    rankedlineage = "resources/databases/taxdump/rankedlineage.dmp"
+    rankedlineage = "resources/databases/taxdump/rankedlineage.dmp",
+    merged = "resources/databases/taxdump/merged.dmp"
   output:
     blast_tax = "results/blast/blast_tax/{PATHS}_blast_tax.tsv"
-  params:
-    taxdump = config['taxdump']
   script:
     "scripts/taxonomy_to_blast.py"
 
