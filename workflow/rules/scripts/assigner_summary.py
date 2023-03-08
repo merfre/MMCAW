@@ -8,52 +8,85 @@ import numpy as np
 cat_merged = pd.read_csv(snakemake.input[0], sep='\t')
 
 # separate results at every taxonomy level with taxon as rows and samples as columns
-cat_kingdom = cat_merged[cat_merged.columns[pd.Series(cat_merged.columns).str
-                                                     .endswith('cat')]].set_index(cat_merged['kingdom']).drop('unidentified')
-cat_phylum = cat_merged[cat_merged.columns[pd.Series(cat_merged.columns).str
-                                                    .endswith('cat')]].set_index(cat_merged['phylum']).drop('unidentified')
-cat_class = cat_merged[cat_merged.columns[pd.Series(cat_merged.columns).str
-                                                   .endswith('cat')]].set_index(cat_merged['class']).drop('unidentified')
-cat_order = cat_merged[cat_merged.columns[pd.Series(cat_merged.columns).str
-                                                   .endswith('cat')]].set_index(cat_merged['order']).drop('unidentified')
-cat_family = cat_merged[cat_merged.columns[pd.Series(cat_merged.columns).str
-                                                    .endswith('cat')]].set_index(cat_merged['family']).drop('unidentified')
-cat_species = cat_merged[cat_merged.columns[pd.Series(cat_merged.columns).str
-                                                     .endswith('cat')]].set_index(cat_merged['species']).drop('unidentified')
+cat_kingdom = cat_merged[~cat_merged.kingdom.str.fullmatch("unidentified")]
+cat_kingdom= cat_kingdom[cat_kingdom.columns[pd.Series(cat_kingdom.columns).str
+                                                     .endswith('cat')]].set_index(cat_kingdom['kingdom'])
+
+cat_phylum = cat_merged[~cat_merged.phylum.str.fullmatch("unidentified")]
+cat_phylum = cat_phylum[cat_phylum.columns[pd.Series(cat_phylum.columns).str
+                                                    .endswith('cat')]].set_index(cat_phylum['phylum'])
+
+cat_class = cat_merged[~cat_merged['class'].str.fullmatch("unidentified")]
+cat_class = cat_class[cat_class.columns[pd.Series(cat_class.columns).str
+                                                   .endswith('cat')]].set_index(cat_class['class'])
+
+cat_order = cat_merged[~cat_merged.order.str.fullmatch("unidentified")]
+cat_order = cat_order[cat_order.columns[pd.Series(cat_order.columns).str
+                                                   .endswith('cat')]].set_index(cat_order['order'])
+
+cat_family = cat_merged[~cat_merged.family.str.fullmatch("unidentified")]
+cat_family = cat_family[cat_family.columns[pd.Series(cat_family.columns).str
+                                                    .endswith('cat')]].set_index(cat_family['family'])
+
+cat_species = cat_merged[~cat_merged.species.str.fullmatch("unidentified")]
+cat_species= cat_species[cat_species.columns[pd.Series(cat_species.columns).str
+                                                     .endswith('cat')]].set_index(cat_species['species'])
 # to remove unclassified reads rows with u, unknown, or unidentified unidentified assignment
 
 # load kraken2 results table with all samples and all taxonomy levels
 kraken_merged = pd.read_csv(snakemake.input[1], sep='\t')
 
-kraken_kingdom = kraken_merged[kraken_merged.columns[pd.Series(kraken_merged.columns).str
-                                                     .endswith('kraken')]].set_index(kraken_merged['kingdom']).drop('unidentified')
-kraken_phylum = kraken_merged[kraken_merged.columns[pd.Series(kraken_merged.columns).str
-                                                    .endswith('kraken')]].set_index(kraken_merged['phylum']).drop('unidentified')
-kraken_class = kraken_merged[kraken_merged.columns[pd.Series(kraken_merged.columns).str
-                                                   .endswith('kraken')]].set_index(kraken_merged['class']).drop('unidentified')
-kraken_order = kraken_merged[kraken_merged.columns[pd.Series(kraken_merged.columns).str
-                                                   .endswith('kraken')]].set_index(kraken_merged['order']).drop('unidentified')
-kraken_family = kraken_merged[kraken_merged.columns[pd.Series(kraken_merged.columns).str
-                                                    .endswith('kraken')]].set_index(kraken_merged['family']).drop('unidentified')
-kraken_species = kraken_merged[kraken_merged.columns[pd.Series(kraken_merged.columns).str
-                                                     .endswith('kraken')]].set_index(kraken_merged['species']).drop('unidentified')
+kraken_kingdom = kraken_merged[~kraken_merged.kingdom.str.fullmatch("unidentified")]
+kraken_kingdom= kraken_kingdom[kraken_kingdom.columns[pd.Series(kraken_kingdom.columns).str
+                                                     .endswith('kraken')]].set_index(kraken_kingdom['kingdom'])
+
+kraken_phylum = kraken_merged[~kraken_merged.phylum.str.fullmatch("unidentified")]
+kraken_phylum = kraken_phylum[kraken_phylum.columns[pd.Series(kraken_phylum.columns).str
+                                                    .endswith('kraken')]].set_index(kraken_phylum['phylum'])
+
+kraken_class = kraken_merged[~kraken_merged['class'].str.fullmatch("unidentified")]
+kraken_class = kraken_class[kraken_class.columns[pd.Series(kraken_class.columns).str
+                                                   .endswith('kraken')]].set_index(kraken_class['class'])
+
+kraken_order = kraken_merged[~kraken_merged.order.str.fullmatch("unidentified")]
+kraken_order = kraken_order[kraken_order.columns[pd.Series(kraken_order.columns).str
+                                                   .endswith('kraken')]].set_index(kraken_order['order'])
+
+kraken_family = kraken_merged[~kraken_merged.family.str.fullmatch("unidentified")]
+kraken_family = kraken_family[kraken_family.columns[pd.Series(kraken_family.columns).str
+                                                    .endswith('kraken')]].set_index(kraken_family['family'])
+
+kraken_species = kraken_merged[~kraken_merged.species.str.fullmatch("unidentified")]
+kraken_species= kraken_species[kraken_species.columns[pd.Series(kraken_species.columns).str
+                                                     .endswith('kraken')]].set_index(kraken_species['species'])
 # to remove unclassified reads rows with u, unknown, or unidentified unidentified assignment
 
 # load blast results table with all samples and all taxonomy levels
 blast_merged = pd.read_csv(snakemake.input[2], sep='\t')
 
-blast_kingdom = blast_merged[blast_merged.columns[pd.Series(blast_merged.columns).str
-                                                     .endswith('blast')]].set_index(blast_merged['kingdom']).drop('u')
-blast_phylum = blast_merged[blast_merged.columns[pd.Series(blast_merged.columns).str
-                                                    .endswith('blast')]].set_index(blast_merged['phylum']).drop('unidentified')
-blast_class = blast_merged[blast_merged.columns[pd.Series(blast_merged.columns).str
-                                                   .endswith('blast')]].set_index(blast_merged['class']).drop('unidentified')
-blast_order = blast_merged[blast_merged.columns[pd.Series(blast_merged.columns).str
-                                                   .endswith('blast')]].set_index(blast_merged['order']).drop('unidentified')
-blast_family = blast_merged[blast_merged.columns[pd.Series(blast_merged.columns).str
-                                                    .endswith('blast')]].set_index(blast_merged['family']).drop('unidentified')
-blast_species = blast_merged[blast_merged.columns[pd.Series(blast_merged.columns).str
-                                                     .endswith('blast')]].set_index(blast_merged['species']).drop('unidentified')
+blast_kingdom = blast_merged[~blast_merged.kingdom.str.fullmatch("u")]
+blast_kingdom= blast_kingdom[blast_kingdom.columns[pd.Series(blast_kingdom.columns).str
+                                                     .endswith('blast')]].set_index(blast_kingdom['kingdom'])
+
+blast_phylum = blast_merged[~blast_merged.phylum.str.fullmatch("unidentified")]
+blast_phylum = blast_phylum[blast_phylum.columns[pd.Series(blast_phylum.columns).str
+                                                    .endswith('blast')]].set_index(blast_phylum['phylum'])
+
+blast_class = blast_merged[~blast_merged['class'].str.fullmatch("unidentified")]
+blast_class = blast_class[blast_class.columns[pd.Series(blast_class.columns).str
+                                                   .endswith('blast')]].set_index(blast_class['class'])
+
+blast_order = blast_merged[~blast_merged.order.str.fullmatch("unidentified")]
+blast_order = blast_order[blast_order.columns[pd.Series(blast_order.columns).str
+                                                   .endswith('blast')]].set_index(blast_order['order'])
+
+blast_family = blast_merged[~blast_merged.family.str.fullmatch("unidentified")]
+blast_family = blast_family[blast_family.columns[pd.Series(blast_family.columns).str
+                                                    .endswith('blast')]].set_index(blast_family['family'])
+
+blast_species = blast_merged[~blast_merged.species.str.fullmatch("unidentified")]
+blast_species= blast_species[blast_species.columns[pd.Series(blast_species.columns).str
+                                                     .endswith('blast')]].set_index(blast_species['species'])
 # to remove unclassified reads rows with u, unknown, or unidentified unidentified assignment
 
 # create a taxonomy assigner summary table
