@@ -1,0 +1,99 @@
+###  Config file for preliminary skin microbiome metagenomic snakemake workflow ###
+
+conda_envs: "workflow/envs/environment.yml"
+
+metadata_file: "config/unit_test_metadata.txt"
+
+threads: "10"
+
+### Analysis options ###
+
+## Database creation subworkflow
+# indicate with True/False whether to include database creation
+include_db_creation: False
+
+## Contig annotation tool for taxonomic assignment
+# indicate with True/False whether to include CAT
+include_cat: True
+
+## Kraken2 for taxonomic assignment
+# indicate with True/False whether to include Kraken2
+include_kraken2: True
+
+## BLAST for taxonomic assignment
+# indicate with True/False whether to include BLAST
+include_blast: True
+
+## Sourmash for taxonomic assignment
+# indicate with True/False whether to include Sourmash
+include_sourmash: False
+
+## PhyloPhlAn for phylogenetic analysis
+# indicate with True/False whether to include PhyloPhlAn
+include_phylophlan: False
+
+## Comparison of selected taxnomic assigners
+# at least 2 assigners above must be toggled to True #
+# indicate with True/False whether to include assigner comparison
+include_comparison: True
+
+## Resistance gene identification with CARD
+# CAT must be toggled to True for annotation #
+# indicate with True/False whether to include ARG identification
+include_rgi: False
+
+### Database locations ###
+# Place your reference databases in these locations or edit to specify the location
+
+filtering_reference: "resources/databases/human_reference/GCF_000001405.39_GRCh38.p13_genomic.fna"
+#"workflow/rules/Database_Creation_Workflow/results/human_reference/GCF_000001405.39_GRCh38.p13_genomic.fna"
+
+kraken_db: "resources/databases/kraken2_std_database"
+
+cat_db: "resources/databases/CAT_database"
+#"workflow/rules/Database_Creation_Workflow/results/CAT/CAT_database*"
+cat_taxonomy: "resources/databases/CAT_taxonomy"
+#"workflow/rules/Database_Creation_Workflow/results/CAT/CAT_taxonomy*"
+
+blast_db: "resources/databases/NCBI_blast_database/nt"
+#"workflow/rules/Database_Creation_Workflow/results/NCBI_blast_database/nt"
+
+taxdump: "resources/databases/taxdump"
+#"workflow/rules/Database_Creation_Workflow/results/taxdump"
+
+### Parameters ###
+
+# For fastp
+qualified_quality_phred: "7" # quality value that a base is qualified - Default 15 means phred quality >=Q15 is qualified.
+unqualified_percent_limit: "40" # how many percents of bases are allowed to be unqualified (0~100) - Default 40 means 40%
+average_qual: "0" # if one read's average quality score <avg_qual, then this read/pair is discarded - Default 0 means no requirement (int [=0])
+min_length: "100" # minimum length requirement
+front_trim: "0" # number of bases to trim off the front of the read
+tail_trim: "0" # number of bases to trim off the tail of the read
+
+# For metaflye
+read_type: "--nano-raw"
+# --nano-corr: is ONT reads that were corrected with other methods (<3% error)
+# --nano-raw: ONT regular reads, pre-Guppy5 (<20% error)
+minimum_overlap: "1000"
+# minimum overlap length for two reads to be considered overlapping, Typical value is 3k-10k (and down to 1k for datasets with shorter read length)
+
+# For kraken2
+kraken_confidence: "0.05" #specify a threshold score in the [0,1] interval;
+# classifier then will adjust labels up the tree until the label's score meets or exceeds that threshold
+
+# For BLAST
+BLAST_min_perc_ident: "70"
+BLAST_min_evalue: "1e-5"
+BLAST_max_target_seqs: "5"
+
+# For LCA assignment
+MLCA_bitscore: "500"
+MLCA_identity: "70"
+MCLA_coverage: "60"
+MLCA_majority: "70"
+MLCA_hits: "1"
+
+# For plot creation
+prevalence: "25" # Number of most prevalent species to be included in final taxonomy plots
+# 25 if recommended and greater than 50 is discouraged because plots will be difficult to read
