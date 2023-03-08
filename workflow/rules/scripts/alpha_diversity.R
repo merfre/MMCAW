@@ -131,7 +131,7 @@ if(sample_size > 1)
   abline(fit, col = "black")
   
   dev.off()
-  
+
 } else 
 {
   
@@ -166,13 +166,13 @@ if(sample_size > 1)
 
 # Side by side shannon barplot
 
-pdf(snakemake@output[[5]], width=25,height=20)
+  pdf(snakemake@output[[5]], width=25,height=20)
 
-par(mar=c(11,4,4,4))
-barplot(t(shannon_table), main="Barplot of BLAST, CAT, and Kraken2 shannon scores",
-        xlab="Samples", ylab="Shannon Scores", col=c("blue","purple","red"),
-        beside=TRUE, ylim=c(0,4), las=2)
-legend(x=0,y=4, legend=c("BLAST","CAT","Kraken2"),
-       fill=c("blue","purple","red"), bty="n", xpd=TRUE, cex=0.75, horiz=TRUE)
+  par(mar=c(11,4,4,4))
+  barplot(t(shannon_table), main="Barplot of BLAST, CAT, and Kraken2 shannon scores",
+          xlab="Samples", ylab="Shannon Scores", col=c("blue","purple","red"),
+          beside=TRUE, ylim=c(0,4), las=2)
+  legend(x=1,y=4, legend=c("BLAST","CAT","Kraken2"),
+         fill=c("blue","purple","red"), bty="n", xpd=TRUE, cex=0.75, horiz=TRUE)
 
-dev.off()
+  dev.off()
