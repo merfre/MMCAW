@@ -18,6 +18,7 @@ rule get_taxdump:
     taxdump = directory("resources/databases/taxdump"),
     nodes = "resources/databases/taxdump/nodes.dmp",
     rankedlineage = "resources/databases/taxdump/rankedlineage.dmp",
+    merged = "resources/databases/taxdump/merged.dmp",
     taxdump_version = "resources/databases/taxdump_version.txt"
   shell:
     """
