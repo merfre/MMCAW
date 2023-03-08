@@ -8,45 +8,43 @@ library("gplots")
 
 sppno = snakemake@config[["prevalence"]]
 
-# CAT
-
-cat_results <- read.table(file = snakemake@input[[1]], sep = '\t', header = TRUE, row.names = 1)
-
 ### Defining function
 
 taxonomy_heatmap <- function(input, assigner, suffix, out_path) {
   
-  input <- input[!(input$species=="unidentified" | input$species=="unknown bacterium"),]
+  results <- read.table(file = input, sep = '\t', header = TRUE, row.names = 1)
+  
+  results <- results[!(results$species=="unidentified" | results$species=="unknown bacterium"),]
   # remove results completely unclassified
   
-  row.names(input) <- make.names(input$species, unique=TRUE)
+  row.names(results) <- make.names(results$species, unique=TRUE)
   # Changes row names to species names
   
-  columns_remove <- c(which(colnames(input)=="species"))
+  columns_remove <- c(which(colnames(results)=="species"))
   # determine which redundant columns to remove
   
-  input <- input[-columns_remove]
+  results <- results[-columns_remove]
   # Removes redundant species column
   
-  colnames(input) <- gsub(suffix,' ',colnames(input))
+  colnames(results) <- gsub(suffix,' ',colnames(results))
   # Remove assigner suffix in column names
   
-  if(ncol(input) > 1)
+  if(ncol(results) > 1)
   {
-    input <- input[,order(colnames(input))]
+    results <- results[,order(colnames(results))]
     # order the columns by sample names for colors on plot
   } else
   {
-    input <- input
+    results <- results
   }
   
   ### If statements for determining number of samples and most prevalent species
   
-  if(nrow(input) >= sppno & ncol(input) > 1)
+  if(nrow(results) >= sppno & ncol(results) > 1)
   {
     ## Determine most prevalent species
     
-    logic_prop <- as.matrix(t(input)[, 1:ncol(t(input))] != 0)
+    logic_prop <- as.matrix(t(results)[, 1:ncol(t(results))] != 0)
     
     logic_prop <- data.frame(1*logic_prop)
     
@@ -66,7 +64,7 @@ taxonomy_heatmap <- function(input, assigner, suffix, out_path) {
     
     ## Heatmap
     
-    top_abun <- data.frame(t(input[order(rownames(input)),]))
+    top_abun <- data.frame(t(results[order(rownames(results)),]))
     
     top_abun <- as.matrix(top_abun[colnames(top_abun) %in% top_names])
     
@@ -85,11 +83,11 @@ taxonomy_heatmap <- function(input, assigner, suffix, out_path) {
               cexCol = 1, cexRow = 1, srtCol = 45)
     
     dev.off()
-  } else if (nrow(input) < sppno & ncol(input) > 1)
+  } else if (nrow(results) < sppno & ncol(results) > 1)
   {
     ## Heatmap
     
-    abun <- data.frame(t(input[order(rownames(input)),]))
+    abun <- data.frame(t(results[order(rownames(results)),]))
     
     lwid = c(1,3)
     lhei = c(1,3,1)
@@ -106,11 +104,11 @@ taxonomy_heatmap <- function(input, assigner, suffix, out_path) {
               cexCol = 1, cexRow = 1, srtCol = 45)
     
     dev.off()
-  } else if (nrow(input) >= sppno & ncol(input) < 1)
+  } else if (nrow(results) >= sppno & ncol(results) < 1)
   {
     ## Determine most abundant species
     
-    sortspecies <- sort(data.frame(t(input)), decreasing=TRUE)
+    sortspecies <- sort(data.frame(t(results)), decreasing=TRUE)
     
     top_species <- data.frame(sortspecies[1:sppno])
     
@@ -120,7 +118,7 @@ taxonomy_heatmap <- function(input, assigner, suffix, out_path) {
     
     ## Heatmap
     
-    top_abun <- data.frame(t(input))
+    top_abun <- data.frame(t(results))
     
     top_abun <- as.matrix(top_abun[colnames(top_abun) %in% top_names])
     
@@ -139,11 +137,11 @@ taxonomy_heatmap <- function(input, assigner, suffix, out_path) {
               cexCol = 1, cexRow = 1, srtCol = 45)
     
     dev.off()
-  } else (nrow(input) < sppno & ncol(input) < 1)
+  } else (nrow(results) < sppno & ncol(results) < 1)
   {
     ## Heatmap
     
-    abun <- input
+    abun <- results
     
     colnames(abun) <- ""
     
@@ -157,7 +155,7 @@ taxonomy_heatmap <- function(input, assigner, suffix, out_path) {
     heatmap.2(t(data.matrix(cbind(abun[1], abun[1]))), col = brewer.pal(n = 9, name = "Blues"),
               main = paste("Species identified by", assigner, sep=" "),
               margins = c(10,13),lmat = lmat, lwid = lwid, lhei = lhei, labRow = FALSE,
-              key=T, key.title = "",key.ylab = "", key.xlab = "Read counts", ylab=colnames(input),
+              key=T, key.title = "",key.ylab = "", key.xlab = "Read counts", ylab=colnames(results),
               trace="none", Rowv=FALSE, Colv=FALSE,
               cexCol = 1, cexRow = 1, srtCol = 45)
     
@@ -167,4 +165,4 @@ taxonomy_heatmap <- function(input, assigner, suffix, out_path) {
 
 ### Plot creation
 
-taxonomy_heatmap(cat_results, "CAT", '_cat', snakemake@output[[1]])
+taxonomy_heatmap(snakemake@input[[1]], "CAT", '_cat', snakemake@output[[1]])
