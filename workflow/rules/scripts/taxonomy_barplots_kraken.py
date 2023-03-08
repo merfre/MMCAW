@@ -11,18 +11,29 @@ prevno = snakemake.config["prevalence"]
 # load kraken results table with all samples and all taxonomy levels
 kraken_merged = pd.read_csv(snakemake.input[0], sep='\t')
 
-kraken_kingdom = kraken_merged[kraken_merged.columns[pd.Series(kraken_merged.columns).str
-                                                     .endswith('kraken')]].set_index(kraken_merged['kingdom']).drop('unidentified')
-kraken_phylum = kraken_merged[kraken_merged.columns[pd.Series(kraken_merged.columns).str
-                                                    .endswith('kraken')]].set_index(kraken_merged['phylum']).drop('unidentified')
-kraken_class = kraken_merged[kraken_merged.columns[pd.Series(kraken_merged.columns).str
-                                                   .endswith('kraken')]].set_index(kraken_merged['class']).drop('unidentified')
-kraken_order = kraken_merged[kraken_merged.columns[pd.Series(kraken_merged.columns).str
-                                                   .endswith('kraken')]].set_index(kraken_merged['order']).drop('unidentified')
-kraken_family = kraken_merged[kraken_merged.columns[pd.Series(kraken_merged.columns).str
-                                                    .endswith('kraken')]].set_index(kraken_merged['family']).drop('unidentified')
-kraken_species = kraken_merged[kraken_merged.columns[pd.Series(kraken_merged.columns).str
-                                                     .endswith('kraken')]].set_index(kraken_merged['species']).drop('unidentified')
+kraken_kingdom = kraken_merged[~kraken_merged.kingdom.str.fullmatch("unidentified")]
+kraken_kingdom= kraken_kingdom[kraken_kingdom.columns[pd.Series(kraken_kingdom.columns).str
+                                                     .endswith('kraken')]].set_index(kraken_kingdom['kingdom'])
+
+kraken_phylum = kraken_merged[~kraken_merged.phylum.str.fullmatch("unidentified")]
+kraken_phylum = kraken_phylum[kraken_phylum.columns[pd.Series(kraken_phylum.columns).str
+                                                    .endswith('kraken')]].set_index(kraken_phylum['phylum'])
+
+kraken_class = kraken_merged[~kraken_merged['class'].str.fullmatch("unidentified")]
+kraken_class = kraken_class[kraken_class.columns[pd.Series(kraken_class.columns).str
+                                                   .endswith('kraken')]].set_index(kraken_class['class'])
+
+kraken_order = kraken_merged[~kraken_merged.order.str.fullmatch("unidentified")]
+kraken_order = kraken_order[kraken_order.columns[pd.Series(kraken_order.columns).str
+                                                   .endswith('kraken')]].set_index(kraken_order['order'])
+
+kraken_family = kraken_merged[~kraken_merged.family.str.fullmatch("unidentified")]
+kraken_family = kraken_family[kraken_family.columns[pd.Series(kraken_family.columns).str
+                                                    .endswith('kraken')]].set_index(kraken_family['family'])
+
+kraken_species = kraken_merged[~kraken_merged.species.str.fullmatch("unidentified")]
+kraken_species= kraken_species[kraken_species.columns[pd.Series(kraken_species.columns).str
+                                                     .endswith('kraken')]].set_index(kraken_species['species'])
 # to remove unclassified reads rows with u, unknown, or unidentified unidentified assignment
 
 # barplot of top most prevalent species from kraken results

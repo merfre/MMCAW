@@ -11,18 +11,29 @@ prevno = snakemake.config["prevalence"]
 # load cat results table with all samples and all taxonomy levels
 cat_merged = pd.read_csv(snakemake.input[0], sep='\t')
 
-cat_kingdom = cat_merged[cat_merged.columns[pd.Series(cat_merged.columns).str
-                                                     .endswith('cat')]].set_index(cat_merged['kingdom']).drop('unidentified')
-cat_phylum = cat_merged[cat_merged.columns[pd.Series(cat_merged.columns).str
-                                                    .endswith('cat')]].set_index(cat_merged['phylum']).drop('unidentified')
-cat_class = cat_merged[cat_merged.columns[pd.Series(cat_merged.columns).str
-                                                   .endswith('cat')]].set_index(cat_merged['class']).drop('unidentified')
-cat_order = cat_merged[cat_merged.columns[pd.Series(cat_merged.columns).str
-                                                   .endswith('cat')]].set_index(cat_merged['order']).drop('unidentified')
-cat_family = cat_merged[cat_merged.columns[pd.Series(cat_merged.columns).str
-                                                    .endswith('cat')]].set_index(cat_merged['family']).drop('unidentified')
-cat_species = cat_merged[cat_merged.columns[pd.Series(cat_merged.columns).str
-                                                     .endswith('cat')]].set_index(cat_merged['species']).drop('unidentified')
+cat_kingdom = cat_merged[~cat_merged.kingdom.str.fullmatch("unidentified")]
+cat_kingdom= cat_kingdom[cat_kingdom.columns[pd.Series(cat_kingdom.columns).str
+                                                     .endswith('cat')]].set_index(cat_kingdom['kingdom'])
+
+cat_phylum = cat_merged[~cat_merged.phylum.str.fullmatch("unidentified")]
+cat_phylum = cat_phylum[cat_phylum.columns[pd.Series(cat_phylum.columns).str
+                                                    .endswith('cat')]].set_index(cat_phylum['phylum'])
+
+cat_class = cat_merged[~cat_merged['class'].str.fullmatch("unidentified")]
+cat_class = cat_class[cat_class.columns[pd.Series(cat_class.columns).str
+                                                   .endswith('cat')]].set_index(cat_class['class'])
+
+cat_order = cat_merged[~cat_merged.order.str.fullmatch("unidentified")]
+cat_order = cat_order[cat_order.columns[pd.Series(cat_order.columns).str
+                                                   .endswith('cat')]].set_index(cat_order['order'])
+
+cat_family = cat_merged[~cat_merged.family.str.fullmatch("unidentified")]
+cat_family = cat_family[cat_family.columns[pd.Series(cat_family.columns).str
+                                                    .endswith('cat')]].set_index(cat_family['family'])
+
+cat_species = cat_merged[~cat_merged.species.str.fullmatch("unidentified")]
+cat_species= cat_species[cat_species.columns[pd.Series(cat_species.columns).str
+                                                     .endswith('cat')]].set_index(cat_species['species'])
 # to remove unclassified reads rows with u, unknown, or unidentified unidentified assignment
 
 # barplot of top most prevalent species from cat results

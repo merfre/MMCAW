@@ -11,18 +11,29 @@ prevno = snakemake.config["prevalence"]
 # load blast results table with all samples and all taxonomy levels
 blast_merged = pd.read_csv(snakemake.input[0], sep='\t')
 
-blast_kingdom = blast_merged[blast_merged.columns[pd.Series(blast_merged.columns).str
-                                                     .endswith('blast')]].set_index(blast_merged['kingdom']).drop('u')
-blast_phylum = blast_merged[blast_merged.columns[pd.Series(blast_merged.columns).str
-                                                    .endswith('blast')]].set_index(blast_merged['phylum']).drop('unidentified')
-blast_class = blast_merged[blast_merged.columns[pd.Series(blast_merged.columns).str
-                                                   .endswith('blast')]].set_index(blast_merged['class']).drop('unidentified')
-blast_order = blast_merged[blast_merged.columns[pd.Series(blast_merged.columns).str
-                                                   .endswith('blast')]].set_index(blast_merged['order']).drop('unidentified')
-blast_family = blast_merged[blast_merged.columns[pd.Series(blast_merged.columns).str
-                                                    .endswith('blast')]].set_index(blast_merged['family']).drop('unidentified')
-blast_species = blast_merged[blast_merged.columns[pd.Series(blast_merged.columns).str
-                                                     .endswith('blast')]].set_index(blast_merged['species']).drop('unidentified')
+blast_kingdom = blast_merged[~blast_merged.kingdom.str.fullmatch("u")]
+blast_kingdom= blast_kingdom[blast_kingdom.columns[pd.Series(blast_kingdom.columns).str
+                                                     .endswith('blast')]].set_index(blast_kingdom['kingdom'])
+
+blast_phylum = blast_merged[~blast_merged.phylum.str.fullmatch("unidentified")]
+blast_phylum = blast_phylum[blast_phylum.columns[pd.Series(blast_phylum.columns).str
+                                                    .endswith('blast')]].set_index(blast_phylum['phylum'])
+
+blast_class = blast_merged[~blast_merged['class'].str.fullmatch("unidentified")]
+blast_class = blast_class[blast_class.columns[pd.Series(blast_class.columns).str
+                                                   .endswith('blast')]].set_index(blast_class['class'])
+
+blast_order = blast_merged[~blast_merged.order.str.fullmatch("unidentified")]
+blast_order = blast_order[blast_order.columns[pd.Series(blast_order.columns).str
+                                                   .endswith('blast')]].set_index(blast_order['order'])
+
+blast_family = blast_merged[~blast_merged.family.str.fullmatch("unidentified")]
+blast_family = blast_family[blast_family.columns[pd.Series(blast_family.columns).str
+                                                    .endswith('blast')]].set_index(blast_family['family'])
+
+blast_species = blast_merged[~blast_merged.species.str.fullmatch("unidentified")]
+blast_species= blast_species[blast_species.columns[pd.Series(blast_species.columns).str
+                                                     .endswith('blast')]].set_index(blast_species['species'])
 # to remove unclassified reads rows with u, unknown, or unidentified unidentified assignment
 
 # barplot of top most prevalent species from blast results
