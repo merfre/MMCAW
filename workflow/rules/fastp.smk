@@ -5,8 +5,8 @@ configfile: "config/config.yaml"
 ### Pre-QC read report
 
 rule preqc_stats:
-  #conda:
-    #"../workflow/envs/environment.yaml"
+  conda:
+    "envs/environment.yaml"
   input:
     fastq_file = expand("resources/{path}.fastq", path=PATHS)
   output:
@@ -19,8 +19,8 @@ rule preqc_stats:
 ### Run fastp
 
 rule fastp:
-  #conda:
-    #"../workflow/envs/environment.yaml"
+  conda:
+    "envs/environment.yaml"
   input:
     fastq = "resources/{PATHS}.fastq",
     preqc_stats = "results/qc_reports/sample_pre_qc_report.tsv"
@@ -53,8 +53,8 @@ rule fastp:
 ### Post-QC read report
 
 rule postqc_stats:
-  #conda:
-    #"../workflow/envs/environment.yaml"
+  conda:
+    "envs/environment.yaml"
   input:
     fastq_file = expand("results/preprocessing/trimmed_filtered/{path}_trimmed_filtered.fastq", path=PATHS)
   output:

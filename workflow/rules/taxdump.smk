@@ -10,8 +10,8 @@ FTP = FTPRemoteProvider()
 ### Retrieve taxdump directory from NCBI
 
 rule get_taxdump:
-  #conda:
-    #"../workflow/envs/environment.yml"
+  conda:
+    "envs/environment.yaml"
   input:
     FTP.remote("ftp.ncbi.nlm.nih.gov/pub/taxonomy/new_taxdump/new_taxdump.zip", keep_local=True)
   output:

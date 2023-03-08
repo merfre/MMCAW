@@ -5,8 +5,8 @@ configfile: "config/config.yaml"
 ### Creating alpha diversity scores and plots for all taxonomic assigners
 
 rule alpha_diversity:
-   #conda:
-    #"../workflow/envs/environment.yaml"
+  conda:
+    "envs/environment.yaml"
   input:
     cat = "results/cat/cat_species.tsv",
     kraken = "results/kraken2/kraken2_species.tsv",
@@ -23,8 +23,8 @@ rule alpha_diversity:
 ### Creating beta diversity PCA plot of all taxonomic assigners
 
 rule beta_diversity_pca:
-  #conda:
-    #"../workflow/envs/environment.yaml"
+  conda:
+    "envs/environment.yaml"
   input:
     kraken2 = "results/kraken2/kraken2_species.tsv",
     cat = "results/cat/cat_species.tsv",
@@ -37,8 +37,8 @@ rule beta_diversity_pca:
 ### Creating summary table of taxonomic assigner results to compare
 
 rule taxonomy_assigner_summary:
-  #conda:
-    #"../workflow/envs/environment.yaml"
+  conda:
+    "envs/environment.yaml"
   input:
     cat_results = "results/cat/cat_merged_results.tsv",
     kraken_results = "results/kraken2/kraken_merged_results.tsv",
@@ -53,8 +53,8 @@ rule taxonomy_assigner_summary:
 ### Comparing taxonomy assignment for each read of all assigner_summary
 
 rule taxonomy_comparison:
-  #conda:
-    #"../workflow/envs/environment.yaml"
+  conda:
+    "envs/environment.yaml"
   input:
     cat_results = "results/cat/{PATHS}_cat_names.txt",
     kraken_results = "results/kraken2/{PATHS}_kraken_tax.tsv",
@@ -71,8 +71,8 @@ rule taxonomy_comparison:
 
 rule create_summary_lists:
 # use unix to create lists for R script input
-  #conda:
-    #"../workflow/envs/environment.yaml"
+  conda:
+    "envs/environment.yaml"
   input:
     expand("results/assigner_comparison/{path}_comparison_summary.tsv", path=PATHS)
   output:
@@ -83,8 +83,8 @@ rule create_summary_lists:
 ### Summary of taxonomy comparison of all samples
 
 rule combine_tax_comparison:
-  #conda:
-    #"../workflow/envs/environment.yaml"
+  conda:
+    "envs/environment.yaml"
   input:
     file_path_list = "results/assigner_comparison/file_path_list.tsv"
   output:
@@ -95,8 +95,8 @@ rule combine_tax_comparison:
 ### List taxonomy assigner comparison outputs for target rule
 
 rule comparison_outputs:
-  #conda:
-    #"../workflow/envs/environment.yaml"
+  conda:
+    "envs/environment.yaml"
   input:
     table = "results/assigner_comparison/taxonomy_assigner_summary.tsv",
     alpha_div = "results/assigner_comparison/alpha_diversity/alpha_div_table.tsv",

@@ -5,8 +5,8 @@ configfile: "config/config.yaml"
 ### Run phylophlan for phylogenetic analysis
 
 rule phylophlan:
-  #conda:
-    #"../workflow/envs/environment.yaml"
+  conda:
+    "envs/environment.yaml"
   input:
   output:
   shell:

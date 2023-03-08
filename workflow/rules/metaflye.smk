@@ -5,8 +5,8 @@ configfile: "config/config.yaml"
 ### Assemble reads into contigs using metaflye
 
 rule metaflye:
-  #conda:
-    #"../workflow/envs/environment.yaml"
+  conda:
+    "envs/environment.yaml"
   input:
     "results/preprocessing/fasta_converted/{PATHS}_trimmed_filtered_humrm.fasta"
   output:
@@ -28,8 +28,8 @@ rule metaflye:
 ### Post assembly reports
 
 rule assembly_stat_report:
-  #conda:
-    #"../workflow/envs/environment.yaml"
+  conda:
+    "envs/environment.yaml"
   input:
     expand("results/preprocessing/flye_results/{path}/assembly.fasta", path=PATHS)
   output:

@@ -5,5 +5,5 @@ configfile: "config/config.yaml"
 ### Run CARD resistance gene identifier
 
 rule rgi:
-  #conda:
-    #"../workflow/envs/environment.yaml"
+  conda:
+    "envs/environment.yaml"

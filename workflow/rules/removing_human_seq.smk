@@ -5,8 +5,8 @@ configfile: "config/config.yaml"
 ### Align reads to reference human sequences with minimap2
 
 rule minimap2_align_human:
-  #conda:
-    #"../workflow/envs/environment.yaml"
+  conda:
+    "envs/environment.yaml"
   input:
     "results/preprocessing/trimmed_filtered/{PATHS}_trimmed_filtered.fastq"
   output:
@@ -21,8 +21,8 @@ rule minimap2_align_human:
 ### Use samtools to remove the reads that matched the reference
 
 rule remove_human_sequences:
-  #conda:
-    #"../workflow/envs/environment.yaml"
+  conda:
+    "envs/environment.yaml"
   input:
     "results/preprocessing/minimap2/{PATHS}_human_alignment.sam"
   output:
@@ -35,8 +35,8 @@ rule remove_human_sequences:
 ### Convert samples from fastq to fasta with seqkit
 
 rule fasta_conversion:
-  #conda:
-    #"../workflow/envs/environment.yaml"
+  conda:
+    "envs/environment.yaml"
   input:
     "results/preprocessing/trimmed_filtered_humrm/{PATHS}_trimmed_filtered_humrm.fastq"
   output:
@@ -47,8 +47,8 @@ rule fasta_conversion:
 ### Post human removed QC reports
 
 rule qc_report_humrm:
-  #conda:
-    #"../workflow/envs/environment.yaml"
+  conda:
+    "envs/environment.yaml"
   input:
     expand("results/preprocessing/fasta_converted/{path}_trimmed_filtered_humrm.fasta", path=PATHS)
   output:

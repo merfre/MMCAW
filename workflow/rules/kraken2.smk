@@ -5,8 +5,8 @@ configfile: "config/config.yaml"
 ### Run kraken2 and create reports
 
 rule kraken2:
-  #conda:
-    #"../workflow/envs/environment.yaml"
+  conda:
+    "envs/environment.yaml"
   input:
     "results/preprocessing/flye_results/{PATHS}/assembly.fasta"
   output:
@@ -27,8 +27,8 @@ rule kraken2:
 ### Add full taxonomy to blast results
 
 rule taxonomy_to_kraken:
-  #conda:
-    #"../workflow/envs/environment.yaml"
+  conda:
+    "envs/environment.yaml"
   input:
     kraken = "results/kraken2/{PATHS}_kraken.krk",
     rankedlineage = "resources/databases/taxdump/rankedlineage.dmp"
@@ -42,8 +42,8 @@ rule taxonomy_to_kraken:
 ### Count reads for each taxonomy
 
 rule kraken_read_count:
-  #conda:
-    #"../workflow/envs/environment.yaml"
+  conda:
+    "envs/environment.yaml"
   input:
     "results/kraken2/{PATHS}_kraken_tax.tsv"
   params:
@@ -57,8 +57,8 @@ rule kraken_read_count:
 
 rule create_kraken_lists:
 # use unix to create lists for R script input
-  #conda:
-    #"../workflow/envs/environment.yaml"
+  conda:
+    "envs/environment.yaml"
   input:
     expand("results/kraken2/kraken_read_counts/{path}_kraken_counts.tsv", path=PATHS)
   output:
@@ -73,8 +73,8 @@ rule create_kraken_lists:
 ### Merge Kraken2 results for all SAMPLES
 
 rule combine_kraken_results:
-  #conda:
-    #"../workflow/envs/environment.yaml"
+  conda:
+    "envs/environment.yaml"
   input:
     file_path_list = "results/kraken2/file_path_list.tsv",
     taxonomy_list = "results/kraken2/taxonomy_list.tsv"
@@ -86,8 +86,8 @@ rule combine_kraken_results:
 ### Create barplots of taxonomy prevalence at various levels
 
 rule taxonomy_summary_barplots_kraken:
-  #conda:
-    #"../workflow/envs/environment.yaml"
+  conda:
+    "envs/environment.yaml"
   input:
     "results/kraken2/kraken_merged_results.tsv"
   output:
@@ -102,8 +102,8 @@ rule taxonomy_summary_barplots_kraken:
 
 rule kraken_tax_levels:
 # separating kraken2 reports by taxonomy levels using R
-  #conda:
-    #"../workflow/envs/environment.yaml"
+  conda:
+    "envs/environment.yaml"
   input:
     "results/kraken2/kraken_merged_results.tsv"
   output:
@@ -114,8 +114,8 @@ rule kraken_tax_levels:
 ### Create species heatmaps of kraken2 results
 
 rule species_heatmap_kraken:
-  #conda:
-    #"../workflow/envs/environment.yaml"
+  conda:
+    "envs/environment.yaml"
   input:
     "results/kraken2/kraken2_species.tsv"
   params:
@@ -128,8 +128,8 @@ rule species_heatmap_kraken:
 ### Create stacked taxonomy barplot of assigner outputs
 
 rule taxonomy_plots_kraken:
-  #conda:
-    #"../workflow/envs/environment.yaml"
+  conda:
+    "envs/environment.yaml"
   input:
     "results/kraken2/kraken2_species.tsv"
   params:
@@ -142,8 +142,8 @@ rule taxonomy_plots_kraken:
 ### List Kraken2 analysis outputs for target rule
 
 rule kraken_plots:
-  #conda:
-    #"../workflow/envs/environment.yaml"
+  conda:
+    "envs/environment.yaml"
   input:
     tax_plot = "results/kraken2/taxonomy_plots/kraken2_taxonomy_plot.pdf",
     barplot = "results/kraken2/taxonomy_plots/kraken2_species_barplot.pdf",
