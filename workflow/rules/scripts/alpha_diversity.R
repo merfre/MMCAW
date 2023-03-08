@@ -148,9 +148,10 @@ alpha_div_blast <- rownames_to_column(alpha_div_blast, 'analysis')
 
 # Combine
 
-alpha_div_table <- full_join(alpha_div_kraken, alpha_div_cat)
-alpha_div_table <- full_join(alpha_div_table, alpha_div_blast)
+alpha_div_table <- full_join(alpha_div_blast, alpha_div_cat)
+alpha_div_table <- full_join(alpha_div_table, alpha_div_kraken)
 alpha_div_table <- column_to_rownames(alpha_div_table, 'analysis')
+# Put in alphabetical order (matters for scatterplots)
 
 write.table(alpha_div_table, file = snakemake@output[[1]], row.names=TRUE, sep="\t")
 
