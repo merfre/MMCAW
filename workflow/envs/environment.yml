@@ -27,6 +27,7 @@ dependencies:
   - kraken2
   - blast>=2.1
   - phylophlan
+  - rgi
 
 # Creating reports and figures
   - numpy
