@@ -14,7 +14,7 @@ include_db_creation: False
 
 ## Contig annotation tool for taxonomic assignment
 # indicate with True/False whether to include CAT
-include_cat: True
+include_cat: False
 
 ## Kraken2 for taxonomic assignment
 # indicate with True/False whether to include Kraken2
@@ -22,7 +22,7 @@ include_kraken2: True
 
 ## BLAST for taxonomic assignment
 # indicate with True/False whether to include BLAST
-include_blast: True
+include_blast: False
 
 ## Sourmash for taxonomic assignment
 # indicate with True/False whether to include Sourmash
@@ -35,7 +35,7 @@ include_phylophlan: False
 ## Comparison of selected taxnomic assigners
 # at least 2 assigners above must be toggled to True #
 # indicate with True/False whether to include assigner comparison
-include_comparison: True
+include_comparison: False
 
 ## Resistance gene identification with CARD
 # CAT must be toggled to True for annotation #
