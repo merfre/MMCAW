@@ -8,7 +8,8 @@ rule kraken2:
   conda:
     "envs/environment.yaml"
   input:
-    "results/preprocessing/flye_results/{PATHS}/assembly.fasta"
+    #"results/preprocessing/flye_results/{PATHS}/assembly.fasta"
+    "results/preprocessing/trimmed_filtered/{PATHS}_trimmed_filtered.fastq"
   output:
     report = "results/kraken2/{PATHS}_kraken_report.txt",
     kraken = "results/kraken2/{PATHS}_kraken.krk"

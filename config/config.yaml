@@ -2,7 +2,7 @@
 
 conda_envs: "workflow/envs/environment.yml"
 
-metadata_file: "config/unit_test_metadata.txt"
+metadata_file: "~/Adaptive_Sequencing_Analysis_Workflow/config/unit_test_metadata.txt"
 
 threads: "10"
 
@@ -48,7 +48,7 @@ include_rgi: False
 filtering_reference: "resources/databases/human_reference/GCF_000001405.39_GRCh38.p13_genomic.fna"
 #"workflow/rules/Database_Creation_Workflow/results/human_reference/GCF_000001405.39_GRCh38.p13_genomic.fna"
 
-kraken_db: "resources/databases/kraken2_std_database"
+kraken_db: "~/Adaptive_Sequencing_Analysis_Workflow/resources/databases/krakenstd_06_2023/kraken2_std_database"
 
 cat_db: "resources/databases/CAT_database"
 #"workflow/rules/Database_Creation_Workflow/results/CAT/CAT_database*"
