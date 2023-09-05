@@ -101,6 +101,7 @@ if config['include_db_creation'] == True:
 
 #    print("Optional subworkflow to build databases will be run")
 else:
+    pass
 #    print("Optional subworkflow to build databases will not be included")
 
 ## 1. Filter on size and quality
@@ -123,6 +124,7 @@ if config['include_kraken2'] == True:
 
 #    print("Kraken2 will be used to perform taxonomic assignment")
 else:
+    pass
 #    print("Kraken2 will not be included")
 
 # CAT
@@ -132,6 +134,7 @@ if config['include_cat'] == True:
 
 #    print("CAT will be used to perform taxonomic assignment")
 else:
+    pass
 #    print("CAT will not be included")
 
 # BLAST
@@ -143,6 +146,7 @@ if config['include_blast'] == True:
 
 #    print("BLAST will be used to perform taxonomic assignment")
 else:
+    pass
 #    print("BLAST will not be included")
 
 # Sourmash
@@ -152,6 +156,7 @@ if config['include_sourmash'] == True:
 
 #    print("Sourmash will be used to perform taxonomic assignment")
 else:
+    pass
 #    print("Sourmash will not be included")
 
 # PhyloPhlAn
@@ -161,6 +166,7 @@ if config['include_phylophlan'] == True:
 
 #    print("PhyloPhlAn will be used for phylogenetic analysis")
 else:
+    pass
 #    print("PhyloPhlAn will not be included")
 
 ## 5. Optional comparison of taxonomy assigner results
@@ -186,6 +192,7 @@ elif config['include_comparison'] == True & config['include_blast'] == True & co
 
 #    print("Optional taxonomic assigner comparison of BLAST and CAT will be performed")
 else:
+    pass
 #    print("Taxonomic assigner comparison will not be performed")
 
 ## 6. Search for antimicrobial genes
@@ -196,4 +203,5 @@ if config['include_rgi'] == True:
 
 #    print("Resistance gene identification will be performed\n")
 else:
+    pass
 #    print("CARD RGI will not be included\n")
