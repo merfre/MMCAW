@@ -2,7 +2,7 @@
 
 conda_envs: "workflow/envs/environment.yml"
 
-metadata_file: "unit_test_metadata.txt"
+metadata_file: "config/unit_test_metadata.txt"
 
 threads: "10"
 
