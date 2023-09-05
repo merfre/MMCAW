@@ -99,9 +99,9 @@ if config['include_db_creation'] == True:
     
     include: "rules/db_creation.smk"
 
-    print("Optional subworkflow to build databases will be run")
+#    print("Optional subworkflow to build databases will be run")
 else:
-    print("Optional subworkflow to build databases will not be included")
+#    print("Optional subworkflow to build databases will not be included")
 
 ## 1. Filter on size and quality
 include: "rules/fastp.smk"
@@ -121,18 +121,18 @@ if config['include_kraken2'] == True:
     
     include: "rules/kraken2.smk"
 
-    print("Kraken2 will be used to perform taxonomic assignment")
+#    print("Kraken2 will be used to perform taxonomic assignment")
 else:
-    print("Kraken2 will not be included")
+#    print("Kraken2 will not be included")
 
 # CAT
 if config['include_cat'] == True:
     
     include: "rules/contig_annotation_tool.smk"
 
-    print("CAT will be used to perform taxonomic assignment")
+#    print("CAT will be used to perform taxonomic assignment")
 else:
-    print("CAT will not be included")
+#    print("CAT will not be included")
 
 # BLAST
 if config['include_blast'] == True:
@@ -141,27 +141,27 @@ if config['include_blast'] == True:
 
     include: "rules/blast.smk"
 
-    print("BLAST will be used to perform taxonomic assignment")
+#    print("BLAST will be used to perform taxonomic assignment")
 else:
-    print("BLAST will not be included")
+#    print("BLAST will not be included")
 
 # Sourmash
 if config['include_sourmash'] == True:
 
     include: "rules/sourmash.smk"
 
-    print("Sourmash will be used to perform taxonomic assignment")
+#    print("Sourmash will be used to perform taxonomic assignment")
 else:
-    print("Sourmash will not be included")
+#    print("Sourmash will not be included")
 
 # PhyloPhlAn
 if config['include_phylophlan'] == True:
     
     include: "rules/phylophlan.smk"
 
-    print("PhyloPhlAn will be used for phylogenetic analysis")
+#    print("PhyloPhlAn will be used for phylogenetic analysis")
 else:
-    print("PhyloPhlAn will not be included")
+#    print("PhyloPhlAn will not be included")
 
 ## 5. Optional comparison of taxonomy assigner results
 
@@ -169,24 +169,24 @@ if config['include_comparison'] == True & config['include_kraken2'] == True & co
     
     include: "rules/taxonomy_assigner_comparison.smk"
 
-    print("Optional taxonomic assigner comparison of all assigners will be performed")
+#    print("Optional taxonomic assigner comparison of all assigners will be performed")
 elif config['include_comparison'] == True & config['include_kraken2'] == True & config['include_blast'] == True:
     
     include: "rules/taxonomy_assigner_comparison.smk"
 
-    print("Optional taxonomic assigner comparison of Kraken2 and BLAST will be performed")
+#    print("Optional taxonomic assigner comparison of Kraken2 and BLAST will be performed")
 elif config['include_comparison'] == True & config['include_cat'] == True & config['include_kraken2'] == True:
 
     include: ""
 
-    print("Optional taxonomic assigner comparison of CAT and Kraken2 will be performed")
+#    print("Optional taxonomic assigner comparison of CAT and Kraken2 will be performed")
 elif config['include_comparison'] == True & config['include_blast'] == True & config['include_cat'] == True:
 
     include: ""
 
-    print("Optional taxonomic assigner comparison of BLAST and CAT will be performed")
+#    print("Optional taxonomic assigner comparison of BLAST and CAT will be performed")
 else:
-    print("Taxonomic assigner comparison will not be performed")
+#    print("Taxonomic assigner comparison will not be performed")
 
 ## 6. Search for antimicrobial genes
 
@@ -194,6 +194,6 @@ if config['include_rgi'] == True:
 
     include: "rules/card_rgi.smk"
 
-    print("Resistance gene identification will be performed\n")
+#    print("Resistance gene identification will be performed\n")
 else:
-    print("CARD RGI will not be included\n")
+#    print("CARD RGI will not be included\n")
