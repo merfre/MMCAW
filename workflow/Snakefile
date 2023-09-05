@@ -87,8 +87,8 @@ print("\nRunning Metagenomic Microbiome Combination Analysis Workflow\n\nUsing t
 rule all:
   input:
     "results/qc_reports/sample_post_qc_report.tsv",
-#    "results/qc_reports/assembly_stat_report.tsv",
-#    "results/qc_reports/humrm_qc_report.tsv",
+    "results/qc_reports/assembly_stat_report.tsv",
+    "results/qc_reports/humrm_qc_report.tsv",
     optional_outputs = optional_outputs,
 
 ### Remaining rules for workflow ###
