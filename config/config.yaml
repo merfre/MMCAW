@@ -2,7 +2,7 @@
 
 conda_envs: "workflow/envs/environment.yml"
 
-metadata_file: "~/Adaptive_Sequencing_Analysis_Workflow/config/ONT_skin3_runs.tsv"
+metadata_file: "unit_test_metadata.txt"
 
 threads: "10"
 
