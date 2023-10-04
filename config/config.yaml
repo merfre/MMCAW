@@ -2,7 +2,7 @@
 
 conda_envs: "workflow/envs/environment.yml"
 
-metadata_file: "~/Adaptive_Sequencing_Analysis_Workflow/config/ONT_skin3_runs.tsv"
+metadata_file: "config/unit_test_metadata.txt"
 
 threads: "10"
 
@@ -10,11 +10,11 @@ threads: "10"
 
 ## Database creation subworkflow
 # indicate with True/False whether to include database creation
-include_db_creation: False
+include_db_creation: True
 
 ## Contig annotation tool for taxonomic assignment
 # indicate with True/False whether to include CAT
-include_cat: False
+include_cat: True
 
 ## Kraken2 for taxonomic assignment
 # indicate with True/False whether to include Kraken2
@@ -22,7 +22,7 @@ include_kraken2: True
 
 ## BLAST for taxonomic assignment
 # indicate with True/False whether to include BLAST
-include_blast: False
+include_blast: True
 
 ## Sourmash for taxonomic assignment
 # indicate with True/False whether to include Sourmash
@@ -35,7 +35,7 @@ include_phylophlan: False
 ## Comparison of selected taxnomic assigners
 # at least 2 assigners above must be toggled to True #
 # indicate with True/False whether to include assigner comparison
-include_comparison: False
+include_comparison: True
 
 ## Resistance gene identification with CARD
 # CAT must be toggled to True for annotation #

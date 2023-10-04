@@ -1,0 +1,50 @@
+### Environment file for the microbiome metagenomic analysis workflow ###
+
+name: MMCAW
+
+channels:
+  - conda-forge
+  - bioconda
+
+dependencies:
+  - snakemake>=6.6.1
+  - biopython
+  - python>=3.7
+  - pandas
+  - git
+  - wget
+  - unzip
+
+# Sequence preprocessing
+  - minimap2
+  - samtools
+  - metabat2
+  - fastp
+  - flye
+
+# Taxonomy assignment
+  - cat
+  - kraken2
+  - blast>=2.1
+  - phylophlan
+
+# Creating reports and figures
+  - numpy
+  - matplotlib
+  - graphviz
+  - csvtk
+  - seqkit
+
+# Packages for analysis in R
+  - r-base==3.6.3
+  - r-tidyverse
+  - r-dplyr
+  - r-vegan
+  - r-tibble
+  - r-rcolorbrewer
+  - r-ggplot2
+  - r-gdata
+  - r-ggrepel
+  - r-ggfortify
+  - r-stringi
+  - r-gplots
