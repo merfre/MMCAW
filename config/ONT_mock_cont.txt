@@ -1,0 +1,84 @@
+Run	Barcode	Sample_ID	Dataset	Notes
+ONT_mockecoli2_cont1	barcode10	CEG2_cont1	ONT_mock_clinicecoli_ecoliadapdet	
+ONT_mockecoli2_cont2	barcode10	CEG2_cont2	ONT_mock_clinicecoli_ecoliadapdet	
+ONT_mockecoli1_cont1	barcode10	CN3.1_cont	ONT_mock_staphepi_staphadapdet	
+ONT_mockstaph1_cont1	barcode10	CSG1_cont1	ONT_mock_clinicstaph_staphadapdet	
+ONT_mockstaph1_cont2	barcode10	CSG1_cont2	ONT_mock_clinicstaph_staphadapdet	
+ONT_skin3_cont	barcode10	EC1E_cont		
+ONT_mockecoli1_cont1	barcode09	ECE1_cont	ONT_mock_typeecoli_staphadapdet	
+ONT_mockecoli2_cont1	barcode09	ECE1_cont1	ONT_mock_typeecoli_ecoliadapdet 	
+ONT_mockecoli2_cont2	barcode09	ECE1_cont2	ONT_mock_typeecoli_ecoliadapdet 	
+ONT_skin2_cont	barcode07	HM1C_cont		ONT_skin2 run first control
+ONT_skin_cont	barcode07	HM1C_cont		ONT_skin2 run first control
+ONT_skin2_cont3	barcode07	HM1C_cont2		"Previously ONT_skin2_adap3 due to attempt to perform in-house ONT adaptive sequencing, which was unsuccessful and resulted in an additional control run"
+ONT_skin_cont	barcode07-2	HM1C_cont2		"Previously ONT_skin2_adap3 due to attempt to perform in-house ONT adaptive sequencing, which was unsuccessful and resulted in an additional control run"
+ONT_skin2_cont	barcode08	HM2C_cont		ONT_skin2 run first control
+ONT_skin_cont	barcode08	HM2C_cont		ONT_skin2 run first control
+ONT_skin2_cont3	barcode08	HM2C_cont2		"Previously ONT_skin2_adap3 due to attempt to perform in-house ONT adaptive sequencing, which was unsuccessful and resulted in an additional control run"
+ONT_skin_cont	barcode08-2	HM2C_cont2		"Previously ONT_skin2_adap3 due to attempt to perform in-house ONT adaptive sequencing, which was unsuccessful and resulted in an additional control run"
+ONT_skin2_cont	barcode09	HM3C_cont		ONT_skin2 run first control
+ONT_skin_cont	barcode09	HM3C_cont		ONT_skin2 run first control
+ONT_skin2_cont3	barcode09	HM3C_cont2		"Previously ONT_skin2_adap3 due to attempt to perform in-house ONT adaptive sequencing, which was unsuccessful and resulted in an additional control run"
+ONT_skin_cont	barcode09-2	HM3C_cont2		"Previously ONT_skin2_adap3 due to attempt to perform in-house ONT adaptive sequencing, which was unsuccessful and resulted in an additional control run"
+ONT_skin2_cont	barcode10	HM4C_cont		ONT_skin2 run first control
+ONT_skin_cont	barcode10	HM4C_cont		ONT_skin2 run first control
+ONT_skin2_cont3	barcode10	HM4C_cont2		"Previously ONT_skin2_adap3 due to attempt to perform in-house ONT adaptive sequencing, which was unsuccessful and resulted in an additional control run"
+ONT_skin_cont	barcode10-2	HM4C_cont2		"Previously ONT_skin2_adap3 due to attempt to perform in-house ONT adaptive sequencing, which was unsuccessful and resulted in an additional control run"
+ONT_skin3_cont	barcode07	HME1E_cont		
+ONT_skin3_cont	barcode08	HME2E_cont		
+ONT_skin3_cont	barcode09	HME3E_cont		
+ONT_mockskinpw1_cont1	barcode11	MC1F_cont	ONT_mock	
+ONT_mockecoli1_cont1	barcode11	MC1F_cont1	ONT_mock_staphadapdet	
+ONT_mockecoli2_cont2	barcode11	MC1F_cont2	ONT_mock_ecoliadapdet	
+ONT_mockecoli2_cont1	barcode11	MC1F_cont3	ONT_mock_ecoliadapdet	
+ONT_mockstaph1_cont1	barcode11	MC1G_cont1	ONT_mock_staphadapdet	
+ONT_mockstaph1_cont2	barcode11	MC1G_cont2	ONT_mock_staphadapdet	
+ONT_mockecoli1_cont1	barcode05	MCE1F_cont	ONT_mock_staphepi_staphadapdet	
+ONT_mockecoli2_cont1	barcode05	MCE1G_cont1	ONT_mock_clinicecoli_ecoliadapdet	
+ONT_mockecoli2_cont2	barcode05	MCE1G_cont2	ONT_mock_clinicecoli_ecoliadapdet	
+ONT_mockecoli1_cont1	barcode06	MCE2F_cont	ONT_mock_staphepi_staphadapdet	
+ONT_mockecoli2_cont1	barcode06	MCE2G_cont1	ONT_mock_clinicecoli_ecoliadapdet	
+ONT_mockecoli2_cont2	barcode06	MCE2G_cont2	ONT_mock_clinicecoli_ecoliadapdet	
+ONT_mockecoli1_cont1	barcode07	MCE3F_cont	ONT_mock_staphepi_staphadapdet	
+ONT_mockskinpw1_cont1	barcode07	MCE3G_cont	ONT_mock_clinicecoli	
+ONT_mockecoli2_cont1	barcode07	MCE3G_cont1	ONT_mock_clinicecoli_ecoliadapdet	
+ONT_mockecoli2_cont2	barcode07	MCE3G_cont2	ONT_mock_clinicecoli_ecoliadapdet	
+ONT_mockskinpw1_cont1	barcode08	MCE4F_cont	ONT_mock_staphepi	
+ONT_mockecoli1_cont1	barcode08	MCE4F_cont1	ONT_mock_staphepi_staphadapdet	
+ONT_mockecoli2_cont1	barcode08	MCE4G_cont1	ONT_mock_clinicecoli_ecoliadapdet	
+ONT_mockecoli2_cont2	barcode08	MCE4G_cont2	ONT_mock_clinicecoli_ecoliadapdet	
+ONT_mockstaph1_cont1	barcode05	MCS1G_cont1	ONT_mock_clinicstaph_staphadapdet	
+ONT_mockstaph1_cont2	barcode05	MCS1G_cont2	ONT_mock_clinicstaph_staphadapdet	
+ONT_mockstaph1_cont1	barcode06	MCS2G_cont1	ONT_mock_clinicstaph_staphadapdet	
+ONT_mockstaph1_cont2	barcode06	MCS2G_cont2	ONT_mock_clinicstaph_staphadapdet	
+ONT_mockstaph1_cont1	barcode07	MCS3G_cont1	ONT_mock_clinicstaph_staphadapdet	
+ONT_mockstaph1_cont2	barcode07	MCS3G_cont2	ONT_mock_clinicstaph_staphadapdet	
+ONT_mockstaph1_cont1	barcode08	MCS4G_cont1	ONT_mock_clinicstaph_staphadapdet	
+ONT_mockstaph1_cont2	barcode08	MCS4G_cont2	ONT_mock_clinicstaph_staphadapdet	
+ONT_mockecoli1_cont1	barcode01	MTE1F_cont	ONT_mock_typeecoli_staphadapdet	
+ONT_mockecoli2_cont1	barcode01	MTE1F_cont1	ONT_mock_typeecoli_ecoliadapdet 	
+ONT_mockecoli2_cont2	barcode01	MTE1F_cont2	ONT_mock_typeecoli_ecoliadapdet 	
+ONT_mockecoli1_cont1	barcode02	MTE2F_cont	ONT_mock_typeecoli_staphadapdet	
+ONT_mockecoli2_cont1	barcode02	MTE2F_cont1	ONT_mock_typeecoli_ecoliadapdet 	
+ONT_mockecoli2_cont2	barcode02	MTE2F_cont2	ONT_mock_typeecoli_ecoliadapdet 	
+ONT_mockecoli1_cont1	barcode03	MTE3F_cont	ONT_mock_typeecoli_staphadapdet	
+ONT_mockecoli2_cont1	barcode03	MTE3F_cont1	ONT_mock_typeecoli_ecoliadapdet 	
+ONT_mockecoli2_cont2	barcode03	MTE3F_cont2	ONT_mock_typeecoli_ecoliadapdet 	
+ONT_mockecoli1_cont1	barcode04	MTE4F_cont	ONT_mock_typeecoli_staphadapdet	
+ONT_mockecoli2_cont1	barcode04	MTE4F_cont1	ONT_mock_typeecoli_ecoliadapdet 	
+ONT_mockecoli2_cont2	barcode04	MTE4F_cont2	ONT_mock_typeecoli_ecoliadapdet 	
+ONT_mockstaph1_cont1	barcode01	MTS1G_cont1	ONT_mock_typestaph_staphadapdet	
+ONT_mockstaph1_cont2	barcode01	MTS1G_cont2	ONT_mock_typestaph_staphadapdet	
+ONT_mockstaph1_cont1	barcode02	MTS2G_cont1	ONT_mock_typestaph_staphadapdet	
+ONT_mockstaph1_cont2	barcode02	MTS2G_cont2	ONT_mock_typestaph_staphadapdet	
+ONT_mockskinpw1_cont1	barcode03	MTS3G_cont	ONT_mock_typestaph	
+ONT_mockstaph1_cont1	barcode03	MTS3G_cont1	ONT_mock_typestaph_staphadapdet	
+ONT_mockstaph1_cont2	barcode03	MTS3G_cont2	ONT_mock_typestaph_staphadapdet	
+ONT_mockstaph1_cont1	barcode04	MTS4G_cont1	ONT_mock_typestaph_staphadapdet	
+ONT_mockstaph1_cont2	barcode04	MTS4G_cont2	ONT_mock_typestaph_staphadapdet	
+ONT_skin2_cont	barcode11	PC1C_cont		ONT_skin2 run first control
+ONT_skin_cont	barcode11	PC1C_cont		ONT_skin2 run first control
+ONT_skin2_cont3	barcode11	PC1C_cont2		"Previously ONT_skin2_adap3 due to attempt to perform in-house ONT adaptive sequencing, which was unsuccessful and resulted in an additional control run"
+ONT_skin_cont	barcode11-2	PC1C_cont2		"Previously ONT_skin2_adap3 due to attempt to perform in-house ONT adaptive sequencing, which was unsuccessful and resulted in an additional control run"
+ONT_mockstaph1_cont1	barcode09	TSG1_cont1	ONT_mock_typestaph_staphadapdet	
+ONT_mockstaph1_cont2	barcode09	TSG1_cont2	ONT_mock_typestaph_staphadapdet	

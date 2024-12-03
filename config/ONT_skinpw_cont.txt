@@ -1,0 +1,88 @@
+Run	Barcode	Sample_ID	Dataset	Notes
+ONT_skinecoli1_cont1	barcode05	L1BCE_cont1	ONT_skin_clinicecoli_ecoliadapdet	
+ONT_skinecoli1_cont2	barcode05	L1BCE_cont2	ONT_skin_clinicecoli_ecoliadapdet	
+ONT_skinstaph1_cont1	barcode05	L1BCS_cont1	ONT_skin_clinicstaph_staphadapdet	
+ONT_skinstaph1_cont2	barcode05	L1BCS_cont2	ONT_skin_clinicstaph_staphadapdet	
+ONT_skinecoli1_cont1	barcode09	L1BTE_cont1	ONT_skin_typeecoli_ecoliadapdet	
+ONT_skinecoli1_cont2	barcode09	L1BTE_cont2	ONT_skin_typeecoli_ecoliadapdet	
+ONT_skinstaph1_cont1	barcode09	L1BTS_cont1	ONT_skin_typestaph_staphadapdet	
+ONT_skinstaph1_cont2	barcode09	L1BTS_cont2	ONT_skin_typestaph_staphadapdet	
+ONT_skinecoli1_cont1	barcode07	L1CCE_cont1	ONT_skin_clinicecoli_ecoliadapdet	
+ONT_skinecoli1_cont2	barcode07	L1CCE_cont2	ONT_skin_clinicecoli_ecoliadapdet	
+ONT_skinstaph1_cont1	barcode07	L1CCS_cont1	ONT_skin_clinicstaph_staphadapdet	
+ONT_skinstaph1_cont2	barcode07	L1CCS_cont2	ONT_skin_clinicstaph_staphadapdet	
+ONT_skinecoli1_cont1	barcode11	L1CTE_cont1	ONT_skin_typeecoli_ecoliadapdet	
+ONT_skinecoli1_cont2	barcode11	L1CTE_cont2	ONT_skin_typeecoli_ecoliadapdet	
+ONT_skinstaph1_cont1	barcode11	L1CTS_cont1	ONT_skin_typestaph_staphadapdet	
+ONT_skinstaph1_cont2	barcode11	L1CTS_cont2	ONT_skin_typestaph_staphadapdet	
+ONT_mockskinpw1_cont1	barcode06	L2BCE_cont	ONT_skin_clinicecoli	
+ONT_skinecoli1_cont1	barcode06	L2BCE_cont1	ONT_skin_clinicecoli_ecoliadapdet	
+ONT_skinecoli1_cont2	barcode06	L2BCE_cont2	ONT_skin_clinicecoli_ecoliadapdet	
+ONT_skinstaph1_cont1	barcode06	L2BCS_cont1	ONT_skin_clinicstaph_staphadapdet	
+ONT_skinstaph1_cont2	barcode06	L2BCS_cont2	ONT_skin_clinicstaph_staphadapdet	
+ONT_skinecoli1_cont1	barcode10	L2BTE_cont1	ONT_skin_typeecoli_ecoliadapdet	
+ONT_skinecoli1_cont2	barcode10	L2BTE_cont2	ONT_skin_typeecoli_ecoliadapdet	
+ONT_mockskinpw1_cont1	barcode10	L2BTS_cont	ONT_skin_typestaph	
+ONT_skinstaph1_cont1	barcode10	L2BTS_cont1	ONT_skin_typestaph_staphadapdet	
+ONT_skinstaph1_cont2	barcode10	L2BTS_cont2	ONT_skin_typestaph_staphadapdet	
+ONT_skinecoli1_cont1	barcode08	L2CCE_cont1	ONT_skin_clinicecoli_ecoliadapdet	
+ONT_skinecoli1_cont2	barcode08	L2CCE_cont2	ONT_skin_clinicecoli_ecoliadapdet	
+ONT_skinstaph1_cont1	barcode08	L2CCS_cont1	ONT_skin_clinicstaph_staphadapdet	
+ONT_skinstaph1_cont2	barcode08	L2CCS_cont2	ONT_skin_clinicstaph_staphadapdet	
+ONT_skinecoli1_cont1	barcode12a	L2CTE_cont1	ONT_skin_typeecoli_ecoliadapdet	
+ONT_skinecoli1_cont2	barcode12a	L2CTE_cont2	ONT_skin_typeecoli_ecoliadapdet	
+ONT_skinstaph1_cont1	barcode12a	L2CTS_cont1	ONT_skin_typestaph_staphadapdet	
+ONT_skinstaph1_cont2	barcode12a	L2CTS_cont2	ONT_skin_typestaph_staphadapdet	
+ONT_skin1_test	barcode10	LF1A_cont		"Skin microbiome sample collected from left forearm position 1 for skin microbiome testing run 1, concentrated DNA extraction"
+ONT_skin_cont	barcode10-1	LF1A_cont		"Skin microbiome sample collected from left forearm position 1 for skin microbiome testing run 1, concentrated DNA extraction"
+ONT_skinecoli1_cont1	barcode01	LF1B_cont1	ONT_skin_ecoliadapdet	
+ONT_skinecoli1_cont2	barcode01	LF1B_cont2	ONT_skin_ecoliadapdet	
+ONT_skinstaph1_cont2	barcode01	LF1B_cont3	ONT_skin_staphadapdet	
+ONT_skinstaph1_cont1	barcode01	LF1B_cont4	ONT_skin_staphadapdet	
+ONT_skinecoli1_cont1	barcode03	LF1C_cont1	ONT_skin_ecoliadapdet	
+ONT_skinecoli1_cont2	barcode03	LF1C_cont2	ONT_skin_ecoliadapdet	
+ONT_skinstaph1_cont2	barcode03	LF1C_cont3	ONT_skin_staphadapdet	
+ONT_skinstaph1_cont1	barcode03	LF1C_cont4	ONT_skin_staphadapdet	
+ONT_skin2_cont	barcode01	LF1D_cont		ONT_skin2 run first control
+ONT_skin_cont	barcode01	LF1D_cont		ONT_skin2 run first control
+ONT_skin2_cont3	barcode01	LF1D_cont2		"Previously ONT_skin2_adap3 due to attempt to perform in-house ONT adaptive sequencing, which was unsuccessful and resulted in an additional control run"
+ONT_skin_cont	barcode01-2	LF1D_cont2		"Previously ONT_skin2_adap3 due to attempt to perform in-house ONT adaptive sequencing, which was unsuccessful and resulted in an additional control run"
+ONT_skin3_cont	barcode01	LF1D2_cont		
+ONT_skin1_test	barcode11	LF2A_cont		"Skin microbiome sample collected from left forearm position 2 for skin microbiome testing run 1, concentrated DNA extraction"
+ONT_skin_cont	barcode11-1	LF2A_cont		"Skin microbiome sample collected from left forearm position 2 for skin microbiome testing run 1, concentrated DNA extraction"
+ONT_mockskinpw1_cont1	barcode02	LF2B_cont	ONT_skin	
+ONT_skinecoli1_cont1	barcode02	LF2B_cont1	ONT_skin_ecoliadapdet	
+ONT_skinecoli1_cont2	barcode02	LF2B_cont2	ONT_skin_ecoliadapdet	
+ONT_skinstaph1_cont2	barcode02	LF2B_cont3	ONT_skin_staphadapdet	
+ONT_skinstaph1_cont1	barcode02	LF2B_cont4	ONT_skin_staphadapdet	
+ONT_skinecoli1_cont1	barcode04	LF2C_cont1	ONT_skin_ecoliadapdet	
+ONT_skinecoli1_cont2	barcode04	LF2C_cont2	ONT_skin_ecoliadapdet	
+ONT_skin2_cont	barcode02	LF2D_cont		ONT_skin2 run first control
+ONT_skin_cont	barcode02	LF2D_cont		ONT_skin2 run first control
+ONT_skin2_cont3	barcode02	LF2D_cont2		"Previously ONT_skin2_adap3 due to attempt to perform in-house ONT adaptive sequencing, which was unsuccessful and resulted in an additional control run"
+ONT_skin_cont	barcode02-2	LF2D_cont2		"Previously ONT_skin2_adap3 due to attempt to perform in-house ONT adaptive sequencing, which was unsuccessful and resulted in an additional control run"
+ONT_skin3_cont	barcode02	LF2D2_cont		
+ONT_skin2_cont	barcode03	LF3D_cont		ONT_skin2 run first control
+ONT_skin_cont	barcode03	LF3D_cont		ONT_skin2 run first control
+ONT_skin2_cont3	barcode03	LF3D_cont2		"Previously ONT_skin2_adap3 due to attempt to perform in-house ONT adaptive sequencing, which was unsuccessful and resulted in an additional control run"
+ONT_skin_cont	barcode03-2	LF3D_cont2		"Previously ONT_skin2_adap3 due to attempt to perform in-house ONT adaptive sequencing, which was unsuccessful and resulted in an additional control run"
+ONT_skin3_cont	barcode03	LF3D2_cont		
+ONT_mockskinpw1_cont1	barcode01	PW71_cont	ONT_periwound	
+ONT_mockskinpw1_cont1	barcode04	PW79_cont	ONT_periwound	
+ONT_mockskinpw1_cont1	barcode05	PW81_cont	ONT_periwound	
+ONT_mockskinpw1_cont1	barcode09	PW88_cont	ONT_periwound	
+ONT_skin2_cont	barcode04	RF1D_cont		ONT_skin2 run first control
+ONT_skin_cont	barcode04	RF1D_cont		ONT_skin2 run first control
+ONT_skin2_cont3	barcode04	RF1D_cont2		"Previously ONT_skin2_adap3 due to attempt to perform in-house ONT adaptive sequencing, which was unsuccessful and resulted in an additional control run"
+ONT_skin_cont	barcode04-2	RF1D_cont2		"Previously ONT_skin2_adap3 due to attempt to perform in-house ONT adaptive sequencing, which was unsuccessful and resulted in an additional control run"
+ONT_skin3_cont	barcode04	RF1D2_cont		
+ONT_skin2_cont	barcode05	RF2D_cont		ONT_skin2 run first control
+ONT_skin_cont	barcode05	RF2D_cont		ONT_skin2 run first control
+ONT_skin2_cont3	barcode05	RF2D_cont2		"Previously ONT_skin2_adap3 due to attempt to perform in-house ONT adaptive sequencing, which was unsuccessful and resulted in an additional control run"
+ONT_skin_cont	barcode05-2	RF2D_cont2		"Previously ONT_skin2_adap3 due to attempt to perform in-house ONT adaptive sequencing, which was unsuccessful and resulted in an additional control run"
+ONT_skin3_cont	barcode05	RF2D2_cont		
+ONT_skin2_cont	barcode06	RF3D_cont		ONT_skin2 run first control
+ONT_skin_cont	barcode06	RF3D_cont		ONT_skin2 run first control
+ONT_skin2_cont3	barcode06	RF3D_cont2		"Previously ONT_skin2_adap3 due to attempt to perform in-house ONT adaptive sequencing, which was unsuccessful and resulted in an additional control run"
+ONT_skin_cont	barcode06-2	RF3D_cont2		"Previously ONT_skin2_adap3 due to attempt to perform in-house ONT adaptive sequencing, which was unsuccessful and resulted in an additional control run"
+ONT_skin3_cont	barcode06	RF3D2_cont		
