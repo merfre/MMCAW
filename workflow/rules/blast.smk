@@ -6,7 +6,7 @@ configfile: "config/config.yaml"
 
 rule blastn:
   conda:
-    "../envs/environment.yaml"
+    "envs/environment.yaml"
   input:
     query = "results/preprocessing/flye_results/{PATHS}/assembly.fasta",
   output:
