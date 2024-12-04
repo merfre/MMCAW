@@ -52,7 +52,7 @@ alpha_div <- function(input, suffix) {
   colnames(shannon) <- colnames(results)
   
   output <- rbind(invsimpson,evenness[rownames(evenness) == "Estar",],shannon)
-  rownames(output)[rownames(output) == "2"] <- paste("evenness",suffix,sep="")
+  rownames(output)[rownames(output) == "Estar"] <- paste("evenness",suffix,sep="")
   colnames(output) <- gsub(suffix,'',colnames(output))
   output <- rownames_to_column(output, 'analysis')
   

@@ -8,7 +8,7 @@ configfile: "config/config.yaml"
 # create separate branch for additional assigners
 # add abundance vs prev option
 # make data loading easier and rename with barcode steps
-# 
+# add human removal option?
 
 ### Define samples wildcard for input and output ###
 
