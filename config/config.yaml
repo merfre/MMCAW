@@ -2,7 +2,7 @@
 
 conda_envs: "workflow/envs/environment.yml"
 
-metadata_file: "config/seq_test_metadata.tsv"
+metadata_file: "config/ONT_mock_cont.txt"
 
 threads: "10"
 
