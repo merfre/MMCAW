@@ -48,10 +48,10 @@ wildcard_constraints:
   PATHS = ".*\/.*",
   IDS = "[^\/]+",
   RUNS = "[^\/]+"
-  
+
 ### Concatenate fastq files from barcodes ###
 
-print("Concatonating fastq files...\n")
+#print("Concatonating fastq files...\n")
 
 # Contatenate sample fastqs
 samples = pd.DataFrame(list(sample_df['Path']))
