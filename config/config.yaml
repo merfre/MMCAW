@@ -2,7 +2,7 @@
 
 conda_envs: "workflow/envs/environment.yml"
 
-metadata_file: "config/ONT_skinpw_cont.txt"
+metadata_file: "config/ONT_skinpw_cont_assem.txt"
 
 threads: "10"
 
