@@ -2,7 +2,7 @@
 
 conda_envs: "workflow/envs/environment.yml"
 
-metadata_file: "config/ONT_mock_cont_assem.txt"
+metadata_file: "config/ONT_skinpw_cont_assem.txt"
 
 threads: "10"
 
@@ -79,7 +79,7 @@ minimum_overlap: "1000"
 # minimum overlap length for two reads to be considered overlapping, Typical value is 3k-10k (and down to 1k for datasets with shorter read length)
 
 # For kraken2
-kraken_confidence: "0.05" #specify a threshold score in the [0,1] interval;
+kraken_confidence: "0.1" #specify a threshold score in the [0,1] interval;
 # classifier then will adjust labels up the tree until the label's score meets or exceeds that threshold
 
 # For BLAST
