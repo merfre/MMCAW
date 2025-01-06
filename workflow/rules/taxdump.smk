@@ -20,6 +20,8 @@ rule get_taxdump:
     rankedlineage = "resources/databases/taxdump/rankedlineage.dmp",
     merged = "resources/databases/taxdump/merged.dmp",
     taxdump_version = "resources/databases/taxdump_version.txt"
+  benchmark:
+    "benchmarks/get_taxdump.tsv"
   shell:
     """
     echo "Taxdump retrieved on `date`" > {output.taxdump_version};

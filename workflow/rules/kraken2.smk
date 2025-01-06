@@ -14,6 +14,8 @@ rule kraken2:
     report = "results/kraken2/{PATHS}_kraken_report.txt",
     kraken = "results/kraken2/{PATHS}_kraken.krk"
     # Needs to be .krk for recentrifuge
+  benchmark:
+    "benchmarks/{PATHS}_kraken2.tsv"
   params:
     kraken_db = config['kraken_db'],
     threads = config['threads'],
@@ -36,6 +38,8 @@ rule taxonomy_to_kraken:
     merged = "resources/databases/taxdump/merged.dmp"
   output:
     kraken_tax = "results/kraken2/{PATHS}_kraken_tax.tsv"
+  benchmark:
+    "benchmarks/{PATHS}_taxonomy_to_kraken.tsv"
   script:
     "scripts/taxonomy_to_kraken.py"
 
@@ -50,6 +54,8 @@ rule kraken_read_count:
     path = "{PATHS}"
   output:
     "results/kraken2/kraken_read_counts/{PATHS}_kraken_counts.tsv"
+  benchmark:
+    "benchmarks/{PATHS}_kraken_read_count.tsv"
   script:
     "scripts/kraken_read_count.py"
 
@@ -64,6 +70,8 @@ rule create_kraken_lists:
   output:
     file_path_list = "results/kraken2/file_path_list.tsv",
     taxonomy_list = "results/kraken2/taxonomy_list.tsv"
+  benchmark:
+    "benchmarks/create_kraken_lists.tsv"
   shell:
     """
     ls {input} > {output.file_path_list};
@@ -80,6 +88,8 @@ rule combine_kraken_results:
     taxonomy_list = "results/kraken2/taxonomy_list.tsv"
   output:
     "results/kraken2/kraken_merged_results.tsv"
+  benchmark:
+    "benchmarks/combine_kraken_results.tsv"
   script:
     "scripts/merging_results.R"
 
@@ -95,6 +105,8 @@ rule taxonomy_summary_barplots_kraken:
     kraken_family = report("results/kraken2/taxonomy_plots/kraken2_family_barplot.pdf", caption="report/kraken2_family_barplot.rst", category="Kraken2"),
     kraken_class = report("results/kraken2/taxonomy_plots/kraken2_class_barplot.pdf", caption="report/kraken2_class_barplot.rst", category="Kraken2"),
     kraken_kingdom = report("results/kraken2/taxonomy_plots/kraken2_kingdom_barplot.pdf", caption="report/kraken2_kingdom_barplot.rst", category="Kraken2")
+  benchmark:
+    "benchmarks/taxonomy_summary_barplots_kraken.tsv"
   script:
     "scripts/taxonomy_barplots_kraken.py"
 
@@ -108,6 +120,8 @@ rule kraken_tax_levels:
     "results/kraken2/kraken_merged_results.tsv"
   output:
     species = "results/kraken2/kraken2_species.tsv",
+  benchmark:
+    "benchmarks/kraken_tax_levels.tsv"
   script:
     "scripts/separating_tax_levels_kraken.R"
 
@@ -122,6 +136,8 @@ rule species_heatmap_kraken:
     prevalence = config['prevalence']
   output:
     report("results/kraken2/taxonomy_plots/kraken2_species_heatmap.pdf", caption="report/kraken2_species_heatmap.rst", category="Kraken2")
+  benchmark:
+    "benchmarks/species_heatmap_kraken.tsv"
   script:
     "scripts/taxonomy_heatmaps_kraken.R"
 
@@ -136,6 +152,8 @@ rule taxonomy_plots_kraken:
     prevalence = config['prevalence']
   output:
     report("results/kraken2/taxonomy_plots/kraken2_taxonomy_plot.pdf", caption="report/kraken2_taxonomy_plot.rst", category="Kraken2")
+  benchmark:
+    "benchmarks/taxonomy_plots_kraken.tsv"
   script:
     "scripts/stacked_taxonomy_barplot_kraken.R"
 
@@ -150,5 +168,7 @@ rule kraken_plots:
     heatmap = "results/kraken2/taxonomy_plots/kraken2_species_heatmap.pdf"
   output:
     "results/kraken2/kraken2_plot_list.txt"
+  benchmark:
+    "benchmarks/kraken_plots.tsv"
   shell:
     "ls {input.tax_plot} {input.barplot} {input.heatmap} > {output}"

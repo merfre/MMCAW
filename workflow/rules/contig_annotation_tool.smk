@@ -12,6 +12,8 @@ rule cat:
   output:
     next_rule_input = "results/cat/{PATHS}.contig2classification.txt"
     # output necessary to run rule because it is the input for the report rule
+  benchmark:
+    "benchmarks/{PATHS}_cat.tsv"
   params:
     prefix = "results/cat/{PATHS}",
     # prefix includes the temporary directory that cat is running in: ./results/cat/
@@ -35,6 +37,8 @@ rule cat_report:
     "results/cat/{PATHS}.contig2classification.txt"
   output:
     cat = "results/cat/{PATHS}_cat_names.txt"
+  benchmark:
+    "benchmarks/{PATHS}_cat_report.tsv"
   params:
     cat_taxonomy = config['cat_taxonomy']
   shell:
@@ -59,6 +63,8 @@ rule cat_read_count:
     path = "{PATHS}"
   output:
     "results/cat/cat_read_counts/{PATHS}_cat_counts.tsv"
+  benchmark:
+    "benchmarks/{PATHS}_cat_read_count.tsv"
   script:
     "scripts/cat_read_count.py"
 
@@ -73,6 +79,8 @@ rule create_cat_lists:
   output:
     file_path_list = "results/cat/file_path_list.tsv",
     taxonomy_list = "results/cat/taxonomy_list.tsv"
+  benchmark:
+    "benchmarks/create_cat_lists.tsv"
   shell:
     """
     ls {input} > {output.file_path_list};
@@ -90,6 +98,8 @@ rule combine_cat_results:
     taxonomy_list = "results/cat/taxonomy_list.tsv"
   output:
     "results/cat/cat_merged_results.tsv"
+  benchmark:
+    "benchmarks/combine_cat_results.tsv"
   script:
     "scripts/merging_results.R"
 
@@ -105,6 +115,8 @@ rule taxonomy_summary_barplots_cat:
     cat_family = report("results/cat/taxonomy_plots/cat_family_barplot.pdf", caption="report/cat_family_barplot.rst", category="CAT"),
     cat_class = report("results/cat/taxonomy_plots/cat_class_barplot.pdf", caption="report/cat_class_barplot.rst", category="CAT"),
     cat_kingdom = report("results/cat/taxonomy_plots/cat_kingdom_barplot.pdf", caption="report/cat_kingdom_barplot.rst", category="CAT")
+  benchmark:
+    "benchmarks/taxonomy_summary_barplots_cat.tsv"
   script:
     "scripts/taxonomy_barplots_cat.py"
 
@@ -118,6 +130,8 @@ rule cat_tax_levels:
     "results/cat/cat_merged_results.tsv"
   output:
     species = "results/cat/cat_species.tsv"
+  benchmark:
+    "benchmarks/cat_tax_levels.tsv"
   script:
     "scripts/separating_tax_levels_cat.R"
 
@@ -132,6 +146,8 @@ rule species_heatmap_cat:
     prevalence = config['prevalence']
   output:
     report("results/cat/taxonomy_plots/cat_species_heatmap.pdf", caption="report/cat_species_heatmap.rst", category="CAT")
+  benchmark:
+    "benchmarks/species_heatmap_cat.tsv"
   script:
     "scripts/taxonomy_heatmaps_cat.R"
 
@@ -146,6 +162,8 @@ rule taxonomy_plots_cat:
     prevalence = config['prevalence']
   output:
     report("results/cat/taxonomy_plots/cat_taxonomy_plot.pdf", caption="report/cat_taxonomy_plot.rst", category="CAT")
+  benchmark:
+    "benchmarks/taxonomy_plots_cat.tsv"
   script:
     "scripts/stacked_taxonomy_barplot_cat.R"
 
@@ -160,5 +178,7 @@ rule cat_plots:
     heatmap = "results/cat/taxonomy_plots/cat_species_heatmap.pdf"
   output:
     "results/cat/cat_plot_list.txt"
+  benchmark:
+    "benchmarks/cat_plots.tsv"
   shell:
     "ls {input.tax_plot} {input.barplot} {input.heatmap} > {output}"

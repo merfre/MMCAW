@@ -13,6 +13,8 @@ rule metaflye:
     directory = directory("results/preprocessing/flye_results/{PATHS}"),
     fasta = "results/preprocessing/flye_results/{PATHS}/assembly.fasta"
     # requires fasta in output to be input for next rules
+  benchmark:
+    "benchmarks/{PATHS}_metaflye.tsv"
   params:
     read_type = config['read_type'],
     min_overlap = config['minimum_overlap']
@@ -34,6 +36,8 @@ rule assembly_stat_report:
     expand("results/preprocessing/flye_results/{path}/assembly.fasta", path=PATHS)
   output:
     report = report("results/qc_reports/assembly_stat_report.tsv", caption="report/assembly_stat_reports.rst", category="QC reports")
+  benchmark:
+    "benchmarks/assembly_stat_report.tsv"
   shell:
     "seqkit stats {input} -a -T > {output.report}"
     # flag -a denotes all statistics, including quartiles of seq length, sum_gap, N50

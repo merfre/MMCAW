@@ -17,6 +17,8 @@ rule alpha_diversity:
     shannon_blast_kraken = report("results/assigner_comparison/alpha_diversity/shannon_scatterplot_blast_kraken.pdf", caption="report/shannon_scatterplot_blast_kraken.rst", category="Taxonomy assigner comparison", subcategory="Alpha diversity"),
     shannon_cat_kraken = report("results/assigner_comparison/alpha_diversity/shannon_scatterplot_cat_kraken.pdf", caption="report/shannon_scatterplot_cat_kraken.rst", category="Taxonomy assigner comparison", subcategory="Alpha diversity"),
     shannon_barplot = report("results/assigner_comparison/alpha_diversity/shannon_barplot.pdf", caption="report/shannon_barplot.rst", category="Taxonomy assigner comparison", subcategory="Alpha diversity")
+  benchmark:
+    "benchmarks/alpha_diversity.tsv"
   script:
     "scripts/alpha_diversity.R"
 
@@ -31,6 +33,8 @@ rule beta_diversity_pca:
     blast = "results/blast/blast_species.tsv"
   output:
     report("results/assigner_comparison/beta_diversity/beta_diversity_pca.pdf", caption="report/beta_diversity_pca.rst", category="Taxonomy assigner comparison", subcategory="Beta diversity")
+  benchmark:
+    "benchmarks/beta_diversity_pca.tsv"
   script:
     "scripts/beta_div_pca.R"
 
@@ -45,6 +49,8 @@ rule taxonomy_assigner_summary:
     blast_results = "results/blast/blast_merged_results.tsv"
   output:
     report("results/assigner_comparison/taxonomy_assigner_summary.tsv", caption="report/taxonomy_assigner_summary.rst", category="Taxonomy assigner comparison", subcategory="Comparison summaries")
+  benchmark:
+    "benchmarks/taxonomy_assigner_summary.tsv"
   params:
     seq_stats = "results/qc_reports/humrm_qc_report.tsv"
   script:
@@ -62,6 +68,8 @@ rule taxonomy_comparison:
   output:
     sample_comparison = report("results/assigner_comparison/{PATHS}_comparison.tsv", caption="report/tax_read_comparison.rst", category="Taxonomy assigner comparison", subcategory="Direct taxonomy comparison"),
     sample_summary = "results/assigner_comparison/{PATHS}_comparison_summary.tsv"
+  benchmark:
+    "benchmarks/{PATHS}_taxonomy_comparison.tsv"
   params:
     path = "{PATHS}"
   script:
@@ -77,6 +85,8 @@ rule create_summary_lists:
     expand("results/assigner_comparison/{path}_comparison_summary.tsv", path=PATHS)
   output:
     file_path_list = "results/assigner_comparison/file_path_list.tsv"
+  benchmark:
+    "benchmarks/create_summary_lists.tsv"
   shell:
     "ls {input} > {output.file_path_list}"
 
@@ -89,6 +99,8 @@ rule combine_tax_comparison:
     file_path_list = "results/assigner_comparison/file_path_list.tsv"
   output:
     report("results/assigner_comparison/tax_comparison_summary.tsv", caption="report/tax_comparison_summary.rst", category="Taxonomy assigner comparison", subcategory="Comparison summaries")
+  benchmark:
+    "benchmarks/combine_tax_comparison.tsv"
   script:
     "scripts/merging_tax_comparison.R"
 
@@ -104,5 +116,7 @@ rule comparison_outputs:
     tax_compare = "results/assigner_comparison/tax_comparison_summary.tsv"
   output:
     "results/assigner_comparison/output_list.txt"
+  benchmark:
+    "benchmarks/comparison_outputs.tsv"
   shell:
     "ls {input.table} {input.alpha_div} {input.beta_div} {input.tax_compare} > {output}"

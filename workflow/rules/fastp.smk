@@ -11,6 +11,8 @@ rule preqc_stats:
     fastq_file = expand("resources/{path}.fastq", path=PATHS)
   output:
     report = report("results/qc_reports/sample_pre_qc_report.tsv", caption="report/pre_qc_reports.rst", category="QC reports")
+  benchmark:
+    "benchmarks/preqc_stats.tsv"
   shell:
     "seqkit stats {input.fastq_file} -a -T > {output.report}"
     # flag -a denotes all statistics, including quartiles of seq length, sum_gap, N50
@@ -27,6 +29,8 @@ rule fastp:
   output:
     reads_trimmed = "results/preprocessing/trimmed_filtered/{PATHS}_trimmed_filtered.fastq",
     html = report("results/qc_reports/fastp_reports/{PATHS}.html", caption="report/fastp_reports.rst", category="QC reports")
+  benchmark:
+    "benchmarks/{PATHS}_fastp.tsv"
   params:
     qualified_quality_phred = config['qualified_quality_phred'],
     unqualified_percent_limit = config['unqualified_percent_limit'],
@@ -59,6 +63,8 @@ rule postqc_stats:
     fastq_file = expand("results/preprocessing/trimmed_filtered/{path}_trimmed_filtered.fastq", path=PATHS)
   output:
     report = report("results/qc_reports/sample_post_qc_report.tsv", caption="report/post_qc_reports.rst", category="QC reports")
+  benchmark:
+    "benchmarks/postqc_stats.tsv"
   shell:
     "seqkit stats {input.fastq_file} -a -T > {output.report}"
     # flag -a denotes all statistics, including quartiles of seq length, sum_gap, N50

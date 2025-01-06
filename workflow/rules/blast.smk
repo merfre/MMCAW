@@ -11,6 +11,8 @@ rule blastn:
     query = "results/preprocessing/flye_results/{PATHS}/assembly.fasta",
   output:
     blast = "results/blast/blast_results/{PATHS}_blast.tsv"
+  benchmark:
+    "benchmarks/{PATHS}_blastn.tsv"
   params:
     outformat = "'6 qseqid stitle sacc staxids pident qcovs evalue bitscore'",
     blast_db = config['blast_db'],
@@ -42,6 +44,8 @@ rule taxonomy_to_blast:
     merged = "resources/databases/taxdump/merged.dmp"
   output:
     blast_tax = "results/blast/blast_tax/{PATHS}_blast_tax.tsv"
+  benchmark:
+    "benchmarks/{PATHS}_taxonomy_to_blast.tsv"
   script:
     "scripts/taxonomy_to_blast.py"
 
@@ -54,6 +58,8 @@ rule mlca:
     blast = "results/blast/blast_tax/{PATHS}_blast_tax.tsv"
   output:
     lca = "results/blast/mlca/{PATHS}_lca.tsv"
+  benchmark:
+    "benchmarks/{PATHS}_mlca.tsv"
   params:
     bitscore = config['MLCA_bitscore'],
     identity = config['MLCA_identity'],
@@ -74,6 +80,8 @@ rule mlca_read_count:
     path = "{PATHS}"
   output:
     "results/blast/mlca_read_counts/{PATHS}_lca_counts.tsv"
+  benchmark:
+    "benchmarks/{PATHS}_mlca_read_count.tsv"
   script:
     "scripts/mlca_read_count.py"
 
@@ -88,6 +96,8 @@ rule create_blast_lists:
   output:
     file_path_list = "results/blast/file_path_list.tsv",
     taxonomy_list = "results/blast/taxonomy_list.tsv"
+  benchmark:
+    "benchmarks/create_blast_lists.tsv"
   shell:
     """
     ls {input} > {output.file_path_list};
@@ -105,6 +115,8 @@ rule combine_blast_results:
     taxonomy_list = "results/blast/taxonomy_list.tsv"
   output:
     "results/blast/blast_merged_results.tsv"
+  benchmark:
+    "benchmarks/combine_blast_results.tsv"
   script:
     "scripts/merging_results.R"
 
@@ -120,6 +132,8 @@ rule taxonomy_summary_barplots_blast:
     blast_family = report("results/blast/taxonomy_plots/blast_family_barplot.pdf", caption="report/blast_family_barplot.rst", category="BLAST"),
     blast_class = report("results/blast/taxonomy_plots/blast_class_barplot.pdf", caption="report/blast_class_barplot.rst", category="BLAST"),
     blast_kingdom = report("results/blast/taxonomy_plots/blast_kingdom_barplot.pdf", caption="report/blast_kingdom_barplot.rst", category="BLAST")
+  benchmark:
+    "benchmarks/taxonomy_summary_barplots_blast.tsv"
   script:
     "scripts/taxonomy_barplots_blast.py"
 
@@ -133,6 +147,8 @@ rule blast_tax_levels:
     "results/blast/blast_merged_results.tsv"
   output:
     species = "results/blast/blast_species.tsv",
+  benchmark:
+    "benchmarks/blast_tax_levels.tsv"
   script:
     "scripts/separating_tax_levels_blast.R"
 
@@ -147,6 +163,8 @@ rule species_heatmap_blast:
     prevalence = config['prevalence']
   output:
     report("results/blast/taxonomy_plots/blast_species_heatmap.pdf", caption="report/blast_species_heatmap.rst", category="BLAST")
+  benchmark:
+    "benchmarks/species_heatmap_blast.tsv"
   script:
     "scripts/taxonomy_heatmaps_blast.R"
 
@@ -161,6 +179,8 @@ rule taxonomy_plots_blast:
     prevalence = config['prevalence']
   output:
     report("results/blast/taxonomy_plots/blast_taxonomy_plot.pdf", caption="report/blast_taxonomy_plot.rst", category="BLAST")
+  benchmark:
+    "benchmarks/taxonomy_plots_blast.tsv"
   script:
     "scripts/stacked_taxonomy_barplot_blast.R"
 
@@ -175,5 +195,7 @@ rule blast_plots:
     heatmap = "results/blast/taxonomy_plots/blast_species_heatmap.pdf"
   output:
     "results/blast/blast_plot_list.txt"
+  benchmark:
+    "benchmarks/blast_plots.tsv"
   shell:
     "ls {input.tax_plot} {input.barplot} {input.heatmap} > {output}"
