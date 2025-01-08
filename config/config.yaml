@@ -50,9 +50,9 @@ filtering_reference: "resources/databases/human_reference/GCF_000001405.40_GRCh3
 
 kraken_db: "~/Kraken2_Simple_Workflow/resources/databases/krakenstd_06_2023/kraken2_std_database"
 
-cat_db: "resources/databases/CAT_database"
+cat_db: "resources/databases/20240422_CAT_nr/db"
 #"workflow/rules/Database_Creation_Workflow/results/CAT/CAT_database*"
-cat_taxonomy: "resources/databases/CAT_taxonomy"
+cat_taxonomy: "resources/databases/20240422_CAT_nr/tax"
 #"workflow/rules/Database_Creation_Workflow/results/CAT/CAT_taxonomy*"
 
 blast_db: "resources/databases/NCBI_blast_database/nt"
