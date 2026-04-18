@@ -23,6 +23,12 @@ MMCAW supports the following major analytical components:
 
 All steps are implemented as modular Snakemake rules, allowing users to enable or disable components via the configuration file.
 
+## Workflow structure (DAG)
+
+The directed acyclic graph (DAG) below represents the structure of the workflow, including major processing steps and dependencies between rules.
+
+<img width="1851" height="1499" alt="MMCAW_dag" src="https://github.com/user-attachments/assets/82b9ac4c-122a-4500-ba86-a7345aefe2b5" />
+
 ## Requirements
 
 ### Software
@@ -133,5 +139,3 @@ Where feasible, raw sequencing data and associated bioinformatic workflows have 
 If you use MMCAW in your work, please cite:
 
 Merideth Naomi Freiheit (2025). Development of Reproducible Metagenomic Approaches for Skin and Wound Microbiome Analysis. University of Hull.
-
-<img width="1851" height="1499" alt="MMCAW_dag" src="https://github.com/user-attachments/assets/82b9ac4c-122a-4500-ba86-a7345aefe2b5" />
