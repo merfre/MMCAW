@@ -1,21 +1,137 @@
-# Snakemake workflow: MMCAW
+# MMCAW — Metagenomic Microbiome Combination Analysis Workflow
 
-[![Snakemake](https://img.shields.io/badge/snakemake-≥6.3.0-brightgreen.svg)](https://snakemake.github.io)
-[![GitHub actions status](https://github.com/<owner>/<repo>/workflows/Tests/badge.svg?branch=main)](https://github.com/<owner>/<repo>/actions?query=branch%3Amain+workflow%3ATests)
+## Overview
 
+The Metagenomic Microbiome Combination Analysis Workflow (MMCAW) is a reproducible Snakemake-based pipeline for the analysis of Oxford Nanopore Technologies (ONT) metagenomic sequencing data. The workflow was developed for the analysis of skin and wound microbiome datasets as part of a PhD thesis at the University of Hull, but is applicable to other metagenomic nanopore datasets with appropriate configuration.
 
-A Snakemake workflow for Metagenomic Microbiome Combination Analysis Workflow (MMCAW)
+MMCAW integrates multiple taxonomic assigners, performs comparative and consensus-based classification, and generates community-level diversity analyses while tracking computational performance and resource usage.
 
+## Scope of the workflow
+
+MMCAW supports the following major analytical components:
+
+- **Read preprocessing and quality control**
+- **Optional host read removal**
+- **Optional metagenomic assembly**
+- **Taxonomic assignment using multiple tools:**
+  - CAT  
+  - Kraken2  
+  - BLAST (with modified LCA implementation)  
+- **Comparison and consensus across assigners**
+- **Community composition and diversity analyses**
+- **Built-in benchmarking and performance tracking**
+
+All steps are implemented as modular Snakemake rules, allowing users to enable or disable components via the configuration file.
+
+## Requirements
+
+### Software
+- Snakemake **v7.22.0**
+- Conda (Python **v3.10.8**)
+
+### Environment management
+Software dependencies are managed via Conda using the environment specified in: workflow/envs/environment.yml
+
+## Installation
+
+Clone the repository:
+```bash
+git clone <repository-url>
+cd MMCAW
+```
+
+Create and activate the Conda environment:
+```bash
+conda env create -f workflow/envs/environment.yml
+conda activate mmcaw
+```
 
 ## Usage
+### Basic run (local)
 
-The usage of this workflow is described in the [Snakemake Workflow Catalog](https://snakemake.github.io/snakemake-workflow-catalog/?usage=<owner>%2F<repo>).
+Perform a dry run to check the workflow:
+```bash
+snakemake -n
+```
+Run the workflow using multiple cores:
+```bash
+snakemake --cores 10
+```
+Execute the workflow locally:
+```bash
+snakemake --printshellcmds --use-conda --cores 10
+```
+After successful execution, you can create a self-contained interactive HTML report with all results:
+```bash
+snakemake --report hmcw_final_report.html
+```
 
-If you use this workflow in a paper, don't forget to give credits to the authors by citing the URL of this (original) <repo>sitory and its DOI (see above).
+### Running on an HPC / cluster
 
-# TODO
+MMCAW was developed and tested on the University of Hull’s Viper HPC. If using a cluster, configure and run with an appropriate Snakemake profile (e.g., SLURM, PBS, etc.):
+```bash
+snakemake --profile <your-cluster-profile>
+```
+### Inputs (brief)
+MMCAW expects the following inputs:
 
-* Replace `<owner>` and `<repo>` everywhere in the template (also under .github/workflows) with the correct `<repo>` name and owning user or organization.
-* Replace `<name>` with the workflow name (can be the same as `<repo>`).
-* Replace `<description>` with a description of what the workflow does.
-* The workflow will occur in the snakemake-workflow-catalog once it has been made public. Then the link under "Usage" will point to the usage instructions if `<owner>` and `<repo>` were correctly set.
+* Basecalled and demultiplexed FASTQ files (Guppy v6.0.6, high-accuracy model)
+* Guppy sequence summary files
+* Unblocked read ID lists
+* A sample/run metadata file specified in config/config.yaml
+
+Detailed input requirements are described in resources/README.md.
+
+### Outputs (brief)
+
+Key outputs include:
+
+* Quality-filtered reads (fastp)
+* Host-filtered reads (optional)
+* Metagenomic assemblies (Flye, optional)
+* Taxonomic classifications from CAT, Kraken2, and BLAST
+* Consensus taxonomy tables across assigners
+* Community composition and diversity analyses (alpha/beta diversity)
+* Snakemake benchmarking reports (runtime and resource usage per rule)
+
+### Repository structure
+
+.
+├── workflow/
+│   ├── Snakefile
+│   ├── rules/
+│   ├── envs/
+│   └── config/
+├── resources/
+│   └── databases/
+└── config/
+    └── config.yaml
+
+Detailed descriptions of resources and configuration are provided in:
+
+* resources/README.md
+* config/README.md
+
+## Reproducibility & benchmarking
+* Workflow implemented in Snakemake v7.22.0
+* All software dependencies are managed via Conda
+* Snakemake’s built-in benchmarking is enabled by default to record:
+  * Rule-level runtime
+  * CPU and memory usage
+  * Resource performance across datasets of varying size and complexity
+
+This supports systematic evaluation of workflow efficiency and scalability.
+
+### Data availability
+
+Where feasible, raw sequencing data and associated bioinformatic workflows have been archived:
+
+* Zenodo: doi: 10.5281/zenodo.17083749
+
+## Citation / Thesis
+
+If you use MMCAW in your work, please cite:
+
+Merideth Naomi Freiheit (2025). Development of Reproducible Metagenomic Approaches for Skin and Wound Microbiome Analysis. University of Hull.
+
+This supports systematic evaluation of workflow efficiency and scalability.
