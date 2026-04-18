@@ -36,7 +36,7 @@ The directed acyclic graph (DAG) below represents the structure of the workflow,
 - Conda (Python **v3.10.8**)
 
 ### Environment management
-Software dependencies are managed via Conda using the environment specified in: workflow/envs/environment.yml
+Software dependencies are managed via Conda using the environment specified in: `workflow/envs/environment.yml`
 
 ## Installation
 
@@ -86,7 +86,7 @@ MMCAW expects the following inputs:
 * Unblocked read ID lists
 * A sample/run metadata file specified in config/config.yaml
 
-Detailed input requirements are described in resources/README.md.
+Detailed input requirements are described in `resources/README.md`.
 
 ### Outputs (brief)
 
@@ -115,8 +115,8 @@ Key outputs include:
 
 Detailed descriptions of resources and configuration are provided in:
 
-* resources/README.md
-* config/README.md
+* `resources/README.md`
+* `config/README.md`
 
 ## Reproducibility & benchmarking
 * Workflow implemented in Snakemake v7.22.0
@@ -132,7 +132,7 @@ This supports systematic evaluation of workflow efficiency and scalability.
 
 Where feasible, raw sequencing data and associated bioinformatic workflows have been archived:
 
-* Zenodo: doi: 10.5281/zenodo.17083749
+* Zenodo: doi: 10.5281/zenodo.17752049
 
 ## Citation / Thesis
 
