@@ -24,25 +24,25 @@ This directory contains all external reference data and input resources required
 
 ### Human reference genome (GRCh38.p14)
 - **Description:** Used for optional host read filtering.
-- **Default path in config:** resources/databases/human_reference/GCF_000001405.40_GRCh38.p14_genomic.fna
+- **Default path in config:** `resources/databases/human_reference/GCF_000001405.40_GRCh38.p14_genomic.fna`
 
 ## Taxonomic databases
 
 ### Kraken2 database
 - **Description:** Kraken2 standard database including bacterial, archaeal, viral, and human genomes.
-- **Default path in config:** ~/Kraken2_Simple_Workflow/resources/databases/krakenstd_06_2023/kraken2_std_database
+- **Default path in config:** `~/Kraken2_Simple_Workflow/resources/databases/krakenstd_06_2023/kraken2_std_database`
 
 ### BLAST (NT) database
 - **Description:** NCBI nucleotide (NT) database used for BLAST-based taxonomic assignment.
-- **Default path in config:** resources/databases/NCBI_blast_database/nt
+- **Default path in config:** `resources/databases/NCBI_blast_database/nt`
 
 ### CAT databases
 - **Description:** NCBI taxonomy and protein databases used by CAT for contig classification.
-- **Default paths in config:** resources/databases/20240422_CAT_nr/db, resources/databases/20240422_CAT_nr/tax
+- **Default paths in config:** `resources/databases/20240422_CAT_nr/db`, `resources/databases/20240422_CAT_nr/tax`
 
 ### NCBI Taxonomy (taxdump)
 - **Description:** Required for taxonomy name resolution and LCA assignment.
-- **Default path in config:** resources/databases/taxdump
+- **Default path in config:** `resources/databases/taxdump`
 
 ## Optional resources
 
