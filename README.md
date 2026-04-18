@@ -42,14 +42,14 @@ Software dependencies are managed via Conda using the environment specified in: 
 
 Clone the repository:
 ```bash
-git clone <repository-url>
+git clone https://github.com/merfre/MMCAW.git
 cd MMCAW
 ```
 
 Create and activate the Conda environment:
 ```bash
 conda env create -f workflow/envs/environment.yml
-conda activate mmcaw
+conda activate MMCAW
 ```
 
 ## Usage
