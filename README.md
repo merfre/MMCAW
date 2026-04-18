@@ -78,7 +78,9 @@ MMCAW was developed and tested on the University of Hull’s Viper HPC. If using
 ```bash
 snakemake --profile <your-cluster-profile>
 ```
+
 ### Inputs (brief)
+
 MMCAW expects the following inputs:
 
 * Basecalled and demultiplexed FASTQ files (Guppy v6.0.6, high-accuracy model)
