@@ -97,14 +97,23 @@ Key outputs include:
 ### Repository structure
 
 .
+
 ├── workflow/
+
 │   ├── Snakefile
+
 │   ├── rules/
+
 │   ├── envs/
+
 │   └── config/
+
 ├── resources/
+
 │   └── databases/
+
 └── config/
+
     └── config.yaml
 
 Detailed descriptions of resources and configuration are provided in:
