@@ -3,13 +3,6 @@
 
 configfile: "config/config.yaml"
 
-###### To-do list:
-# ONT data - esp. mock communities
-# create separate branch for additional assigners
-# add abundance vs prev option
-# make data loading easier and rename with barcode steps - create option like HMCW
-# add human removal option?
-
 ### Define samples wildcard for input and output ###
 
 #print("Importing Python modules...")
