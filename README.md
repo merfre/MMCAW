@@ -69,7 +69,7 @@ snakemake --printshellcmds --use-conda --cores 10
 ```
 After successful execution, you can create a self-contained interactive HTML report with all results:
 ```bash
-snakemake --report hmcw_final_report.html
+snakemake --report mmcaw_final_report.html
 ```
 
 ### Running on an HPC / cluster
