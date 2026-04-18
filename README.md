@@ -97,23 +97,14 @@ Key outputs include:
 ### Repository structure
 
 .
-
 ├── workflow/
-
 │   ├── Snakefile
-
 │   ├── rules/
-
 │   ├── envs/
-
 │   └── config/
-
 ├── resources/
-
 │   └── databases/
-
 └── config/
-
     └── config.yaml
 
 Detailed descriptions of resources and configuration are provided in:
@@ -143,4 +134,4 @@ If you use MMCAW in your work, please cite:
 
 Merideth Naomi Freiheit (2025). Development of Reproducible Metagenomic Approaches for Skin and Wound Microbiome Analysis. University of Hull.
 
-This supports systematic evaluation of workflow efficiency and scalability.
+<img width="1851" height="1499" alt="MMCAW_dag" src="https://github.com/user-attachments/assets/82b9ac4c-122a-4500-ba86-a7345aefe2b5" />
